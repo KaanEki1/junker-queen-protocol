@@ -1,28 +1,26 @@
-# Junker Queen Protocol PWA
+# Junker Queen Protocol PWA v3
 
-Diese Version ist für Windows + iPhone gedacht.
+## Neu
+- kompletter Workout-Player mit Play-Button
+- Warm-up mit konkreten Übungen
+- Satz-für-Satz-Führung
+- Wiederholungen pro Satz eintragen
+- automatische Pausen-Countdowns
+- nächster Satz / nächste Übung automatisch
+- Cooldown mit konkreten Dehnübungen
+- Workoutdauer
+- einfache integrierte Übungsillustrationen als SVG
+- Step-Zwischenziele für Vormittag, Nachmittag und Abend
+- genaue Workout-Library nur für Körpergewicht + eine ca. 13-kg-Hantel
+- Sonntag als leichtes Arms + Core Workout statt vagem „Mobility“
 
-## GitHub Pages
+## GitHub Pages aktualisieren
 1. ZIP entpacken.
-2. Die Dateien `index.html`, `manifest.json` und `sw.js` in dein GitHub-Repository hochladen.
-3. Deine GitHub-Pages-Adresse in Safari öffnen.
-4. Teilen -> Zum Home-Bildschirm -> Als Web-App öffnen.
+2. `index.html`, `manifest.json` und `sw.js` in dein Repository hochladen und alte Dateien ersetzen.
+3. Commit changes.
+4. 1–3 Minuten warten.
+5. Auf dem iPhone die Web-App komplett schließen und neu öffnen.
+6. Falls noch die alte Version erscheint: Homescreen-App löschen, die GitHub-Pages-Seite in Safari neu laden und erneut zum Home-Bildschirm hinzufügen.
 
-## Funktionen
-- Tagesziele und smarte Hinweise
-- Meals mit kcal und Protein einzeln hinzufügen
-- automatische Tages-Summen
-- Workouts nur mit Körpergewicht + einer ca. 13-kg-Hantel
-- Übungen abhaken und Leistung speichern
-- Extra-Übungen ergänzen
-- manuelle Steps und Wasser
-- Wochenansicht
-- Coach Report kopieren
-- lokale Offline-Speicherung
-- Backup-Export
-
-## Daten
-Die Daten liegen lokal im Browser auf deinem iPhone. Lösche Safari-Websitedaten nicht ohne Backup.
-
-## Benachrichtigungen
-Diese Version zeigt smarte Hinweise beim Öffnen. Echte Push-Benachrichtigungen im geschlossenen Zustand brauchen zusätzlich einen Push-Dienst.
+## Wichtig
+Die Daten werden lokal im Browser gespeichert. Vor größeren Updates über den Report-Bereich ein Backup exportieren.

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0c0c0f">
+  <meta name="theme-color" content="#0b0b0e">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="JQ Protocol">
@@ -11,21 +11,18 @@
   <title>Junker Queen Protocol</title>
   <style>
     :root{
-      --bg:#0b0b0e;--card:#17171d;--card2:#202027;--line:#303039;
-      --text:#f8f8fa;--muted:#a8a8b3;--orange:#ff7034;--gold:#ffd15c;
-      --green:#67d391;--blue:#72d4ff;--danger:#ff6d75;
+      --bg:#0a0a0d;--card:#17171d;--card2:#202027;--line:#303039;--text:#f8f8fa;--muted:#a8a8b3;
+      --orange:#ff7034;--gold:#ffd15c;--green:#67d391;--blue:#72d4ff;--danger:#ff6d75;
     }
     *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#09090b,#111116);color:var(--text);
+    body{margin:0;background:linear-gradient(180deg,#08080a,#111116);color:var(--text);
       font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
     button,input,select,textarea{font:inherit}
-    .app{max-width:760px;margin:auto;padding:18px 14px 96px}
+    .app{max-width:820px;margin:auto;padding:18px 14px 104px}
     .hero{padding:18px;border-radius:24px;background:
-      radial-gradient(circle at 90% 10%,rgba(255,112,52,.22),transparent 36%),var(--card);
-      border:1px solid var(--line)}
-    h1{margin:7px 0 3px;font-size:1.9rem}
-    h2{font-size:1.05rem;margin:22px 0 10px}
-    .sub,.muted{color:var(--muted)}
+      radial-gradient(circle at 90% 10%,rgba(255,112,52,.23),transparent 38%),var(--card);border:1px solid var(--line)}
+    h1{margin:7px 0 3px;font-size:1.9rem} h2{font-size:1.06rem;margin:22px 0 10px} h3{margin:0}
+    .sub,.muted{color:var(--muted)} .small{font-size:.82rem}
     .pill{display:inline-flex;padding:6px 10px;border-radius:999px;background:rgba(255,112,52,.15);
       color:#ffba92;font-size:.77rem;font-weight:800}
     .clock{font-weight:800;color:var(--gold);margin-top:8px}
@@ -37,8 +34,7 @@
     .metric .value{font-weight:900;font-size:1.3rem;margin-top:5px}
     .bar{height:8px;background:#2b2b32;border-radius:99px;overflow:hidden;margin-top:9px}
     .fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--gold));transition:.25s}
-    .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-    .wide{grid-column:1/-1}
+    .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.wide{grid-column:1/-1}
     label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:5px}
     input,select,textarea{width:100%;background:var(--card2);color:var(--text);border:1px solid var(--line);
       border-radius:12px;padding:11px;outline:none}
@@ -48,23 +44,43 @@
     .secondary{background:#292930;color:var(--text);border:1px solid var(--line)}
     .danger{background:#3a2024;color:#ffd3d5}
     .actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
-    .meal,.exercise,.dayrow{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
+    .meal,.exercise,.dayrow,.stepmission{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
     .meal{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
     .exercise{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
     .exercise input[type="checkbox"]{width:22px;height:22px;margin-top:2px}
     .exercise .perf{margin-top:8px}
     .exercise-head{display:flex;justify-content:space-between;gap:8px}
     .tag{font-size:.67rem;padding:3px 6px;border-radius:999px;background:rgba(255,209,92,.15);color:var(--gold)}
-    .week{display:grid;gap:8px}
-    .dayrow{display:grid;grid-template-columns:82px 1fr auto;gap:10px;align-items:center}
+    .week{display:grid;gap:8px}.dayrow{display:grid;grid-template-columns:82px 1fr auto;gap:10px;align-items:center}
     .report{white-space:pre-wrap;background:#111116;border:1px dashed #4a4a54;border-radius:14px;padding:13px}
-    .hidden{display:none}
-    .nav{position:fixed;left:0;right:0;bottom:0;background:rgba(10,10,13,.94);backdrop-filter:blur(14px);
+    .hidden{display:none}.sep{height:1px;background:var(--line);margin:12px 0}
+    .nav{position:fixed;left:0;right:0;bottom:0;background:rgba(10,10,13,.95);backdrop-filter:blur(14px);
       border-top:1px solid var(--line);padding:9px 10px calc(9px + env(safe-area-inset-bottom))}
-    .navinner{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+    .navinner{max-width:820px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
     .nav button{padding:9px 4px;font-size:.72rem}
-    .small{font-size:.82rem}
-    .sep{height:1px;background:var(--line);margin:12px 0}
+
+    /* Workout player */
+    .player{position:fixed;inset:0;z-index:99;background:radial-gradient(circle at 50% 0%,rgba(255,112,52,.20),transparent 32%),#09090c;
+      overflow:auto;padding:calc(18px + env(safe-area-inset-top)) 16px calc(22px + env(safe-area-inset-bottom))}
+    .player-inner{max-width:680px;margin:auto;min-height:100%;display:flex;flex-direction:column}
+    .player-top{display:flex;justify-content:space-between;align-items:center}
+    .phase{font-size:.77rem;font-weight:900;letter-spacing:.12em;color:var(--orange)}
+    .player-title{font-size:2rem;font-weight:950;line-height:1.05;margin:14px 0 6px}
+    .player-sub{color:var(--muted);font-size:.95rem}
+    .illustration{margin:18px auto 12px;width:min(300px,78vw);aspect-ratio:1;border-radius:28px;
+      display:grid;place-items:center;background:linear-gradient(145deg,#202028,#121217);border:1px solid var(--line)}
+    .illustration svg{width:72%;height:72%}
+    .timer{font-size:5rem;font-weight:950;text-align:center;font-variant-numeric:tabular-nums;margin:10px 0}
+    .setdots{display:flex;gap:8px;justify-content:center;margin:15px 0;flex-wrap:wrap}
+    .dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#24242b;border:1px solid var(--line);font-weight:900}
+    .dot.done{background:var(--green);color:#07130c}.dot.active{border-color:var(--orange);box-shadow:0 0 0 2px rgba(255,112,52,.18)}
+    .player-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin:12px 0}
+    .bigbtn{width:100%;padding:16px;font-size:1.05rem;border-radius:16px}
+    .player-footer{margin-top:auto;padding-top:18px}
+    .repinput{font-size:2rem;text-align:center;font-weight:900}
+    .historyline{display:flex;justify-content:space-between;gap:10px;font-size:.84rem;color:var(--muted)}
+    .stepmission{display:flex;align-items:center;gap:12px}.stepmission strong{display:block}
+    .stepicon{width:42px;height:42px;border-radius:14px;background:rgba(114,212,255,.12);display:grid;place-items:center;color:var(--blue);font-size:1.2rem}
   </style>
 </head>
 <body>
@@ -97,6 +113,9 @@
       </div>
     </div>
 
+    <h2>Step-Missionen</h2>
+    <div id="stepMissionList" style="display:grid;gap:8px"></div>
+
     <h2>Heute ist dran</h2>
     <div class="card" id="missionSummary"></div>
   </section>
@@ -116,8 +135,16 @@
   </section>
 
   <section id="workoutPage" class="hidden">
-    <h2 id="workoutTitle">Workout</h2>
-    <div class="muted small" style="margin-bottom:10px">Körpergewicht + eine feste ca. 13-kg-Hantel</div>
+    <div class="card">
+      <div class="exercise-head">
+        <div>
+          <h2 id="workoutTitle" style="margin:0">Workout</h2>
+          <div class="muted small">Warm-up → Training → Cooldown</div>
+        </div>
+        <button class="primary" onclick="startWorkout()">▶ Start</button>
+      </div>
+    </div>
+    <h2>Workout-Plan</h2>
     <div id="exerciseList" style="display:grid;gap:8px"></div>
     <h2>Extra hinzufügen</h2>
     <div class="card">
@@ -164,6 +191,45 @@
   </div>
 </nav>
 
+<section id="player" class="player hidden">
+  <div class="player-inner">
+    <div class="player-top">
+      <div>
+        <div class="phase" id="playerPhase">WARM-UP</div>
+        <div class="small muted" id="playerProgress">1 / 10</div>
+      </div>
+      <button class="secondary" onclick="pauseOrClosePlayer()">Pause / Schließen</button>
+    </div>
+
+    <div class="player-title" id="playerTitle">Armkreisen</div>
+    <div class="player-sub" id="playerSubtitle">30 Sekunden</div>
+
+    <div class="illustration" id="playerIllustration"></div>
+
+    <div id="timerBlock" class="hidden">
+      <div class="timer" id="timerText">30</div>
+    </div>
+
+    <div id="setBlock" class="hidden">
+      <div class="setdots" id="setDots"></div>
+      <div class="player-card">
+        <label>Wiederholungen dieses Satzes</label>
+        <input id="repInput" class="repinput" type="number" min="0" placeholder="0">
+        <div class="historyline" style="margin-top:10px">
+          <span>Letztes Mal</span><span id="lastPerformance">–</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="player-card" id="instructionCard"></div>
+
+    <div class="player-footer">
+      <button id="playerMainButton" class="primary bigbtn" onclick="playerMainAction()">Start</button>
+      <button id="playerSkipButton" class="secondary bigbtn" style="margin-top:8px" onclick="skipPlayerItem()">Überspringen</button>
+    </div>
+  </div>
+</section>
+
 <script>
 const DAY_DEFAULTS = {
   1:{type:"Standard",kcal:2150,protein:190,steps:15000,workout:"Push"},
@@ -172,152 +238,181 @@ const DAY_DEFAULTS = {
   4:{type:"Standard",kcal:2050,protein:190,steps:15000,workout:"Push"},
   5:{type:"Grind",kcal:1900,protein:190,steps:22000,workout:"Pull"},
   6:{type:"Standard",kcal:2200,protein:185,steps:12000,workout:"Legs + Shoulders"},
-  0:{type:"Recovery",kcal:2250,protein:180,steps:10000,workout:"Recovery"}
+  0:{type:"Recovery",kcal:2250,protein:180,steps:10000,workout:"Arms + Core Light"}
 };
 
-const WORKOUTS = {
-  "Push":[
-    ["Liegestütze","4 Sätze · 1–2 Wdh. im Tank"],
-    ["Pike Push-ups","3 Sätze · langsam"],
-    ["Einarmige Schulterpresse","4 Sätze je Seite · 13 kg"],
-    ["Einarmiges Seitheben","3 Sätze je Seite"],
-    ["Enge Liegestütze","3 Sätze · Trizeps"],
-    ["Overhead-Trizepsstreckung","3 Sätze je Seite"]
-  ],
-  "Pull":[
-    ["Einarmiges Rudern ohne Bank","5 Sätze je Seite"],
-    ["Rear-Delt-Row","3 Sätze je Seite"],
-    ["Bizepscurls","4 Sätze je Seite"],
-    ["Hammer Curls","3 Sätze je Seite"],
-    ["Langsame Negative Curls","3 Sätze · 4 Sek. ablassen"],
-    ["Einarmige Shrugs","4 Sätze je Seite"]
-  ],
-  "Legs + Core":[
-    ["Goblet Squats","5 Sätze · 13 kg"],
-    ["Reverse Lunges","4 Sätze je Bein"],
-    ["Einbeinige Romanian Deadlifts","4 Sätze je Bein"],
-    ["Glute Bridges","4 Sätze · Pause oben"],
-    ["Wadenheben einbeinig","4 Sätze je Seite"],
-    ["Leg Raises","4 Sätze"],
-    ["Plank","3 × 45–75 Sek."]
-  ],
-  "Legs + Shoulders":[
-    ["Goblet Squats mit Pause","5 Sätze"],
-    ["Split Squats ohne Möbel","4 Sätze je Bein"],
-    ["Einbeinige Romanian Deadlifts","4 Sätze je Bein"],
-    ["Einarmige Schulterpresse","4 Sätze je Seite"],
-    ["Einarmiges Seitheben","4 Sätze je Seite"],
-    ["Rear-Delt-Fly","3 Sätze je Seite"],
-    ["Wadenheben","4 Sätze"]
-  ],
-  "Recovery":[
-    ["Lockerer Spaziergang","20–45 Minuten"],
-    ["Mobility","10 Minuten"],
-    ["Dead Bug","3 leichte Sätze"],
-    ["Ruhige Atmung","5 Minuten"]
-  ]
+const LIBRARY = {
+  "Push":{
+    warmup:[
+      {name:"Armkreisen vorwärts",kind:"time",seconds:30,instruction:"Arme seitlich ausstrecken und kleine, kontrollierte Kreise nach vorne machen.",icon:"arms"},
+      {name:"Armkreisen rückwärts",kind:"time",seconds:30,instruction:"Gleiche Position, jetzt kontrolliert rückwärts kreisen.",icon:"arms"},
+      {name:"Scapula Push-ups",kind:"reps",reps:12,instruction:"Liegestützposition halten. Arme bleiben gestreckt; Schulterblätter zusammen- und auseinanderbewegen.",icon:"pushup"},
+      {name:"Langsame Liegestütze",kind:"reps",reps:8,instruction:"3 Sekunden ablassen, kurz unten halten, kontrolliert hochdrücken.",icon:"pushup"}
+    ],
+    exercises:[
+      {name:"Liegestütze",sets:4,reps:"8–20",rest:90,instruction:"Körper bleibt gerade. Brust Richtung Boden, Ellbogen etwa 30–45° vom Körper. 1–2 Wiederholungen im Tank lassen.",icon:"pushup"},
+      {name:"Pike Push-ups",sets:3,reps:"6–15",rest:90,instruction:"Hüfte hoch, Kopf zwischen den Händen Richtung Boden. Fokus auf Schultern, nicht auf Tempo.",icon:"pike"},
+      {name:"Einarmige Schulterpresse",sets:4,reps:"8–15 je Seite",rest:100,instruction:"Hantel auf Schulterhöhe starten. Bauch anspannen, nicht ins Hohlkreuz lehnen.",icon:"press"},
+      {name:"Einarmiges Seitheben",sets:3,reps:"10–20 je Seite",rest:75,instruction:"Leicht gebeugter Arm. Nur bis ungefähr Schulterhöhe. Langsam ablassen.",icon:"lateral"},
+      {name:"Enge Liegestütze",sets:3,reps:"6–15",rest:90,instruction:"Hände enger als schulterbreit. Ellbogen nah am Körper, Trizeps kontrolliert belasten.",icon:"pushup"},
+      {name:"Overhead-Trizepsstreckung",sets:3,reps:"10–18 je Seite",rest:75,instruction:"Oberarm möglichst senkrecht halten. Nur Unterarm bewegt sich.",icon:"triceps"}
+    ],
+    cooldown:[
+      {name:"Brustdehnung an Türrahmen",kind:"time",seconds:30,instruction:"Unterarm an den Türrahmen, Oberkörper sanft wegdrehen. 30 Sekunden je Seite.",icon:"stretch"},
+      {name:"Trizepsdehnung über Kopf",kind:"time",seconds:30,instruction:"Einen Arm beugen, Hand zwischen Schulterblätter. Mit der anderen Hand sanft nach unten drücken.",icon:"stretch"},
+      {name:"Schulterdehnung vor dem Körper",kind:"time",seconds:30,instruction:"Arm quer vor die Brust ziehen, Schulter entspannt lassen. Danach Seite wechseln.",icon:"stretch"}
+    ]
+  },
+  "Pull":{
+    warmup:[
+      {name:"Schulterrollen",kind:"time",seconds:30,instruction:"Große, kontrollierte Kreise. 15 Sekunden vorwärts, 15 rückwärts.",icon:"arms"},
+      {name:"T-Spine Rotation im Vierfüßler",kind:"reps",reps:8,instruction:"Eine Hand hinter den Kopf, Ellbogen Richtung Boden und dann zur Decke drehen. Pro Seite.",icon:"rotation"},
+      {name:"Leichte Rudersätze",kind:"reps",reps:10,instruction:"Mit weniger Spannung starten. Bewegung und Schulterblatt bewusst kontrollieren.",icon:"row"}
+    ],
+    exercises:[
+      {name:"Einarmiges Rudern ohne Bank",sets:5,reps:"10–18 je Seite",rest:90,instruction:"Eine Hand am eigenen Oberschenkel abstützen. Rücken neutral, Hantel Richtung Hüfte ziehen.",icon:"row"},
+      {name:"Rear-Delt-Row",sets:3,reps:"12–20 je Seite",rest:75,instruction:"Ellbogen weiter außen führen. Leichter und kontrollierter als normales Rudern.",icon:"row"},
+      {name:"Bizepscurls",sets:4,reps:"8–15 je Seite",rest:90,instruction:"Oberarm ruhig halten. Nicht mit Hüfte oder Schulter Schwung holen.",icon:"curl"},
+      {name:"Hammer Curls",sets:3,reps:"10–16 je Seite",rest:80,instruction:"Daumen zeigt nach oben. Handgelenk neutral halten.",icon:"curl"},
+      {name:"Langsame Negative Curls",sets:3,reps:"6–10 je Seite",rest:90,instruction:"Hantel normal hoch, dann 4 Sekunden kontrolliert ablassen.",icon:"curl"},
+      {name:"Einarmige Shrugs",sets:4,reps:"12–20 je Seite",rest:70,instruction:"Schulter gerade nach oben ziehen, kurz halten, langsam ablassen. Nicht kreisen.",icon:"shrug"}
+    ],
+    cooldown:[
+      {name:"Lat-Dehnung im Knien",kind:"time",seconds:35,instruction:"Hände erhöht ablegen, Hüfte nach hinten, Brust Richtung Boden sinken lassen.",icon:"stretch"},
+      {name:"Bizepsdehnung an Wand",kind:"time",seconds:30,instruction:"Arm gestreckt an die Wand, Handfläche nach hinten. Körper sanft wegdrehen.",icon:"stretch"},
+      {name:"Nacken seitlich dehnen",kind:"time",seconds:25,instruction:"Kopf sanft zur Seite neigen. Schulter unten lassen. Beide Seiten.",icon:"stretch"}
+    ]
+  },
+  "Legs + Core":{
+    warmup:[
+      {name:"Knieheben am Platz",kind:"time",seconds:45,instruction:"Locker auf der Stelle gehen und Knie aktiv anheben.",icon:"walk"},
+      {name:"Hip Hinge Drill",kind:"reps",reps:12,instruction:"Hände an die Hüfte, Po nach hinten schieben, Rücken neutral halten.",icon:"hinge"},
+      {name:"Körpergewichts-Kniebeugen",kind:"reps",reps:15,instruction:"Kontrolliert tief gehen, Knie folgen der Fußrichtung.",icon:"squat"},
+      {name:"Reverse Lunges ohne Gewicht",kind:"reps",reps:8,instruction:"8 pro Bein, ruhig und kontrolliert.",icon:"lunge"}
+    ],
+    exercises:[
+      {name:"Goblet Squats",sets:5,reps:"10–20",rest:105,instruction:"Hantel vor der Brust. Füße stabil, Knie folgen den Zehen, Brust aufrecht.",icon:"squat"},
+      {name:"Reverse Lunges",sets:4,reps:"8–14 je Bein",rest:95,instruction:"Großen Schritt zurück. Vorderes Bein arbeitet, Oberkörper aufrecht.",icon:"lunge"},
+      {name:"Einbeinige Romanian Deadlifts",sets:4,reps:"8–15 je Bein",rest:90,instruction:"Standbein leicht beugen, Hüfte nach hinten, Rücken neutral. Hantel in gegenüberliegender Hand.",icon:"hinge"},
+      {name:"Glute Bridges",sets:4,reps:"15–30",rest:75,instruction:"Fersen nah am Po. Oben Gesäß fest anspannen und 2 Sekunden halten.",icon:"bridge"},
+      {name:"Wadenheben einbeinig",sets:4,reps:"15–30 je Seite",rest:60,instruction:"Langsam hoch, oben kurz halten, tief kontrolliert absenken.",icon:"calf"},
+      {name:"Leg Raises am Boden",sets:4,reps:"8–18",rest:70,instruction:"Unteren Rücken am Boden halten. Beine nur so tief senken, wie der Rücken stabil bleibt.",icon:"core"},
+      {name:"Plank",sets:3,reps:"45–75 Sek.",rest:60,instruction:"Po weder hoch noch durchhängen lassen. Bauch und Gesäß anspannen.",icon:"plank"}
+    ],
+    cooldown:[
+      {name:"Quadrizepsdehnung im Stand",kind:"time",seconds:30,instruction:"Fuß zum Gesäß ziehen, Knie nebeneinander. Bei Bedarf an Wand abstützen.",icon:"stretch"},
+      {name:"Hamstring-Dehnung im Stand",kind:"time",seconds:35,instruction:"Ein Bein leicht vor, Hüfte zurück, Rücken lang. Jede Seite.",icon:"stretch"},
+      {name:"Figure-4-Glute-Stretch am Boden",kind:"time",seconds:35,instruction:"Knöchel über das andere Knie legen und Bein sanft heranziehen.",icon:"stretch"},
+      {name:"Cobra Stretch",kind:"time",seconds:25,instruction:"Bauchlage, Oberkörper sanft anheben. Nur schmerzfrei.",icon:"stretch"}
+    ]
+  },
+  "Legs + Shoulders":{
+    warmup:[
+      {name:"Knieheben am Platz",kind:"time",seconds:45,instruction:"Locker aufwärmen und Kreislauf aktivieren.",icon:"walk"},
+      {name:"Armkreisen",kind:"time",seconds:30,instruction:"15 Sekunden vorwärts, 15 rückwärts.",icon:"arms"},
+      {name:"Körpergewichts-Kniebeugen",kind:"reps",reps:15,instruction:"Kontrolliert und sauber.",icon:"squat"},
+      {name:"Pike Hold",kind:"time",seconds:20,instruction:"Pike-Position halten, Schultern aktiv wegdrücken.",icon:"pike"}
+    ],
+    exercises:[
+      {name:"Goblet Squats mit Pause",sets:5,reps:"8–16",rest:105,instruction:"Unten 2 Sekunden halten, dann kontrolliert hoch.",icon:"squat"},
+      {name:"Split Squats ohne Möbel",sets:4,reps:"10–16 je Bein",rest:95,instruction:"Versetzter Stand. Hinteres Knie Richtung Boden, Vorderbein arbeitet.",icon:"lunge"},
+      {name:"Einbeinige Romanian Deadlifts",sets:4,reps:"8–15 je Bein",rest:90,instruction:"Langsam und stabil. Hüfte bleibt gerade.",icon:"hinge"},
+      {name:"Einarmige Schulterpresse",sets:4,reps:"8–15 je Seite",rest:100,instruction:"Rumpf anspannen, Hantel kontrolliert über Kopf.",icon:"press"},
+      {name:"Einarmiges Seitheben",sets:4,reps:"10–20 je Seite",rest:75,instruction:"Ohne Schwung, langsam ablassen.",icon:"lateral"},
+      {name:"Rear-Delt-Fly vorgebeugt",sets:3,reps:"12–20 je Seite",rest:75,instruction:"Leichtes Gewichtgefühl, Bewegung aus hinterer Schulter.",icon:"lateral"},
+      {name:"Wadenheben",sets:4,reps:"20–35",rest:60,instruction:"Volle Bewegungsamplitude und Pause oben.",icon:"calf"}
+    ],
+    cooldown:[
+      {name:"Quadrizepsdehnung",kind:"time",seconds:30,instruction:"Jede Seite 30 Sekunden.",icon:"stretch"},
+      {name:"Schulterdehnung vor dem Körper",kind:"time",seconds:30,instruction:"Arm quer vor die Brust, Schulter locker.",icon:"stretch"},
+      {name:"Trizepsdehnung über Kopf",kind:"time",seconds:30,instruction:"Sanft halten, nicht ziehen.",icon:"stretch"},
+      {name:"Hamstring-Dehnung",kind:"time",seconds:35,instruction:"Jede Seite kontrolliert.",icon:"stretch"}
+    ]
+  },
+  "Arms + Core Light":{
+    warmup:[
+      {name:"Armkreisen",kind:"time",seconds:30,instruction:"Locker und kontrolliert.",icon:"arms"},
+      {name:"Handgelenke kreisen",kind:"time",seconds:25,instruction:"In beide Richtungen, ohne Druck.",icon:"arms"},
+      {name:"Leichte Curls",kind:"reps",reps:10,instruction:"Langsam und ohne Muskelversagen.",icon:"curl"}
+    ],
+    exercises:[
+      {name:"Bizepscurls",sets:3,reps:"10–15 je Seite",rest:75,instruction:"Sauber, kein Schwung. Heute bewusst nicht bis zum Versagen.",icon:"curl"},
+      {name:"Hammer Curls",sets:3,reps:"10–15 je Seite",rest:75,instruction:"Neutraler Griff und kontrolliertes Tempo.",icon:"curl"},
+      {name:"Enge Liegestütze",sets:3,reps:"6–15",rest:80,instruction:"Trizeps-Fokus, 2 Wiederholungen im Tank.",icon:"pushup"},
+      {name:"Overhead-Trizepsstreckung",sets:3,reps:"10–18 je Seite",rest:75,instruction:"Oberarm ruhig halten.",icon:"triceps"},
+      {name:"Dead Bug",sets:3,reps:"10–16 je Seite",rest:50,instruction:"Unteren Rücken am Boden halten.",icon:"core"},
+      {name:"Side Plank",sets:3,reps:"25–45 Sek. je Seite",rest:50,instruction:"Körper gerade, Hüfte hoch.",icon:"plank"}
+    ],
+    cooldown:[
+      {name:"Bizepsdehnung an Wand",kind:"time",seconds:30,instruction:"Jede Seite sanft.",icon:"stretch"},
+      {name:"Trizepsdehnung über Kopf",kind:"time",seconds:30,instruction:"Jede Seite sanft.",icon:"stretch"},
+      {name:"Child's Pose",kind:"time",seconds:40,instruction:"Arme lang nach vorne, ruhig ausatmen.",icon:"stretch"}
+    ]
+  }
 };
 
-let db = JSON.parse(localStorage.getItem("jqp_pwa_db") || "{}");
+let db = JSON.parse(localStorage.getItem("jqp_v3_db") || "{}");
+let player = {queue:[],index:0,setIndex:0,state:"idle",timer:null,remaining:0,startTime:null,currentReps:[]};
 
-function keyFor(d=new Date()){
-  const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");
-  return `${y}-${m}-${day}`;
-}
+function keyFor(d=new Date()){const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");return `${y}-${m}-${day}`;}
 function ensureDay(date=new Date()){
   const key=keyFor(date);
   if(!db[key]){
-    const def=DAY_DEFAULTS[date.getDay()];
-    db[key]={date:key,type:def.type,kcalGoal:def.kcal,proteinGoal:def.protein,stepsGoal:def.steps,
-      workout:def.workout,steps:0,water:0,meals:[],exercises:WORKOUTS[def.workout].map((x,i)=>({
-        id:crypto.randomUUID(),name:x[0],target:x[1],done:false,performance:"",extra:false,order:i
-      })),weight:"",energy:"",hunger:"",notes:"",reportGenerated:false};
+    const def=DAY_DEFAULTS[date.getDay()],lib=LIBRARY[def.workout];
+    db[key]={date:key,type:def.type,kcalGoal:def.kcal,proteinGoal:def.protein,stepsGoal:def.steps,workout:def.workout,
+      steps:0,water:0,meals:[],exercises:lib.exercises.map((x,i)=>({id:crypto.randomUUID(),name:x.name,target:`${x.sets} Sätze · ${x.reps}`,done:false,performance:"",extra:false,order:i,sets:x.sets,reps:x.reps,rest:x.rest,instruction:x.instruction,icon:x.icon,setResults:[]})),
+      weight:"",energy:"",hunger:"",notes:"",reportGenerated:false,workoutDuration:0};
     persist();
   }
   return db[key];
 }
-function persist(){localStorage.setItem("jqp_pwa_db",JSON.stringify(db));}
-function sums(day){
-  return day.meals.reduce((a,m)=>({kcal:a.kcal+m.kcal,protein:a.protein+m.protein}),{kcal:0,protein:0});
-}
+function persist(){localStorage.setItem("jqp_v3_db",JSON.stringify(db));}
+function sums(day){return day.meals.reduce((a,m)=>({kcal:a.kcal+m.kcal,protein:a.protein+m.protein}),{kcal:0,protein:0});}
 function pct(v,g){return Math.max(0,Math.min(100,g?Math.round(v/g*100):0));}
-function workoutPct(day){
-  const base=day.exercises.filter(e=>!e.extra);
-  return base.length?Math.round(base.filter(e=>e.done).length/base.length*100):0;
+function workoutPct(day){const base=day.exercises.filter(e=>!e.extra);return base.length?Math.round(base.filter(e=>e.done).length/base.length*100):0;}
+function stepMissions(day){
+  const goal=day.stepsGoal;
+  return [
+    {time:"Vormittag",target:Math.round(goal*.30)},
+    {time:"Nachmittag",target:Math.round(goal*.65)},
+    {time:"Abend",target:goal}
+  ];
 }
 function coach(day){
   const h=new Date().getHours(),s=sums(day),pr=s.protein/day.proteinGoal,sr=day.steps/day.stepsGoal,wp=workoutPct(day);
-  if(h<11) return s.protein<30?["Protein zuerst","Starte mit 35–45 g Protein. Danach ist der Tag leichter kontrollierbar."]:["Starker Start","Protein läuft. Sammle entspannt die ersten Schritte."];
-  if(h<16){
-    if(pr<.45)return["Protein hängt zurück","Die nächste Mahlzeit sollte 45–60 g Protein bringen."];
-    if(sr<.35)return["Kurzer Walk wäre perfekt","20–40 Minuten bringen dich wieder auf Kurs."];
-    return["Du bist auf Kurs",`${day.workout} später sauber durchziehen.`];
-  }
-  if(h<20){
-    if(wp<100)return[`${day.workout} ist noch offen`,"Starte nur mit dem ersten Satz."];
-    if(sr<.8)return["Workout erledigt – Steps offen","Ein lockerer Abendwalk bringt dich Richtung Ziel."];
-    return["Heute läuft","Jetzt Protein treffen und den Abend kontrolliert schließen."];
-  }
+  if(h<11)return s.protein<30?["Protein zuerst","Starte mit 35–45 g Protein. Danach ist der Tag leichter kontrollierbar."]:["Starker Start","Protein läuft. Sammle entspannt die ersten Schritte."];
+  if(h<16){if(pr<.45)return["Protein hängt zurück","Die nächste Mahlzeit sollte 45–60 g Protein bringen."];if(sr<.35)return["Kurzer Walk wäre perfekt","20–40 Minuten bringen dich wieder auf Kurs."];return["Du bist auf Kurs",`${day.workout} später sauber durchziehen.`];}
+  if(h<20){if(wp<100)return[`${day.workout} ist noch offen`,"Drück auf Workout starten. Die App führt dich durch jeden Satz."];if(sr<.8)return["Workout erledigt – Steps offen","Ein lockerer Abendwalk bringt dich Richtung Ziel."];return["Heute läuft","Jetzt Protein treffen und den Abend kontrolliert schließen."];}
   if(s.kcal>day.kcalGoal+250)return["Kein Alles-oder-nichts","Heute war höher. Küche schließen und morgen normal weitermachen."];
   if(!day.reportGenerated)return["Tagesreport abschließen","Energie, Hunger und Notiz eintragen und Report kopieren."];
   return["Mission abgeschlossen","Jetzt regenerieren und schlafen."];
 }
-function tier(day){
-  const s=sums(day),w=workoutPct(day)===100,p=s.protein>=day.proteinGoal,k=s.kcal>0&&s.kcal<=day.kcalGoal+150,st=day.steps>=day.stepsGoal;
-  if(w&&p&&k&&st)return"PLATINUM";if(w&&p&&st)return"GOLD";if(w&&p)return"SILVER";if(w)return"BRONZE";return"OFFEN";
-}
+function tier(day){const s=sums(day),w=workoutPct(day)===100,p=s.protein>=day.proteinGoal,k=s.kcal>0&&s.kcal<=day.kcalGoal+150,st=day.steps>=day.stepsGoal;if(w&&p&&k&&st)return"PLATINUM";if(w&&p&&st)return"GOLD";if(w&&p)return"SILVER";if(w)return"BRONZE";return"OFFEN";}
 function render(){
   const d=ensureDay(),s=sums(d),c=coach(d);
   document.getElementById("dayPill").textContent=d.type+" Day";
   document.getElementById("dateText").textContent=new Date().toLocaleDateString("de-AT",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
   document.getElementById("coachBox").innerHTML=`<strong>${c[0]}</strong><div class="small muted" style="margin-top:4px">${c[1]}</div>`;
-  [["kcal",s.kcal,d.kcalGoal],["protein",s.protein,d.proteinGoal],["steps",d.steps,d.stepsGoal]].forEach(([id,v,g])=>{
-    document.getElementById(id+"Now").textContent=v;
-    document.getElementById(id+"Goal").textContent=g;
-    document.getElementById(id+"Bar").style.width=pct(v,g)+"%";
-  });
+  [["kcal",s.kcal,d.kcalGoal],["protein",s.protein,d.proteinGoal],["steps",d.steps,d.stepsGoal]].forEach(([id,v,g])=>{document.getElementById(id+"Now").textContent=v;document.getElementById(id+"Goal").textContent=g;document.getElementById(id+"Bar").style.width=pct(v,g)+"%";});
   const wp=workoutPct(d);document.getElementById("workoutPct").textContent=wp;document.getElementById("workoutBar").style.width=wp+"%";
-  document.getElementById("stepsInput").value=d.steps||"";
-  document.getElementById("waterTotal").value=d.water||"";
-  document.getElementById("weightInput").value=d.weight||"";
-  document.getElementById("energyInput").value=d.energy||"";
-  document.getElementById("hungerInput").value=d.hunger||"";
-  document.getElementById("notesInput").value=d.notes||"";
+  document.getElementById("stepsInput").value=d.steps||"";document.getElementById("waterTotal").value=d.water||"";document.getElementById("weightInput").value=d.weight||"";
+  document.getElementById("energyInput").value=d.energy||"";document.getElementById("hungerInput").value=d.hunger||"";document.getElementById("notesInput").value=d.notes||"";
   document.getElementById("missionSummary").innerHTML=`<strong>${d.workout}</strong><div class="small muted" style="margin-top:5px">${d.exercises.filter(e=>!e.extra).map(e=>`${e.done?"✅":"⬜"} ${e.name}`).join("<br>")}</div><div class="sep"></div><strong>Tagesrang: ${tier(d)}</strong>`;
-  renderMeals();renderExercises();renderWeek();renderReport();
+  renderStepMissions();renderMeals();renderExercises();renderWeek();renderReport();
 }
-function renderMeals(){
-  const d=ensureDay(),el=document.getElementById("mealList");el.innerHTML="";
-  if(!d.meals.length){el.innerHTML='<div class="card muted small">Noch nichts eingetragen.</div>';return;}
-  d.meals.slice().reverse().forEach(m=>{
-    const row=document.createElement("div");row.className="meal";
-    row.innerHTML=`<div><strong>${m.name}</strong><div class="muted small">${m.kcal} kcal · ${m.protein} g Protein</div></div><button class="danger" onclick="deleteMeal('${m.id}')">Löschen</button>`;
+function renderStepMissions(){
+  const d=ensureDay(),el=document.getElementById("stepMissionList");el.innerHTML="";
+  stepMissions(d).forEach(m=>{
+    const done=d.steps>=m.target;
+    const row=document.createElement("div");row.className="stepmission";
+    row.innerHTML=`<div class="stepicon">${done?"✓":"👣"}</div><div><strong>${m.time}: ${m.target.toLocaleString("de-AT")} Schritte</strong><div class="muted small">${done?"Erledigt":"Noch "+Math.max(0,m.target-d.steps).toLocaleString("de-AT")+" bis zu diesem Zwischenziel"}</div></div>`;
     el.appendChild(row);
   });
 }
-function renderExercises(){
-  const d=ensureDay();document.getElementById("workoutTitle").textContent=d.workout;
-  const el=document.getElementById("exerciseList");el.innerHTML="";
-  d.exercises.sort((a,b)=>a.order-b.order).forEach(e=>{
-    const row=document.createElement("div");row.className="exercise";
-    row.innerHTML=`<input type="checkbox" ${e.done?"checked":""} onchange="toggleExercise('${e.id}',this.checked)">
-      <div><div class="exercise-head"><div><strong>${e.name}</strong>${e.extra?' <span class="tag">EXTRA</span>':''}</div>${e.extra?`<button class="danger" onclick="deleteExercise('${e.id}')">×</button>`:""}</div>
-      <div class="muted small">${e.target}</div><input class="perf" value="${e.performance||""}" placeholder="Ergebnis, z. B. 4×18" onchange="savePerformance('${e.id}',this.value)"></div>`;
-    el.appendChild(row);
-  });
-}
-function renderWeek(){
-  const el=document.getElementById("weekList");el.innerHTML="";
-  const now=new Date(),day=(now.getDay()+6)%7,monday=new Date(now);monday.setDate(now.getDate()-day);
-  for(let i=0;i<7;i++){
-    const d=new Date(monday);d.setDate(monday.getDate()+i);const x=ensureDay(d),s=sums(x);
-    const row=document.createElement("div");row.className="dayrow";
-    row.innerHTML=`<strong>${d.toLocaleDateString("de-AT",{weekday:"short"})}</strong><div><span class="pill">${x.type}</span><div class="muted small">${x.workout}</div></div><div class="small">${s.kcal} kcal<br>${s.protein}g · ${x.steps} Steps</div>`;
-    el.appendChild(row);
-  }
-}
-function renderReport(){
-  const d=ensureDay(),s=sums(d),text=`JUNKER QUEEN PROTOCOL
+function renderMeals(){const d=ensureDay(),el=document.getElementById("mealList");el.innerHTML="";if(!d.meals.length){el.innerHTML='<div class="card muted small">Noch nichts eingetragen.</div>';return;}d.meals.slice().reverse().forEach(m=>{const row=document.createElement("div");row.className="meal";row.innerHTML=`<div><strong>${m.name}</strong><div class="muted small">${m.kcal} kcal · ${m.protein} g Protein</div></div><button class="danger" onclick="deleteMeal('${m.id}')">Löschen</button>`;el.appendChild(row);});}
+function renderExercises(){const d=ensureDay();document.getElementById("workoutTitle").textContent=d.workout;const el=document.getElementById("exerciseList");el.innerHTML="";d.exercises.sort((a,b)=>a.order-b.order).forEach(e=>{const row=document.createElement("div");row.className="exercise";row.innerHTML=`<input type="checkbox" ${e.done?"checked":""} onchange="toggleExercise('${e.id}',this.checked)"><div><div class="exercise-head"><div><strong>${e.name}</strong>${e.extra?' <span class="tag">EXTRA</span>':''}</div>${e.extra?`<button class="danger" onclick="deleteExercise('${e.id}')">×</button>`:""}</div><div class="muted small">${e.target}</div><div class="small" style="margin-top:5px">${e.instruction||""}</div><input class="perf" value="${e.performance||""}" placeholder="Ergebnis, z. B. 12 / 11 / 10" onchange="savePerformance('${e.id}',this.value)"></div>`;el.appendChild(row);});}
+function renderWeek(){const el=document.getElementById("weekList");el.innerHTML="";const now=new Date(),day=(now.getDay()+6)%7,monday=new Date(now);monday.setDate(now.getDate()-day);for(let i=0;i<7;i++){const d=new Date(monday);d.setDate(monday.getDate()+i);const x=ensureDay(d),s=sums(x);const row=document.createElement("div");row.className="dayrow";row.innerHTML=`<strong>${d.toLocaleDateString("de-AT",{weekday:"short"})}</strong><div><span class="pill">${x.type}</span><div class="muted small">${x.workout}</div></div><div class="small">${s.kcal} kcal<br>${s.protein}g · ${x.steps} Steps</div>`;el.appendChild(row);}}
+function renderReport(){const d=ensureDay(),s=sums(d),text=`JUNKER QUEEN PROTOCOL
 ${new Date().toLocaleString("de-AT")}
 
 Tag: ${d.type}
@@ -326,13 +421,12 @@ Protein: ${s.protein} / ${d.proteinGoal} g
 Schritte: ${d.steps} / ${d.stepsGoal}
 Wasser: ${d.water} ml
 Workout: ${d.workout} – ${workoutPct(d)===100?"erledigt":"offen"}
+Workoutdauer: ${d.workoutDuration||0} Minuten
 Rang: ${tier(d)}
 Gewicht: ${d.weight||"–"} kg
 Energie: ${d.energy||"–"}/10
 Hunger: ${d.hunger||"–"}/10
-Notiz: ${d.notes||"–"}`;
-  document.getElementById("reportText").textContent=text;
-}
+Notiz: ${d.notes||"–"}`;document.getElementById("reportText").textContent=text;}
 function saveQuick(){const d=ensureDay(),st=Number(document.getElementById("stepsInput").value),w=Number(document.getElementById("waterInput").value);if(st>=0)d.steps=st;if(w>0)d.water+=w;document.getElementById("waterInput").value="";persist();render();}
 function addMeal(){const d=ensureDay(),n=document.getElementById("mealName").value.trim(),k=Number(document.getElementById("mealKcal").value),p=Number(document.getElementById("mealProtein").value);if(!n||!Number.isFinite(k)||!Number.isFinite(p))return;d.meals.push({id:crypto.randomUUID(),name:n,kcal:k,protein:p,time:new Date().toISOString()});persist();["mealName","mealKcal","mealProtein"].forEach(id=>document.getElementById(id).value="");render();}
 function deleteMeal(id){const d=ensureDay();d.meals=d.meals.filter(m=>m.id!==id);persist();render();}
@@ -340,10 +434,145 @@ function toggleExercise(id,v){const e=ensureDay().exercises.find(x=>x.id===id);i
 function savePerformance(id,v){const e=ensureDay().exercises.find(x=>x.id===id);if(e)e.performance=v;persist();renderReport();}
 function addExtra(){const d=ensureDay(),n=document.getElementById("extraName").value.trim(),p=document.getElementById("extraPerf").value.trim();if(!n)return;d.exercises.push({id:crypto.randomUUID(),name:n,target:p||"Extra Leistung",done:true,performance:p,extra:true,order:d.exercises.length+1});persist();document.getElementById("extraName").value="";document.getElementById("extraPerf").value="";render();}
 function deleteExercise(id){const d=ensureDay();d.exercises=d.exercises.filter(e=>e.id!==id);persist();render();}
-function saveCheckin(){const d=ensureDay();d.weight=document.getElementById("weightInput").value;d.energy=document.getElementById("energyInput").value;d.hunger=document.getElementById("hungerInput").value;d.water=Number(document.getElementById("waterTotal").value)||d.water;d.notes=document.getElementById("notesInput").value.trim();persist();render();}
+function saveCheckin(){const d=ensureDay();d.weight=document.getElementById("weightInput").value;d.energy=Math.min(10,Math.max(1,Number(document.getElementById("energyInput").value)||5));d.hunger=Math.min(10,Math.max(1,Number(document.getElementById("hungerInput").value)||5));d.water=Number(document.getElementById("waterTotal").value)||d.water;d.notes=document.getElementById("notesInput").value.trim();persist();render();}
 async function copyReport(){const d=ensureDay();d.reportGenerated=true;persist();const text=document.getElementById("reportText").textContent;try{await navigator.clipboard.writeText(text);alert("Report kopiert.");}catch(e){prompt("Kopieren:",text);}render();}
 function exportData(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:"application/json"}));a.download="jqp-backup.json";a.click();URL.revokeObjectURL(a.href);}
 function showPage(p){["today","food","workout","week","report"].forEach(x=>document.getElementById(x+"Page").classList.toggle("hidden",x!==p));render();}
+
+/* Workout player */
+function svgFor(icon){
+  const common='stroke="#ffb35c" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"';
+  const svgs={
+    pushup:`<svg viewBox="0 0 200 200"><circle cx="55" cy="72" r="13" ${common}/><path d="M68 78 L110 92 L150 110" ${common}/><path d="M92 86 L70 115 L48 140" ${common}/><path d="M115 94 L110 130 L105 156" ${common}/><path d="M48 140 L32 140 M105 156 L126 156" ${common}/></svg>`,
+    pike:`<svg viewBox="0 0 200 200"><circle cx="55" cy="105" r="12" ${common}/><path d="M68 108 L100 78 L130 42" ${common}/><path d="M100 78 L145 125 L166 154" ${common}/><path d="M55 118 L35 145 M68 112 L50 151" ${common}/></svg>`,
+    press:`<svg viewBox="0 0 200 200"><circle cx="100" cy="46" r="15" ${common}/><path d="M100 62 L100 120 M100 78 L70 105 M100 78 L132 36 M132 36 L148 20" ${common}/><path d="M100 120 L75 166 M100 120 L125 166" ${common}/></svg>`,
+    lateral:`<svg viewBox="0 0 200 200"><circle cx="100" cy="46" r="15" ${common}/><path d="M100 62 L100 120 M100 82 L50 65 M100 82 L150 65 M100 120 L75 166 M100 120 L125 166" ${common}/></svg>`,
+    curl:`<svg viewBox="0 0 200 200"><circle cx="100" cy="45" r="15" ${common}/><path d="M100 60 L100 118 M100 78 L78 110 L90 82 M100 78 L122 110 L110 82 M100 118 L75 166 M100 118 L125 166" ${common}/></svg>`,
+    row:`<svg viewBox="0 0 200 200"><circle cx="75" cy="58" r="14" ${common}/><path d="M86 68 L120 95 L150 118 M120 95 L95 130 M120 95 L145 75 M95 130 L70 165 M95 130 L120 165" ${common}/></svg>`,
+    squat:`<svg viewBox="0 0 200 200"><circle cx="100" cy="42" r="14" ${common}/><path d="M100 58 L100 98 M100 72 L70 88 M100 72 L130 88 M100 98 L70 125 L52 162 M100 98 L130 125 L148 162" ${common}/></svg>`,
+    lunge:`<svg viewBox="0 0 200 200"><circle cx="95" cy="42" r="14" ${common}/><path d="M95 58 L95 105 M95 78 L65 92 M95 78 L125 92 M95 105 L65 130 L45 165 M95 105 L135 126 L165 145" ${common}/></svg>`,
+    hinge:`<svg viewBox="0 0 200 200"><circle cx="70" cy="48" r="14" ${common}/><path d="M82 58 L120 82 L142 118 M120 82 L100 128 M142 118 L165 160 M100 128 L80 165" ${common}/></svg>`,
+    bridge:`<svg viewBox="0 0 200 200"><circle cx="50" cy="120" r="12" ${common}/><path d="M62 118 L105 86 L145 118 M145 118 L165 150 M50 132 L35 150" ${common}/></svg>`,
+    plank:`<svg viewBox="0 0 200 200"><circle cx="45" cy="88" r="12" ${common}/><path d="M58 92 L110 105 L160 120 M75 98 L55 132 M160 120 L176 120" ${common}/></svg>`,
+    core:`<svg viewBox="0 0 200 200"><circle cx="50" cy="130" r="12" ${common}/><path d="M62 128 L105 128 L150 88 M50 142 L35 160" ${common}/></svg>`,
+    triceps:`<svg viewBox="0 0 200 200"><circle cx="100" cy="46" r="15" ${common}/><path d="M100 62 L100 120 M100 80 L120 45 L105 20 M100 80 L80 45 L95 20 M100 120 L75 166 M100 120 L125 166" ${common}/></svg>`,
+    stretch:`<svg viewBox="0 0 200 200"><circle cx="100" cy="45" r="15" ${common}/><path d="M100 60 L100 120 M100 78 L55 55 M100 78 L145 105 M100 120 L75 166 M100 120 L125 166" ${common}/></svg>`,
+    arms:`<svg viewBox="0 0 200 200"><circle cx="100" cy="45" r="15" ${common}/><path d="M100 60 L100 120 M100 78 L45 52 M100 78 L155 52 M100 120 L75 166 M100 120 L125 166" ${common}/><circle cx="45" cy="52" r="18" ${common}/><circle cx="155" cy="52" r="18" ${common}/></svg>`,
+    walk:`<svg viewBox="0 0 200 200"><circle cx="95" cy="35" r="14" ${common}/><path d="M95 50 L85 100 M85 70 L55 95 M85 70 L115 95 M85 100 L55 150 M85 100 L125 135" ${common}/></svg>`,
+    rotation:`<svg viewBox="0 0 200 200"><circle cx="80" cy="65" r="13" ${common}/><path d="M92 72 L120 100 L150 128 M120 100 L95 135 M120 100 L150 75 M95 135 L70 165 M150 128 L170 160" ${common}/><path d="M52 45 C80 20,120 20,145 50" ${common}/></svg>`,
+    calf:`<svg viewBox="0 0 200 200"><circle cx="100" cy="42" r="14" ${common}/><path d="M100 58 L100 120 M100 78 L75 95 M100 78 L125 95 M100 120 L85 160 M100 120 L115 160 M85 160 L82 145 M115 160 L118 145" ${common}/></svg>`,
+    shrug:`<svg viewBox="0 0 200 200"><circle cx="100" cy="42" r="14" ${common}/><path d="M100 58 L100 120 M100 78 L70 95 M100 78 L130 95 M100 120 L75 166 M100 120 L125 166" ${common}/><path d="M60 80 L70 62 M140 80 L130 62" ${common}/></svg>`
+  };
+  return svgs[icon]||svgs.stretch;
+}
+function buildQueue(){
+  const d=ensureDay(),lib=LIBRARY[d.workout],q=[];
+  lib.warmup.forEach(x=>q.push({...x,phase:"WARM-UP"}));
+  d.exercises.filter(e=>!e.extra).forEach(e=>q.push({phase:"WORKOUT",kind:"sets",...e}));
+  lib.cooldown.forEach(x=>q.push({...x,phase:"COOLDOWN"}));
+  return q;
+}
+function startWorkout(){
+  player={queue:buildQueue(),index:0,setIndex:0,state:"idle",timer:null,remaining:0,startTime:Date.now(),currentReps:[]};
+  document.getElementById("player").classList.remove("hidden");
+  renderPlayer();
+  if(navigator.wakeLock){navigator.wakeLock.request("screen").catch(()=>{});}
+}
+function currentItem(){return player.queue[player.index];}
+function renderPlayer(){
+  const item=currentItem();if(!item){finishWorkout();return;}
+  document.getElementById("playerPhase").textContent=item.phase;
+  document.getElementById("playerProgress").textContent=`${player.index+1} / ${player.queue.length}`;
+  document.getElementById("playerTitle").textContent=item.name;
+  document.getElementById("playerIllustration").innerHTML=svgFor(item.icon);
+  document.getElementById("instructionCard").innerHTML=`<strong>So machst du es</strong><div class="small muted" style="margin-top:6px">${item.instruction}</div>`;
+  const timerBlock=document.getElementById("timerBlock"),setBlock=document.getElementById("setBlock");
+  timerBlock.classList.add("hidden");setBlock.classList.add("hidden");
+  const main=document.getElementById("playerMainButton");
+  if(item.kind==="sets"){
+    setBlock.classList.remove("hidden");
+    document.getElementById("playerSubtitle").textContent=`${item.sets} Sätze · Ziel ${item.reps} · Pause ${item.rest}s`;
+    renderSetDots(item);
+    document.getElementById("repInput").value="";
+    document.getElementById("lastPerformance").textContent=item.performance||"–";
+    main.textContent=`Satz ${player.setIndex+1} starten`;
+    player.state="readySet";
+  }else if(item.kind==="time"){
+    timerBlock.classList.remove("hidden");
+    document.getElementById("playerSubtitle").textContent=`${item.seconds} Sekunden`;
+    document.getElementById("timerText").textContent=item.seconds;
+    main.textContent="Timer starten";
+    player.state="readyTimed";
+  }else{
+    document.getElementById("playerSubtitle").textContent=`${item.reps} Wiederholungen`;
+    main.textContent="Erledigt";
+    player.state="readyReps";
+  }
+}
+function renderSetDots(item){
+  const el=document.getElementById("setDots");el.innerHTML="";
+  for(let i=0;i<item.sets;i++){const d=document.createElement("div");d.className="dot"+(i<player.setIndex?" done":"")+(i===player.setIndex?" active":"");d.textContent=i+1;el.appendChild(d);}
+}
+function playerMainAction(){
+  const item=currentItem();
+  if(player.state==="readyTimed"){startTimer(item.seconds,"timed");}
+  else if(player.state==="readyReps"){nextPlayerItem();}
+  else if(player.state==="readySet"){player.state="doingSet";document.getElementById("playerMainButton").textContent="Satz beendet";document.getElementById("repInput").focus();}
+  else if(player.state==="doingSet"){finishSet(item);}
+  else if(player.state==="rest"){skipRest();}
+}
+function startTimer(seconds,mode){
+  clearInterval(player.timer);player.remaining=seconds;player.state=mode==="rest"?"rest":"timing";
+  document.getElementById("timerBlock").classList.remove("hidden");
+  document.getElementById("setBlock").classList.add("hidden");
+  document.getElementById("timerText").textContent=seconds;
+  document.getElementById("playerMainButton").textContent=mode==="rest"?"Pause überspringen":"Läuft…";
+  player.timer=setInterval(()=>{
+    player.remaining--;document.getElementById("timerText").textContent=player.remaining;
+    if(player.remaining<=3&&player.remaining>0&&navigator.vibrate)navigator.vibrate(80);
+    if(player.remaining<=0){clearInterval(player.timer);if(mode==="rest"){player.setIndex++;renderPlayer();}else nextPlayerItem();}
+  },1000);
+}
+function finishSet(item){
+  const reps=Number(document.getElementById("repInput").value)||0;
+  player.currentReps.push(reps);
+  const d=ensureDay(),e=d.exercises.find(x=>x.id===item.id);
+  if(e){e.setResults=player.currentReps.slice();e.performance=e.setResults.join(" / ");}
+  persist();
+  if(player.setIndex>=item.sets-1){
+    if(e)e.done=true;
+    persist();
+    player.currentReps=[];player.setIndex=0;nextPlayerItem();
+  }else{
+    document.getElementById("playerTitle").textContent="Pause";
+    document.getElementById("playerSubtitle").textContent=`Nächster Satz: ${item.name}`;
+    document.getElementById("playerIllustration").innerHTML=svgFor("stretch");
+    document.getElementById("instructionCard").innerHTML=`<strong>Coach</strong><div class="small muted" style="margin-top:6px">Atme ruhig. Ziel bleibt saubere Technik, nicht einfach nur irgendwie mehr Wiederholungen.</div>`;
+    startTimer(item.rest,"rest");
+  }
+}
+function skipRest(){clearInterval(player.timer);player.setIndex++;renderPlayer();}
+function nextPlayerItem(){clearInterval(player.timer);player.index++;player.setIndex=0;player.currentReps=[];renderPlayer();}
+function skipPlayerItem(){nextPlayerItem();}
+function pauseOrClosePlayer(){
+  clearInterval(player.timer);
+  const close=confirm("Workout pausieren und schließen? Dein Fortschritt bleibt gespeichert.");
+  if(close){document.getElementById("player").classList.add("hidden");render();}
+}
+function finishWorkout(){
+  clearInterval(player.timer);
+  const d=ensureDay();d.workoutDuration=Math.max(1,Math.round((Date.now()-player.startTime)/60000));persist();
+  document.getElementById("playerPhase").textContent="MISSION COMPLETE";
+  document.getElementById("playerProgress").textContent="";
+  document.getElementById("playerTitle").textContent="Workout abgeschlossen";
+  document.getElementById("playerSubtitle").textContent=`${d.workoutDuration} Minuten · ${d.exercises.filter(e=>!e.extra&&e.done).length} Übungen`;
+  document.getElementById("playerIllustration").innerHTML=svgFor("press");
+  document.getElementById("timerBlock").classList.add("hidden");document.getElementById("setBlock").classList.add("hidden");
+  document.getElementById("instructionCard").innerHTML=`<strong>Stark.</strong><div class="small muted" style="margin-top:6px">Trink Wasser, iss später Protein und trag deinen Report ein.</div>`;
+  const main=document.getElementById("playerMainButton");main.textContent="Fertig";main.onclick=()=>{document.getElementById("player").classList.add("hidden");render();};
+  document.getElementById("playerSkipButton").classList.add("hidden");
+}
+
 setInterval(()=>document.getElementById("clockText").textContent=new Date().toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit",second:"2-digit"}),1000);
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");
 render();
