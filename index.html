@@ -15,10 +15,11 @@
       --orange:#ff7034;--gold:#ffd15c;--green:#67d391;--blue:#72d4ff;--danger:#ff6d75;
     }
     *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#08080a,#111116);color:var(--text);
+    html{min-height:100%;background:#0a0a0d}
+    body{margin:0;min-height:100dvh;background:linear-gradient(180deg,#08080a,#111116);color:var(--text);
       font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
     button,input,select,textarea{font:inherit}
-    .app{max-width:820px;margin:auto;padding:18px 14px 104px}
+    .app{max-width:820px;min-height:100dvh;margin:auto;padding:calc(18px + env(safe-area-inset-top)) 14px calc(104px + env(safe-area-inset-bottom))}
     .hero{padding:18px;border-radius:24px;background:
       radial-gradient(circle at 90% 10%,rgba(255,112,52,.23),transparent 38%),var(--card);border:1px solid var(--line)}
     h1{margin:7px 0 3px;font-size:1.9rem} h2{font-size:1.06rem;margin:22px 0 10px} h3{margin:0}
@@ -54,8 +55,8 @@
     .week{display:grid;gap:8px}.dayrow{display:grid;grid-template-columns:82px 1fr auto;gap:10px;align-items:center}
     .report{white-space:pre-wrap;background:#111116;border:1px dashed #4a4a54;border-radius:14px;padding:13px}
     .hidden{display:none}.sep{height:1px;background:var(--line);margin:12px 0}
-    .nav{position:fixed;left:0;right:0;bottom:0;background:rgba(10,10,13,.95);backdrop-filter:blur(14px);
-      border-top:1px solid var(--line);padding:9px 10px calc(9px + env(safe-area-inset-bottom))}
+    .nav{position:fixed;left:0;right:0;bottom:0;background:rgba(10,10,13,.98);backdrop-filter:blur(14px);
+      border-top:1px solid var(--line);padding:9px 10px max(12px,calc(9px + env(safe-area-inset-bottom)));box-shadow:0 -8px 28px rgba(0,0,0,.28)}
     .navinner{max-width:820px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
     .nav button{padding:9px 4px;font-size:.72rem}
 
@@ -81,6 +82,10 @@
     .historyline{display:flex;justify-content:space-between;gap:10px;font-size:.84rem;color:var(--muted)}
     .stepmission{display:flex;align-items:center;gap:12px}.stepmission strong{display:block}
     .stepicon{width:42px;height:42px;border-radius:14px;background:rgba(114,212,255,.12);display:grid;place-items:center;color:var(--blue);font-size:1.2rem}
+    .toggleline{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .toggleline input{width:24px;height:24px}
+    .version{font-size:.72rem;color:var(--muted);text-align:center;margin-top:14px}
+    .sidebadge{display:inline-flex;margin-top:8px;padding:5px 9px;border-radius:999px;background:rgba(114,212,255,.14);color:var(--blue);font-weight:850;font-size:.78rem}
   </style>
 </head>
 <body>
@@ -105,7 +110,7 @@
     <div class="card">
       <div class="formgrid">
         <div><label>Aktuelle Schritte</label><input id="stepsInput" type="number" min="0"></div>
-        <div><label>Wasser hinzufügen (ml)</label><input id="waterInput" type="number" min="0"></div>
+        <div id="waterQuickWrap"><label>Wasser hinzufügen (ml)</label><input id="waterInput" type="number" min="0"></div>
       </div>
       <div class="actions">
         <button class="primary" onclick="saveQuick()">Speichern</button>
@@ -163,12 +168,23 @@
 
   <section id="reportPage" class="hidden">
     <h2>Coach Report</h2>
+    <div class="card" style="margin-bottom:12px">
+      <label>Report-Tag auswählen</label>
+      <select id="reportDateSelect" onchange="renderReport()"></select>
+      <div class="toggleline" style="margin-top:12px">
+        <div>
+          <strong>Wassertracking anzeigen</strong>
+          <div class="muted small">Optional – ausblenden, wenn du es nicht nutzt.</div>
+        </div>
+        <input id="waterTrackingToggle" type="checkbox" onchange="toggleWaterTracking(this.checked)">
+      </div>
+    </div>
     <div class="card">
       <div class="formgrid">
         <div><label>Gewicht optional</label><input id="weightInput" type="number" step="0.1"></div>
         <div><label>Energie 1–10</label><input id="energyInput" type="number" min="1" max="10"></div>
         <div><label>Hunger 1–10</label><input id="hungerInput" type="number" min="1" max="10"></div>
-        <div><label>Wasser heute (ml)</label><input id="waterTotal" type="number" min="0"></div>
+        <div id="waterReportWrap"><label>Wasser heute (ml)</label><input id="waterTotal" type="number" min="0"></div>
         <div class="wide"><label>Notiz</label><textarea id="notesInput"></textarea></div>
       </div>
       <button class="secondary" style="width:100%;margin-top:10px" onclick="saveCheckin()">Check-in speichern</button>
@@ -178,6 +194,7 @@
       <button class="primary" onclick="copyReport()">Report kopieren</button>
       <button class="secondary" onclick="exportData()">Backup</button>
     </div>
+    <div class="version">Junker Queen Protocol v4.0</div>
   </section>
 </div>
 
@@ -215,7 +232,7 @@
       <div class="player-card">
         <label>Wiederholungen dieses Satzes</label>
         <input id="repInput" class="repinput" type="number" min="0" placeholder="0">
-        <div class="historyline" style="margin-top:10px">
+        <div id="sideBadge" class="sidebadge hidden">LINKE SEITE</div><div class="historyline" style="margin-top:10px">
           <span>Letztes Mal</span><span id="lastPerformance">–</span>
         </div>
       </div>
@@ -352,7 +369,16 @@ const LIBRARY = {
 };
 
 let db = JSON.parse(localStorage.getItem("jqp_v3_db") || "{}");
-let player = {queue:[],index:0,setIndex:0,state:"idle",timer:null,remaining:0,startTime:null,currentReps:[]};
+
+function meta(){
+  if(!db.__meta) db.__meta={schemaVersion:4,waterTracking:false,soundEnabled:true};
+  if(db.__meta.schemaVersion<4) db.__meta.schemaVersion=4;
+  if(typeof db.__meta.waterTracking!=="boolean") db.__meta.waterTracking=false;
+  if(typeof db.__meta.soundEnabled!=="boolean") db.__meta.soundEnabled=true;
+  return db.__meta;
+}
+meta();
+let player = {queue:[],index:0,setIndex:0,state:"idle",timer:null,remaining:0,endAt:0,startTime:null,currentReps:[],side:null,pendingNext:false};
 
 function keyFor(d=new Date()){const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");return `${y}-${m}-${day}`;}
 function ensureDay(date=new Date()){
@@ -387,9 +413,46 @@ function coach(day){
   if(!day.reportGenerated)return["Tagesreport abschließen","Energie, Hunger und Notiz eintragen und Report kopieren."];
   return["Mission abgeschlossen","Jetzt regenerieren und schlafen."];
 }
-function tier(day){const s=sums(day),w=workoutPct(day)===100,p=s.protein>=day.proteinGoal,k=s.kcal>0&&s.kcal<=day.kcalGoal+150,st=day.steps>=day.stepsGoal;if(w&&p&&k&&st)return"PLATINUM";if(w&&p&&st)return"GOLD";if(w&&p)return"SILVER";if(w)return"BRONZE";return"OFFEN";}
+function tier(day){const s=sums(day),w=workoutPct(day)===100,p=s.protein>=Math.round(day.proteinGoal*.95),k=s.kcal>0&&s.kcal<=day.kcalGoal+150,st=day.steps>=day.stepsGoal;if(w&&p&&k&&st)return"PLATINUM";if(w&&p&&st)return"GOLD";if(w&&p)return"SILVER";if(w)return"BRONZE";return"OFFEN";}
+
+function dayKeys(){
+  return Object.keys(db).filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k)).sort().reverse();
+}
+function selectedReportDay(){
+  const select=document.getElementById("reportDateSelect");
+  const key=select && select.value ? select.value : keyFor();
+  return db[key] || ensureDay();
+}
+function populateReportDates(){
+  const select=document.getElementById("reportDateSelect");
+  if(!select)return;
+  const current=select.value || keyFor();
+  select.innerHTML="";
+  dayKeys().forEach(key=>{
+    const option=document.createElement("option");
+    option.value=key;
+    const d=new Date(key+"T12:00:00");
+    option.textContent=d.toLocaleDateString("de-AT",{weekday:"short",day:"2-digit",month:"2-digit",year:"numeric"});
+    select.appendChild(option);
+  });
+  if(dayKeys().includes(current))select.value=current;
+}
+function toggleWaterTracking(enabled){
+  meta().waterTracking=enabled;
+  persist();
+  render();
+}
+
 function render(){
   const d=ensureDay(),s=sums(d),c=coach(d);
+  populateReportDates();
+  const waterOn=meta().waterTracking;
+  const waterQuick=document.getElementById("waterQuickWrap");
+  const waterReport=document.getElementById("waterReportWrap");
+  const waterToggle=document.getElementById("waterTrackingToggle");
+  if(waterQuick)waterQuick.classList.toggle("hidden",!waterOn);
+  if(waterReport)waterReport.classList.toggle("hidden",!waterOn);
+  if(waterToggle)waterToggle.checked=waterOn;
   document.getElementById("dayPill").textContent=d.type+" Day";
   document.getElementById("dateText").textContent=new Date().toLocaleDateString("de-AT",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
   document.getElementById("coachBox").innerHTML=`<strong>${c[0]}</strong><div class="small muted" style="margin-top:4px">${c[1]}</div>`;
@@ -412,21 +475,27 @@ function renderStepMissions(){
 function renderMeals(){const d=ensureDay(),el=document.getElementById("mealList");el.innerHTML="";if(!d.meals.length){el.innerHTML='<div class="card muted small">Noch nichts eingetragen.</div>';return;}d.meals.slice().reverse().forEach(m=>{const row=document.createElement("div");row.className="meal";row.innerHTML=`<div><strong>${m.name}</strong><div class="muted small">${m.kcal} kcal · ${m.protein} g Protein</div></div><button class="danger" onclick="deleteMeal('${m.id}')">Löschen</button>`;el.appendChild(row);});}
 function renderExercises(){const d=ensureDay();document.getElementById("workoutTitle").textContent=d.workout;const el=document.getElementById("exerciseList");el.innerHTML="";d.exercises.sort((a,b)=>a.order-b.order).forEach(e=>{const row=document.createElement("div");row.className="exercise";row.innerHTML=`<input type="checkbox" ${e.done?"checked":""} onchange="toggleExercise('${e.id}',this.checked)"><div><div class="exercise-head"><div><strong>${e.name}</strong>${e.extra?' <span class="tag">EXTRA</span>':''}</div>${e.extra?`<button class="danger" onclick="deleteExercise('${e.id}')">×</button>`:""}</div><div class="muted small">${e.target}</div><div class="small" style="margin-top:5px">${e.instruction||""}</div><input class="perf" value="${e.performance||""}" placeholder="Ergebnis, z. B. 12 / 11 / 10" onchange="savePerformance('${e.id}',this.value)"></div>`;el.appendChild(row);});}
 function renderWeek(){const el=document.getElementById("weekList");el.innerHTML="";const now=new Date(),day=(now.getDay()+6)%7,monday=new Date(now);monday.setDate(now.getDate()-day);for(let i=0;i<7;i++){const d=new Date(monday);d.setDate(monday.getDate()+i);const x=ensureDay(d),s=sums(x);const row=document.createElement("div");row.className="dayrow";row.innerHTML=`<strong>${d.toLocaleDateString("de-AT",{weekday:"short"})}</strong><div><span class="pill">${x.type}</span><div class="muted small">${x.workout}</div></div><div class="small">${s.kcal} kcal<br>${s.protein}g · ${x.steps} Steps</div>`;el.appendChild(row);}}
-function renderReport(){const d=ensureDay(),s=sums(d),text=`JUNKER QUEEN PROTOCOL
-${new Date().toLocaleString("de-AT")}
+function renderReport(){
+  const d=selectedReportDay(),s=sums(d);
+  const dateLabel=new Date(d.date+"T12:00:00").toLocaleString("de-AT",{weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"});
+  const waterLine=meta().waterTracking?`
+Wasser: ${d.water||0} ml`:"";
+  const text=`JUNKER QUEEN PROTOCOL
+${dateLabel}
 
 Tag: ${d.type}
 Kalorien: ${s.kcal} / ${d.kcalGoal} kcal
 Protein: ${s.protein} / ${d.proteinGoal} g
-Schritte: ${d.steps} / ${d.stepsGoal}
-Wasser: ${d.water} ml
+Schritte: ${d.steps} / ${d.stepsGoal}${waterLine}
 Workout: ${d.workout} – ${workoutPct(d)===100?"erledigt":"offen"}
 Workoutdauer: ${d.workoutDuration||0} Minuten
 Rang: ${tier(d)}
 Gewicht: ${d.weight||"–"} kg
 Energie: ${d.energy||"–"}/10
 Hunger: ${d.hunger||"–"}/10
-Notiz: ${d.notes||"–"}`;document.getElementById("reportText").textContent=text;}
+Notiz: ${d.notes||"–"}`;
+  document.getElementById("reportText").textContent=text;
+}
 function saveQuick(){const d=ensureDay(),st=Number(document.getElementById("stepsInput").value),w=Number(document.getElementById("waterInput").value);if(st>=0)d.steps=st;if(w>0)d.water+=w;document.getElementById("waterInput").value="";persist();render();}
 function addMeal(){const d=ensureDay(),n=document.getElementById("mealName").value.trim(),k=Number(document.getElementById("mealKcal").value),p=Number(document.getElementById("mealProtein").value);if(!n||!Number.isFinite(k)||!Number.isFinite(p))return;d.meals.push({id:crypto.randomUUID(),name:n,kcal:k,protein:p,time:new Date().toISOString()});persist();["mealName","mealKcal","mealProtein"].forEach(id=>document.getElementById(id).value="");render();}
 function deleteMeal(id){const d=ensureDay();d.meals=d.meals.filter(m=>m.id!==id);persist();render();}
@@ -435,11 +504,29 @@ function savePerformance(id,v){const e=ensureDay().exercises.find(x=>x.id===id);
 function addExtra(){const d=ensureDay(),n=document.getElementById("extraName").value.trim(),p=document.getElementById("extraPerf").value.trim();if(!n)return;d.exercises.push({id:crypto.randomUUID(),name:n,target:p||"Extra Leistung",done:true,performance:p,extra:true,order:d.exercises.length+1});persist();document.getElementById("extraName").value="";document.getElementById("extraPerf").value="";render();}
 function deleteExercise(id){const d=ensureDay();d.exercises=d.exercises.filter(e=>e.id!==id);persist();render();}
 function saveCheckin(){const d=ensureDay();d.weight=document.getElementById("weightInput").value;d.energy=Math.min(10,Math.max(1,Number(document.getElementById("energyInput").value)||5));d.hunger=Math.min(10,Math.max(1,Number(document.getElementById("hungerInput").value)||5));d.water=Number(document.getElementById("waterTotal").value)||d.water;d.notes=document.getElementById("notesInput").value.trim();persist();render();}
-async function copyReport(){const d=ensureDay();d.reportGenerated=true;persist();const text=document.getElementById("reportText").textContent;try{await navigator.clipboard.writeText(text);alert("Report kopiert.");}catch(e){prompt("Kopieren:",text);}render();}
+async function copyReport(){const d=selectedReportDay();d.reportGenerated=true;persist();const text=document.getElementById("reportText").textContent;try{await navigator.clipboard.writeText(text);alert("Report kopiert.");}catch(e){prompt("Kopieren:",text);}render();}
 function exportData(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:"application/json"}));a.download="jqp-backup.json";a.click();URL.revokeObjectURL(a.href);}
 function showPage(p){["today","food","workout","week","report"].forEach(x=>document.getElementById(x+"Page").classList.toggle("hidden",x!==p));render();}
 
 /* Workout player */
+
+let audioContext=null;
+function ensureAudio(){
+  if(!audioContext)audioContext=new (window.AudioContext||window.webkitAudioContext)();
+  if(audioContext.state==="suspended")audioContext.resume();
+}
+function beep(freq=660,duration=.10,volume=.12){
+  if(!meta().soundEnabled)return;
+  try{
+    ensureAudio();
+    const osc=audioContext.createOscillator(),gain=audioContext.createGain();
+    osc.frequency.value=freq;osc.type="sine";gain.gain.value=volume;
+    osc.connect(gain);gain.connect(audioContext.destination);
+    osc.start();osc.stop(audioContext.currentTime+duration);
+  }catch(e){}
+}
+function finishSignal(){beep(880,.12,.14);setTimeout(()=>beep(1100,.18,.16),150);}
+
 function svgFor(icon){
   const common='stroke="#ffb35c" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"';
   const svgs={
@@ -473,7 +560,7 @@ function buildQueue(){
   return q;
 }
 function startWorkout(){
-  player={queue:buildQueue(),index:0,setIndex:0,state:"idle",timer:null,remaining:0,startTime:Date.now(),currentReps:[]};
+  ensureAudio();player={queue:buildQueue(),index:0,setIndex:0,state:"idle",timer:null,remaining:0,endAt:0,startTime:Date.now(),currentReps:[],side:null,pendingNext:false};
   document.getElementById("player").classList.remove("hidden");
   renderPlayer();
   if(navigator.wakeLock){navigator.wakeLock.request("screen").catch(()=>{});}
@@ -495,7 +582,12 @@ function renderPlayer(){
     renderSetDots(item);
     document.getElementById("repInput").value="";
     document.getElementById("lastPerformance").textContent=item.performance||"–";
-    main.textContent=`Satz ${player.setIndex+1} starten`;
+    const unilateral=/je Seite/i.test(item.reps||"");
+    if(unilateral && !player.side)player.side="left";
+    const sideBadge=document.getElementById("sideBadge");
+    sideBadge.classList.toggle("hidden",!unilateral);
+    if(unilateral)sideBadge.textContent=player.side==="left"?"LINKE SEITE":"RECHTE SEITE";
+    main.textContent=`Satz ${player.setIndex+1}${unilateral?(player.side==="left"?" links":" rechts"):""} starten`;
     player.state="readySet";
   }else if(item.kind==="time"){
     timerBlock.classList.remove("hidden");
@@ -522,27 +614,81 @@ function playerMainAction(){
   else if(player.state==="rest"){skipRest();}
 }
 function startTimer(seconds,mode){
-  clearInterval(player.timer);player.remaining=seconds;player.state=mode==="rest"?"rest":"timing";
+  clearInterval(player.timer);
+  player.remaining=seconds;
+  player.endAt=Date.now()+seconds*1000;
+  player.state=mode==="rest"||mode==="between"?"rest":"timing";
+  player.pendingNext=mode==="between";
   document.getElementById("timerBlock").classList.remove("hidden");
   document.getElementById("setBlock").classList.add("hidden");
   document.getElementById("timerText").textContent=seconds;
-  document.getElementById("playerMainButton").textContent=mode==="rest"?"Pause überspringen":"Läuft…";
-  player.timer=setInterval(()=>{
-    player.remaining--;document.getElementById("timerText").textContent=player.remaining;
-    if(player.remaining<=3&&player.remaining>0&&navigator.vibrate)navigator.vibrate(80);
-    if(player.remaining<=0){clearInterval(player.timer);if(mode==="rest"){player.setIndex++;renderPlayer();}else nextPlayerItem();}
-  },1000);
+  document.getElementById("playerMainButton").textContent=mode==="between"?"Übungspause überspringen":(mode==="rest"?"Pause überspringen":"Läuft…");
+
+  const tick=()=>{
+    player.remaining=Math.max(0,Math.ceil((player.endAt-Date.now())/1000));
+    document.getElementById("timerText").textContent=player.remaining;
+    if(player.remaining<=3&&player.remaining>0)beep(540+player.remaining*80,.07,.08);
+    if(player.remaining<=0){
+      clearInterval(player.timer);
+      finishSignal();
+      if(mode==="rest"){
+        player.setIndex++;
+        renderPlayer();
+      }else if(mode==="between"){
+        player.index++;
+        player.setIndex=0;
+        player.currentReps=[];
+        player.side=null;
+        renderPlayer();
+      }else{
+        nextPlayerItem();
+      }
+    }
+  };
+  tick();
+  player.timer=setInterval(tick,250);
 }
 function finishSet(item){
   const reps=Number(document.getElementById("repInput").value)||0;
-  player.currentReps.push(reps);
+  const unilateral=/je Seite/i.test(item.reps||"");
   const d=ensureDay(),e=d.exercises.find(x=>x.id===item.id);
-  if(e){e.setResults=player.currentReps.slice();e.performance=e.setResults.join(" / ");}
+
+  if(unilateral && player.side==="left"){
+    player.currentReps.push({left:reps,right:null});
+    player.side="right";
+    beep(920,.14,.14);
+    document.getElementById("repInput").value="";
+    document.getElementById("playerSubtitle").textContent="Jetzt rechte Seite – gleicher Satz";
+    document.getElementById("sideBadge").textContent="RECHTE SEITE";
+    document.getElementById("playerMainButton").textContent=`Satz ${player.setIndex+1} rechts starten`;
+    player.state="readySet";
+    return;
+  }
+
+  if(unilateral){
+    const pair=player.currentReps[player.currentReps.length-1]||{left:0,right:null};
+    pair.right=reps;
+    if(e){
+      e.setResults=player.currentReps.slice();
+      e.performance=e.setResults.map(x=>`L${x.left}/R${x.right}`).join(" · ");
+    }
+    player.side="left";
+  }else{
+    player.currentReps.push(reps);
+    if(e){
+      e.setResults=player.currentReps.slice();
+      e.performance=e.setResults.join(" / ");
+    }
+  }
   persist();
+
   if(player.setIndex>=item.sets-1){
     if(e)e.done=true;
     persist();
-    player.currentReps=[];player.setIndex=0;nextPlayerItem();
+    player.currentReps=[];
+    player.setIndex=0;
+    player.side=null;
+    advanceAfterCompletedItem();
   }else{
     document.getElementById("playerTitle").textContent="Pause";
     document.getElementById("playerSubtitle").textContent=`Nächster Satz: ${item.name}`;
@@ -551,8 +697,27 @@ function finishSet(item){
     startTimer(item.rest,"rest");
   }
 }
-function skipRest(){clearInterval(player.timer);player.setIndex++;renderPlayer();}
-function nextPlayerItem(){clearInterval(player.timer);player.index++;player.setIndex=0;player.currentReps=[];renderPlayer();}
+function skipRest(){
+  clearInterval(player.timer);
+  if(player.pendingNext){
+    player.index++;player.setIndex=0;player.currentReps=[];player.side=null;player.pendingNext=false;renderPlayer();
+  }else{
+    player.setIndex++;renderPlayer();
+  }
+}
+function advanceAfterCompletedItem(){
+  const next=player.queue[player.index+1];
+  if(next && currentItem()?.phase==="WORKOUT" && next.phase==="WORKOUT"){
+    document.getElementById("playerTitle").textContent="Übungswechsel";
+    document.getElementById("playerSubtitle").textContent=`Als Nächstes: ${next.name}`;
+    document.getElementById("playerIllustration").innerHTML=svgFor(next.icon);
+    document.getElementById("instructionCard").innerHTML=`<strong>90 Sekunden Übergang</strong><div class="small muted" style="margin-top:6px">Hantel ablegen, kurz trinken und sauber für die nächste Übung aufstellen.</div>`;
+    startTimer(90,"between");
+  }else{
+    nextPlayerItem();
+  }
+}
+function nextPlayerItem(){clearInterval(player.timer);player.index++;player.setIndex=0;player.currentReps=[];player.side=null;renderPlayer();}
 function skipPlayerItem(){nextPlayerItem();}
 function pauseOrClosePlayer(){
   clearInterval(player.timer);
@@ -573,6 +738,25 @@ function finishWorkout(){
   document.getElementById("playerSkipButton").classList.add("hidden");
 }
 
+document.addEventListener("visibilitychange",()=>{
+  if(!document.hidden && player.endAt && (player.state==="rest"||player.state==="timing")){
+    player.remaining=Math.max(0,Math.ceil((player.endAt-Date.now())/1000));
+    const timerText=document.getElementById("timerText");
+    if(timerText)timerText.textContent=player.remaining;
+    if(player.remaining<=0){
+      clearInterval(player.timer);
+      finishSignal();
+      if(player.pendingNext){
+        player.index++;player.setIndex=0;player.currentReps=[];player.side=null;player.pendingNext=false;renderPlayer();
+      }else if(player.state==="rest"){
+        player.setIndex++;renderPlayer();
+      }else nextPlayerItem();
+    }
+  }
+  if(!document.hidden && navigator.wakeLock && !document.getElementById("player").classList.contains("hidden")){
+    navigator.wakeLock.request("screen").catch(()=>{});
+  }
+});
 setInterval(()=>document.getElementById("clockText").textContent=new Date().toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit",second:"2-digit"}),1000);
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");
 render();
