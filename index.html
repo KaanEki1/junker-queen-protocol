@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="JQ Protocol">
   <link rel="manifest" href="manifest.json">
-  <title>Junker Queen Protocol</title>
+  <title>Junker Queen Protocol v5</title>
   <style>
     :root{
       --bg:#0a0a0d;--card:#17171d;--card2:#202027;--line:#303039;--text:#f8f8fa;--muted:#a8a8b3;
@@ -86,6 +86,34 @@
     .toggleline input{width:24px;height:24px}
     .version{font-size:.72rem;color:var(--muted);text-align:center;margin-top:14px}
     .sidebadge{display:inline-flex;margin-top:8px;padding:5px 9px;border-radius:999px;background:rgba(114,212,255,.14);color:var(--blue);font-weight:850;font-size:.78rem}
+
+    body{overflow-x:hidden}
+    .metric .value{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .navinner{grid-template-columns:repeat(5,minmax(0,1fr))}
+    .calendar-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-top:10px}
+    .cal-label{text-align:center;font-size:.72rem;color:var(--muted);font-weight:800;padding:5px 0}
+    .cal-day{min-height:76px;padding:7px;border-radius:13px;background:var(--card);border:1px solid var(--line);color:var(--text);text-align:left}
+    .cal-day.other{opacity:.35}.cal-day.today{border-color:var(--orange)}.cal-day.hasdata{background:#1e1b19}
+    .cal-num{font-weight:900}.cal-mini{font-size:.62rem;color:var(--muted);margin-top:4px;line-height:1.25}
+    .cal-rank{width:8px;height:8px;border-radius:50%;display:inline-block;margin-left:3px}
+    .overlay{position:fixed;inset:0;z-index:120;background:#09090d;overflow:auto;padding:calc(18px + env(safe-area-inset-top)) 14px calc(24px + env(safe-area-inset-bottom))}
+    .overlay-inner{max-width:760px;margin:auto}.overlay-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+    .rank-card{position:relative;overflow:hidden;background:linear-gradient(145deg,#1d1d24,#111116);border:1px solid var(--line);border-radius:24px;padding:18px}
+    .rank-card:after{content:"";position:absolute;inset:-100% -40%;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.11) 49%,transparent 56%);animation:shine 5s linear infinite}
+    @keyframes shine{to{transform:translateX(60%)}}
+    .rank-emblem{width:110px;height:110px;margin:auto;border-radius:28px;display:grid;place-items:center;font-size:3rem;font-weight:1000;border:2px solid currentColor;box-shadow:0 0 30px currentColor}
+    .rank-name{text-align:center;font-size:1.7rem;font-weight:1000;margin-top:12px}.xp{text-align:center;color:var(--muted);margin-top:4px}
+    .trophy-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+    .trophy{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}
+    .recipe-grid{display:grid;gap:9px}.recipe{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:13px}
+    .ingredient-row{display:grid;grid-template-columns:1.3fr .65fr .65fr .65fr auto;gap:6px;align-items:end;margin-top:7px}
+    .ingredient-row input{padding:8px}.ingredient-row label{font-size:.65rem}
+    @media(max-width:600px){.ingredient-row{grid-template-columns:1fr 1fr}.ingredient-row .remove-ing{grid-column:2}.cal-day{min-height:68px;padding:5px}.cal-mini{font-size:.57rem}}
+    .tabs{display:flex;gap:7px;overflow:auto;padding-bottom:5px}.tabs button{white-space:nowrap}
+    .rank-bronze{color:#b87333}.rank-silber{color:#c7ccd2}.rank-gold{color:#ffd15c}.rank-platin{color:#7fe3dc}
+    .rank-diamant{color:#70bfff}.rank-master{color:#b17cff}.rank-grandmaster{color:#ff67b4}.rank-champion{color:#ff654d}.rank-jk{color:#fff0a8}
+
   </style>
 </head>
 <body>
@@ -161,40 +189,79 @@
     </div>
   </section>
 
-  <section id="weekPage" class="hidden">
-    <h2>Diese Woche</h2>
-    <div class="week" id="weekList"></div>
+  <section id="calendarPage" class="hidden">
+    <h2>Kalender</h2>
+    <div class="card">
+      <div class="calendar-head">
+        <button class="secondary" onclick="changeCalendarMonth(-1)">‹</button>
+        <strong id="calendarTitle"></strong>
+        <button class="secondary" onclick="changeCalendarMonth(1)">›</button>
+      </div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+    <div class="muted small" style="margin-top:10px">Tippe einen Tag an, um Meals, Schritte, Ziele, Workout und Check-in nachträglich zu bearbeiten.</div>
   </section>
 
-  <section id="reportPage" class="hidden">
-    <h2>Coach Report</h2>
-    <div class="card" style="margin-bottom:12px">
-      <label>Report-Tag auswählen</label>
-      <select id="reportDateSelect" onchange="renderReport()"></select>
-      <div class="toggleline" style="margin-top:12px">
-        <div>
-          <strong>Wassertracking anzeigen</strong>
-          <div class="muted small">Optional – ausblenden, wenn du es nicht nutzt.</div>
+  <section id="hqPage" class="hidden">
+    <h2>Protocol HQ</h2>
+    <div class="tabs">
+      <button class="primary" onclick="showHQ('ranked')">Ranked</button>
+      <button class="secondary" onclick="showHQ('recipes')">Rezepte</button>
+      <button class="secondary" onclick="showHQ('reports')">Reports</button>
+      <button class="secondary" onclick="showHQ('settings')">Settings</button>
+    </div>
+
+    <div id="hqRanked">
+      <div class="rank-card" style="margin-top:12px">
+        <div id="rankEmblem" class="rank-emblem">B</div>
+        <div id="rankName" class="rank-name">Bronze</div>
+        <div id="seasonName" class="xp"></div>
+        <div id="seasonXP" class="xp"></div>
+        <div class="bar" style="margin-top:14px"><div id="rankProgress" class="fill"></div></div>
+        <div id="rankNext" class="muted small" style="text-align:center;margin-top:7px"></div>
+      </div>
+      <h2>Pokalvitrine</h2>
+      <div id="trophyGrid" class="trophy-grid"></div>
+    </div>
+
+    <div id="hqRecipes" class="hidden">
+      <div class="actions" style="margin-top:12px">
+        <button class="primary" onclick="newRecipe()">+ Rezept</button>
+        <button class="secondary" onclick="seedRecipes(true)">Hall of Fame laden</button>
+      </div>
+      <div id="recipeList" class="recipe-grid" style="margin-top:10px"></div>
+    </div>
+
+    <div id="hqReports" class="hidden">
+      <div class="card" style="margin-top:12px">
+        <label>Report-Tag auswählen</label>
+        <select id="reportDateSelect" onchange="renderReport()"></select>
+      </div>
+      <div class="report" id="reportText" style="margin-top:12px"></div>
+      <button class="primary" style="width:100%;margin-top:10px" onclick="copyReport()">Report kopieren</button>
+    </div>
+
+    <div id="hqSettings" class="hidden">
+      <div class="card" style="margin-top:12px">
+        <div class="toggleline">
+          <div><strong>Wassertracking</strong><div class="muted small">Optional anzeigen.</div></div>
+          <input id="waterTrackingToggle" type="checkbox" onchange="toggleWaterTracking(this.checked)">
         </div>
-        <input id="waterTrackingToggle" type="checkbox" onchange="toggleWaterTracking(this.checked)">
+        <div class="sep"></div>
+        <div class="toggleline">
+          <div><strong>Workout-Sound</strong><div class="muted small">Countdown und Seitenwechsel.</div></div>
+          <input id="soundToggle" type="checkbox" onchange="toggleSound(this.checked)">
+        </div>
+        <button class="secondary" style="width:100%;margin-top:10px" onclick="testSound()">Sound testen</button>
       </div>
-    </div>
-    <div class="card">
-      <div class="formgrid">
-        <div><label>Gewicht optional</label><input id="weightInput" type="number" step="0.1"></div>
-        <div><label>Energie 1–10</label><input id="energyInput" type="number" min="1" max="10"></div>
-        <div><label>Hunger 1–10</label><input id="hungerInput" type="number" min="1" max="10"></div>
-        <div id="waterReportWrap"><label>Wasser heute (ml)</label><input id="waterTotal" type="number" min="0"></div>
-        <div class="wide"><label>Notiz</label><textarea id="notesInput"></textarea></div>
+      <h2>Daten</h2>
+      <div class="actions">
+        <button class="secondary" onclick="exportData()">Backup exportieren</button>
+        <button class="secondary" onclick="document.getElementById('importFile').click()">Backup importieren</button>
       </div>
-      <button class="secondary" style="width:100%;margin-top:10px" onclick="saveCheckin()">Check-in speichern</button>
+      <input id="importFile" class="hidden" type="file" accept="application/json" onchange="importData(event)">
+      <div class="version">Junker Queen Protocol v5.0</div>
     </div>
-    <div class="report" id="reportText" style="margin-top:12px"></div>
-    <div class="actions">
-      <button class="primary" onclick="copyReport()">Report kopieren</button>
-      <button class="secondary" onclick="exportData()">Backup</button>
-    </div>
-    <div class="version">Junker Queen Protocol v4.0</div>
   </section>
 </div>
 
@@ -203,10 +270,64 @@
     <button class="secondary" onclick="showPage('today')">Heute</button>
     <button class="secondary" onclick="showPage('food')">Essen</button>
     <button class="secondary" onclick="showPage('workout')">Training</button>
-    <button class="secondary" onclick="showPage('week')">Woche</button>
-    <button class="primary" onclick="showPage('report')">Report</button>
+    <button class="secondary" onclick="showPage('calendar')">Kalender</button>
+    <button class="primary" onclick="showPage('hq')">HQ</button>
   </div>
 </nav>
+
+
+<section id="dayEditor" class="overlay hidden">
+  <div class="overlay-inner">
+    <div class="overlay-top"><div><div class="phase">TAG BEARBEITEN</div><h2 id="editDayTitle" style="margin:4px 0"></h2></div><button class="secondary" onclick="closeDayEditor()">Fertig</button></div>
+    <div class="card">
+      <div class="formgrid">
+        <div><label>Tagestyp</label><select id="editType"><option>Grind</option><option>Standard</option><option>Recovery</option></select></div>
+        <div><label>Workout</label><select id="editWorkout"><option>Push</option><option>Pull</option><option>Legs + Core</option><option>Legs + Shoulders</option><option>Arms + Core Light</option></select></div>
+        <div><label>kcal Ziel</label><input id="editKcalGoal" type="number"></div>
+        <div><label>Protein Ziel</label><input id="editProteinGoal" type="number"></div>
+        <div><label>Steps Ziel</label><input id="editStepsGoal" type="number"></div>
+        <div><label>Steps aktuell</label><input id="editSteps" type="number"></div>
+        <div><label>Energie 1–10</label><input id="editEnergy" type="number" min="1" max="10"></div>
+        <div><label>Hunger 1–10</label><input id="editHunger" type="number" min="1" max="10"></div>
+        <div class="wide"><label>Notiz</label><textarea id="editNotes"></textarea></div>
+      </div>
+      <button class="primary" style="width:100%;margin-top:10px" onclick="saveEditedDay()">Tag speichern</button>
+    </div>
+    <h2>Meals</h2>
+    <div class="card">
+      <div class="formgrid">
+        <div class="wide"><label>Name</label><input id="editMealName"></div>
+        <div><label>kcal</label><input id="editMealKcal" type="number"></div>
+        <div><label>Protein</label><input id="editMealProtein" type="number"></div>
+      </div>
+      <button class="secondary" style="width:100%;margin-top:10px" onclick="addMealToEditedDay()">Meal hinzufügen</button>
+    </div>
+    <div id="editMealList" style="display:grid;gap:8px;margin-top:9px"></div>
+    <h2>Workout</h2>
+    <div id="editExerciseList" style="display:grid;gap:8px"></div>
+  </div>
+</section>
+
+<section id="recipeEditor" class="overlay hidden">
+  <div class="overlay-inner">
+    <div class="overlay-top"><h2 id="recipeEditorTitle">Rezept</h2><button class="secondary" onclick="closeRecipeEditor()">Schließen</button></div>
+    <div class="card">
+      <label>Name</label><input id="recipeName">
+      <label style="margin-top:9px">Bewertung 1–10</label><input id="recipeRating" type="number" min="1" max="10" step=".1">
+      <div id="ingredientEditor"></div>
+      <button class="secondary" style="width:100%;margin-top:10px" onclick="addIngredientRow()">+ Zutat</button>
+      <button class="primary" style="width:100%;margin-top:10px" onclick="saveRecipe()">Rezept speichern</button>
+    </div>
+  </div>
+</section>
+
+<section id="cookRecipe" class="overlay hidden">
+  <div class="overlay-inner">
+    <div class="overlay-top"><h2 id="cookTitle">Heute kochen</h2><button class="secondary" onclick="closeCookRecipe()">Schließen</button></div>
+    <div id="cookIngredients"></div>
+    <div class="card" style="margin-top:10px"><strong id="cookMacros"></strong><button class="primary" style="width:100%;margin-top:10px" onclick="addCookedRecipe()">Zum heutigen Tag hinzufügen</button></div>
+  </div>
+</section>
 
 <section id="player" class="player hidden">
   <div class="player-inner">
@@ -371,10 +492,12 @@ const LIBRARY = {
 let db = JSON.parse(localStorage.getItem("jqp_v3_db") || "{}");
 
 function meta(){
-  if(!db.__meta) db.__meta={schemaVersion:4,waterTracking:false,soundEnabled:true};
-  if(db.__meta.schemaVersion<4) db.__meta.schemaVersion=4;
+  if(!db.__meta) db.__meta={schemaVersion:5,waterTracking:false,soundEnabled:true,recipes:[],trophies:[]};
+  if(db.__meta.schemaVersion<5) db.__meta.schemaVersion=5;
   if(typeof db.__meta.waterTracking!=="boolean") db.__meta.waterTracking=false;
   if(typeof db.__meta.soundEnabled!=="boolean") db.__meta.soundEnabled=true;
+  if(!Array.isArray(db.__meta.recipes))db.__meta.recipes=[];
+  if(!Array.isArray(db.__meta.trophies))db.__meta.trophies=[];
   return db.__meta;
 }
 meta();
@@ -443,6 +566,195 @@ function toggleWaterTracking(enabled){
   render();
 }
 
+
+function fmt(value,digits=1){
+  const n=Number(value)||0;
+  return n.toLocaleString("de-AT",{minimumFractionDigits:0,maximumFractionDigits:digits});
+}
+let calendarCursor=new Date(new Date().getFullYear(),new Date().getMonth(),1);
+let editingDayKey=null;
+let editingRecipeId=null;
+let cookingRecipeId=null;
+
+function toggleSound(enabled){meta().soundEnabled=enabled;persist();render();}
+function testSound(){ensureAudio();beep(650,.12,.15);setTimeout(()=>beep(950,.2,.18),180);}
+function importData(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const incoming=JSON.parse(reader.result);
+      if(!confirm("Backup importieren und aktuelle lokale Daten ersetzen?"))return;
+      db=incoming;meta();persist();location.reload();
+    }catch(e){alert("Backup konnte nicht gelesen werden.");}
+  };
+  reader.readAsText(file);
+}
+
+function showHQ(section){
+  ["ranked","recipes","reports","settings"].forEach(x=>{
+    const el=document.getElementById("hq"+x.charAt(0).toUpperCase()+x.slice(1));
+    if(el)el.classList.toggle("hidden",x!==section);
+  });
+  if(section==="ranked")renderRanked();
+  if(section==="recipes")renderRecipes();
+  if(section==="reports"){populateReportDates();renderReport();}
+}
+
+function dayActivity(day){
+  const s=sums(day);
+  return s.kcal>0||s.protein>0||day.steps>0||workoutPct(day)>0||day.reportGenerated;
+}
+function dailyXP(day){
+  const s=sums(day);let xp=0;
+  if(workoutPct(day)===100)xp+=35;
+  if(s.protein>=day.proteinGoal*.95)xp+=25;
+  if(s.kcal>=Math.max(0,day.kcalGoal-300)&&s.kcal<=day.kcalGoal+150)xp+=20;
+  if(day.steps>=day.stepsGoal)xp+=30;
+  if(day.reportGenerated)xp+=10;
+  return xp;
+}
+const RANKS=[
+  {name:"Bronze",min:0,icon:"B",cls:"rank-bronze"},
+  {name:"Silber",min:450,icon:"S",cls:"rank-silber"},
+  {name:"Gold",min:850,icon:"G",cls:"rank-gold"},
+  {name:"Platin",min:1300,icon:"P",cls:"rank-platin"},
+  {name:"Diamant",min:1800,icon:"D",cls:"rank-diamant"},
+  {name:"Master",min:2350,icon:"M",cls:"rank-master"},
+  {name:"Grandmaster",min:2850,icon:"GM",cls:"rank-grandmaster"},
+  {name:"Champion",min:3250,icon:"C",cls:"rank-champion"},
+  {name:"JK",min:3550,icon:"JK",cls:"rank-jk"}
+];
+function monthKey(date){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}`;}
+function seasonXP(date=new Date()){
+  const prefix=monthKey(date),today=new Date();let xp=0,firstActive=null;
+  dayKeys().filter(k=>k.startsWith(prefix)).sort().forEach(k=>{
+    const d=db[k];if(dayActivity(d)&&!firstActive)firstActive=k;xp+=dailyXP(d);
+  });
+  if(firstActive){
+    const start=new Date(firstActive+"T12:00:00");
+    const end=(date.getFullYear()===today.getFullYear()&&date.getMonth()===today.getMonth())?today:new Date(date.getFullYear(),date.getMonth()+1,0);
+    for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1)){
+      const x=db[keyFor(d)];
+      if(!x||!dayActivity(x))xp=Math.max(0,xp-4);
+    }
+  }
+  return Math.round(xp);
+}
+function rankForXP(xp){return [...RANKS].reverse().find(r=>xp>=r.min)||RANKS[0];}
+function finalizePastSeasons(){
+  const current=monthKey(new Date());
+  const months=[...new Set(dayKeys().map(k=>k.slice(0,7)))].filter(m=>m<current);
+  months.forEach(m=>{
+    if(meta().trophies.some(t=>t.month===m))return;
+    const d=new Date(m+"-15T12:00:00"),xp=seasonXP(d),rank=rankForXP(xp);
+    meta().trophies.push({month:m,xp,rank:rank.name,icon:rank.icon,cls:rank.cls});
+  });
+  persist();
+}
+function renderRanked(){
+  finalizePastSeasons();
+  const now=new Date(),xp=seasonXP(now),rank=rankForXP(xp),idx=RANKS.indexOf(rank),next=RANKS[idx+1];
+  const emblem=document.getElementById("rankEmblem");
+  emblem.textContent=rank.icon;emblem.className=`rank-emblem ${rank.cls}`;
+  document.getElementById("rankName").textContent=rank.name;
+  document.getElementById("rankName").className=`rank-name ${rank.cls}`;
+  document.getElementById("seasonName").textContent=`Season ${now.getMonth()+1} · ${now.toLocaleDateString("de-AT",{month:"long",year:"numeric"})}`;
+  document.getElementById("seasonXP").textContent=`${xp} Season XP`;
+  const start=rank.min,end=next?next.min:3600,progress=next?Math.max(0,Math.min(100,(xp-start)/(end-start)*100)):100;
+  document.getElementById("rankProgress").style.width=progress+"%";
+  document.getElementById("rankNext").textContent=next?`Noch ${next.min-xp} XP bis ${next.name}`:"Maximalrang erreicht – halte ihn bis Monatsende.";
+  const grid=document.getElementById("trophyGrid");grid.innerHTML="";
+  if(!meta().trophies.length)grid.innerHTML='<div class="card muted small">Der erste Pokal wird am Monatsende gesichert.</div>';
+  meta().trophies.slice().reverse().forEach(t=>{
+    const d=new Date(t.month+"-15T12:00:00"),el=document.createElement("div");el.className="trophy";
+    el.innerHTML=`<div class="${t.cls}" style="font-size:2rem;font-weight:1000">${t.icon}</div><strong>${t.rank}</strong><div class="muted small">${d.toLocaleDateString("de-AT",{month:"long",year:"numeric"})}</div><div class="small">${t.xp} XP</div>`;
+    grid.appendChild(el);
+  });
+}
+
+function changeCalendarMonth(delta){calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()+delta,1);renderCalendar();}
+function rankDotColor(day){const xp=dailyXP(day);if(xp>=105)return"#fff0a8";if(xp>=80)return"#ffd15c";if(xp>=55)return"#72d4ff";if(xp>0)return"#b87333";return"#444";}
+function renderCalendar(){
+  const title=document.getElementById("calendarTitle"),grid=document.getElementById("calendarGrid");if(!grid)return;
+  title.textContent=calendarCursor.toLocaleDateString("de-AT",{month:"long",year:"numeric"});
+  grid.innerHTML="";
+  ["Mo","Di","Mi","Do","Fr","Sa","So"].forEach(x=>{const e=document.createElement("div");e.className="cal-label";e.textContent=x;grid.appendChild(e);});
+  const first=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth(),1),offset=(first.getDay()+6)%7,start=new Date(first);start.setDate(first.getDate()-offset);
+  for(let i=0;i<42;i++){
+    const d=new Date(start);d.setDate(start.getDate()+i);const key=keyFor(d),x=db[key],s=x?sums(x):{kcal:0,protein:0};
+    const b=document.createElement("button");b.className="cal-day"+(d.getMonth()!==calendarCursor.getMonth()?" other":"")+(key===keyFor()?" today":"")+(x&&dayActivity(x)?" hasdata":"");
+    b.innerHTML=`<span class="cal-num">${d.getDate()}</span>${x?`<span class="cal-rank" style="background:${rankDotColor(x)}"></span><div class="cal-mini">${fmt(s.kcal,0)} kcal<br>${fmt(s.protein,1)}g · ${fmt(x.steps,0)}👣</div>`:""}`;
+    b.onclick=()=>openDayEditor(key);grid.appendChild(b);
+  }
+}
+function openDayEditor(key){
+  const d=new Date(key+"T12:00:00"),day=ensureDay(d);editingDayKey=key;
+  document.getElementById("editDayTitle").textContent=d.toLocaleDateString("de-AT",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
+  document.getElementById("editType").value=day.type;document.getElementById("editWorkout").value=day.workout;
+  document.getElementById("editKcalGoal").value=day.kcalGoal;document.getElementById("editProteinGoal").value=day.proteinGoal;
+  document.getElementById("editStepsGoal").value=day.stepsGoal;document.getElementById("editSteps").value=day.steps;
+  document.getElementById("editEnergy").value=day.energy||"";document.getElementById("editHunger").value=day.hunger||"";document.getElementById("editNotes").value=day.notes||"";
+  renderEditedDayLists();document.getElementById("dayEditor").classList.remove("hidden");
+}
+function closeDayEditor(){document.getElementById("dayEditor").classList.add("hidden");editingDayKey=null;render();}
+function saveEditedDay(){
+  const d=db[editingDayKey];if(!d)return;
+  d.type=document.getElementById("editType").value;d.workout=document.getElementById("editWorkout").value;
+  d.kcalGoal=Number(document.getElementById("editKcalGoal").value)||d.kcalGoal;d.proteinGoal=Number(document.getElementById("editProteinGoal").value)||d.proteinGoal;
+  d.stepsGoal=Number(document.getElementById("editStepsGoal").value)||d.stepsGoal;d.steps=Number(document.getElementById("editSteps").value)||0;
+  d.energy=document.getElementById("editEnergy").value;d.hunger=document.getElementById("editHunger").value;d.notes=document.getElementById("editNotes").value;
+  persist();renderEditedDayLists();renderCalendar();
+}
+function addMealToEditedDay(){
+  const d=db[editingDayKey],name=document.getElementById("editMealName").value.trim(),k=Number(document.getElementById("editMealKcal").value),p=Number(document.getElementById("editMealProtein").value);
+  if(!d||!name||!Number.isFinite(k)||!Number.isFinite(p))return;
+  d.meals.push({id:crypto.randomUUID(),name,kcal:k,protein:p,time:new Date(editingDayKey+"T12:00:00").toISOString()});
+  ["editMealName","editMealKcal","editMealProtein"].forEach(id=>document.getElementById(id).value="");persist();renderEditedDayLists();
+}
+function deleteEditedMeal(id){const d=db[editingDayKey];d.meals=d.meals.filter(m=>m.id!==id);persist();renderEditedDayLists();}
+function toggleEditedExercise(id,checked){const d=db[editingDayKey],e=d.exercises.find(e=>e.id===id);if(e)e.done=checked;persist();renderEditedDayLists();}
+function renderEditedDayLists(){
+  const d=db[editingDayKey];if(!d)return;
+  const ml=document.getElementById("editMealList");ml.innerHTML="";
+  d.meals.forEach(m=>{const e=document.createElement("div");e.className="meal";e.innerHTML=`<div><strong>${m.name}</strong><div class="muted small">${fmt(m.kcal,0)} kcal · ${fmt(m.protein,1)}g</div></div><button class="danger" onclick="deleteEditedMeal('${m.id}')">Löschen</button>`;ml.appendChild(e);});
+  const xl=document.getElementById("editExerciseList");xl.innerHTML="";
+  d.exercises.forEach(e=>{const x=document.createElement("div");x.className="exercise";x.innerHTML=`<input type="checkbox" ${e.done?"checked":""} onchange="toggleEditedExercise('${e.id}',this.checked)"><div><strong>${e.name}</strong><div class="muted small">${e.performance||e.target||""}</div></div>`;xl.appendChild(x);});
+}
+
+function seedRecipes(force=false){
+  if(meta().recipes.length&&!force){renderRecipes();return;}
+  const defaults=[
+    {name:"Protein Pancakes",rating:9.5,ingredients:[["Ei roh",100,143,12.6],["Banane",77,89,1.1],["Proteinpulver",35,385,78]]},
+    {name:"Chicken Sushi Bowl",rating:10,ingredients:[["Reis trocken",81,360,7],["Chicken roh",228,120,23],["Gurke",112,15,0.7],["Avocado",18,160,2],["Nori",3,300,30]]},
+    {name:"McChicken Wrap Füllung",rating:10,ingredients:[["Chicken roh",377,120,23],["Butter",5,717,0.9],["Skyr",120,60,11],["Senf",11,66,4],["Salat/Zwiebel/Gurkenwasser",150,20,1]]},
+    {name:"Orange Skyr Bowl",rating:9.5,ingredients:[["Skyr",200,60,11],["Orange",174,47,0.9]]}
+  ];
+  if(force||!meta().recipes.length)meta().recipes=defaults.map(r=>({id:crypto.randomUUID(),name:r.name,rating:r.rating,ingredients:r.ingredients.map(i=>({id:crypto.randomUUID(),name:i[0],grams:i[1],kcal100:i[2],protein100:i[3]}))}));
+  persist();renderRecipes();
+}
+function recipeMacros(r,ingredients=r.ingredients){return ingredients.reduce((a,i)=>({kcal:a.kcal+i.grams*i.kcal100/100,protein:a.protein+i.grams*i.protein100/100}),{kcal:0,protein:0});}
+function renderRecipes(){
+  seedRecipes(false);const list=document.getElementById("recipeList");if(!list)return;list.innerHTML="";
+  meta().recipes.forEach(r=>{const m=recipeMacros(r),el=document.createElement("div");el.className="recipe";el.innerHTML=`<div class="exercise-head"><div><strong>${r.name}</strong><div class="muted small">⭐ ${fmt(r.rating,1)} · ${fmt(m.kcal,0)} kcal · ${fmt(m.protein,1)}g Protein</div></div><button class="secondary" onclick="editRecipe('${r.id}')">Bearbeiten</button></div><div class="small muted" style="margin-top:7px">${r.ingredients.map(i=>`${fmt(i.grams,0)}g ${i.name}`).join(" · ")}</div><button class="primary" style="width:100%;margin-top:10px" onclick="cookRecipeOpen('${r.id}')">Heute kochen</button>`;list.appendChild(el);});
+}
+function newRecipe(){editingRecipeId=null;document.getElementById("recipeName").value="";document.getElementById("recipeRating").value="";document.getElementById("ingredientEditor").innerHTML="";addIngredientRow();document.getElementById("recipeEditor").classList.remove("hidden");}
+function editRecipe(id){const r=meta().recipes.find(r=>r.id===id);editingRecipeId=id;document.getElementById("recipeName").value=r.name;document.getElementById("recipeRating").value=r.rating;document.getElementById("ingredientEditor").innerHTML="";r.ingredients.forEach(i=>addIngredientRow(i));document.getElementById("recipeEditor").classList.remove("hidden");}
+function addIngredientRow(i={name:"",grams:0,kcal100:0,protein100:0}){const row=document.createElement("div");row.className="ingredient-row";row.innerHTML=`<div><label>Zutat</label><input class="ing-name" value="${i.name}"></div><div><label>Gramm</label><input class="ing-grams" type="number" value="${i.grams}"></div><div><label>kcal/100</label><input class="ing-kcal" type="number" value="${i.kcal100}"></div><div><label>Prot/100</label><input class="ing-protein" type="number" step=".1" value="${i.protein100}"></div><button class="danger remove-ing" onclick="this.parentElement.remove()">×</button>`;document.getElementById("ingredientEditor").appendChild(row);}
+function saveRecipe(){
+  const name=document.getElementById("recipeName").value.trim();if(!name)return;
+  const ingredients=[...document.querySelectorAll("#ingredientEditor .ingredient-row")].map(row=>({id:crypto.randomUUID(),name:row.querySelector(".ing-name").value.trim(),grams:Number(row.querySelector(".ing-grams").value)||0,kcal100:Number(row.querySelector(".ing-kcal").value)||0,protein100:Number(row.querySelector(".ing-protein").value)||0})).filter(i=>i.name);
+  const r={id:editingRecipeId||crypto.randomUUID(),name,rating:Number(document.getElementById("recipeRating").value)||0,ingredients};
+  const idx=meta().recipes.findIndex(x=>x.id===editingRecipeId);if(idx>=0)meta().recipes[idx]=r;else meta().recipes.push(r);
+  persist();closeRecipeEditor();renderRecipes();
+}
+function closeRecipeEditor(){document.getElementById("recipeEditor").classList.add("hidden");}
+function cookRecipeOpen(id){cookingRecipeId=id;const r=meta().recipes.find(r=>r.id===id);document.getElementById("cookTitle").textContent=r.name;const el=document.getElementById("cookIngredients");el.innerHTML="";r.ingredients.forEach(i=>{const x=document.createElement("div");x.className="card";x.style.marginTop="8px";x.innerHTML=`<label>${i.name}</label><input class="cook-grams" data-id="${i.id}" type="number" value="${i.grams}" oninput="updateCookMacros()">`;el.appendChild(x);});document.getElementById("cookRecipe").classList.remove("hidden");updateCookMacros();}
+function currentCookIngredients(){const r=meta().recipes.find(r=>r.id===cookingRecipeId);return r.ingredients.map(i=>({...i,grams:Number(document.querySelector(`.cook-grams[data-id="${i.id}"]`).value)||0}));}
+function updateCookMacros(){const r=meta().recipes.find(r=>r.id===cookingRecipeId),m=recipeMacros(r,currentCookIngredients());document.getElementById("cookMacros").textContent=`${fmt(m.kcal,0)} kcal · ${fmt(m.protein,1)} g Protein`;}
+function addCookedRecipe(){const r=meta().recipes.find(r=>r.id===cookingRecipeId),m=recipeMacros(r,currentCookIngredients()),d=ensureDay();d.meals.push({id:crypto.randomUUID(),name:r.name,kcal:Math.round(m.kcal),protein:Math.round(m.protein*10)/10,time:new Date().toISOString()});persist();closeCookRecipe();render();showPage("food");}
+function closeCookRecipe(){document.getElementById("cookRecipe").classList.add("hidden");}
+
 function render(){
   const d=ensureDay(),s=sums(d),c=coach(d);
   populateReportDates();
@@ -453,10 +765,12 @@ function render(){
   if(waterQuick)waterQuick.classList.toggle("hidden",!waterOn);
   if(waterReport)waterReport.classList.toggle("hidden",!waterOn);
   if(waterToggle)waterToggle.checked=waterOn;
+  const soundToggle=document.getElementById("soundToggle");if(soundToggle)soundToggle.checked=meta().soundEnabled;
+  renderCalendar();renderRanked();renderRecipes();
   document.getElementById("dayPill").textContent=d.type+" Day";
   document.getElementById("dateText").textContent=new Date().toLocaleDateString("de-AT",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
   document.getElementById("coachBox").innerHTML=`<strong>${c[0]}</strong><div class="small muted" style="margin-top:4px">${c[1]}</div>`;
-  [["kcal",s.kcal,d.kcalGoal],["protein",s.protein,d.proteinGoal],["steps",d.steps,d.stepsGoal]].forEach(([id,v,g])=>{document.getElementById(id+"Now").textContent=v;document.getElementById(id+"Goal").textContent=g;document.getElementById(id+"Bar").style.width=pct(v,g)+"%";});
+  [["kcal",s.kcal,d.kcalGoal],["protein",s.protein,d.proteinGoal],["steps",d.steps,d.stepsGoal]].forEach(([id,v,g])=>{document.getElementById(id+"Now").textContent=fmt(v,id==="protein"?1:0);document.getElementById(id+"Goal").textContent=g;document.getElementById(id+"Bar").style.width=pct(v,g)+"%";});
   const wp=workoutPct(d);document.getElementById("workoutPct").textContent=wp;document.getElementById("workoutBar").style.width=wp+"%";
   document.getElementById("stepsInput").value=d.steps||"";document.getElementById("waterTotal").value=d.water||"";document.getElementById("weightInput").value=d.weight||"";
   document.getElementById("energyInput").value=d.energy||"";document.getElementById("hungerInput").value=d.hunger||"";document.getElementById("notesInput").value=d.notes||"";
@@ -472,24 +786,31 @@ function renderStepMissions(){
     el.appendChild(row);
   });
 }
-function renderMeals(){const d=ensureDay(),el=document.getElementById("mealList");el.innerHTML="";if(!d.meals.length){el.innerHTML='<div class="card muted small">Noch nichts eingetragen.</div>';return;}d.meals.slice().reverse().forEach(m=>{const row=document.createElement("div");row.className="meal";row.innerHTML=`<div><strong>${m.name}</strong><div class="muted small">${m.kcal} kcal · ${m.protein} g Protein</div></div><button class="danger" onclick="deleteMeal('${m.id}')">Löschen</button>`;el.appendChild(row);});}
+function renderMeals(){const d=ensureDay(),el=document.getElementById("mealList");el.innerHTML="";if(!d.meals.length){el.innerHTML='<div class="card muted small">Noch nichts eingetragen.</div>';return;}d.meals.slice().reverse().forEach(m=>{const row=document.createElement("div");row.className="meal";row.innerHTML=`<div><strong>${m.name}</strong><div class="muted small">${fmt(m.kcal,0)} kcal · ${fmt(m.protein,1)} g Protein</div></div><button class="danger" onclick="deleteMeal('${m.id}')">Löschen</button>`;el.appendChild(row);});}
 function renderExercises(){const d=ensureDay();document.getElementById("workoutTitle").textContent=d.workout;const el=document.getElementById("exerciseList");el.innerHTML="";d.exercises.sort((a,b)=>a.order-b.order).forEach(e=>{const row=document.createElement("div");row.className="exercise";row.innerHTML=`<input type="checkbox" ${e.done?"checked":""} onchange="toggleExercise('${e.id}',this.checked)"><div><div class="exercise-head"><div><strong>${e.name}</strong>${e.extra?' <span class="tag">EXTRA</span>':''}</div>${e.extra?`<button class="danger" onclick="deleteExercise('${e.id}')">×</button>`:""}</div><div class="muted small">${e.target}</div><div class="small" style="margin-top:5px">${e.instruction||""}</div><input class="perf" value="${e.performance||""}" placeholder="Ergebnis, z. B. 12 / 11 / 10" onchange="savePerformance('${e.id}',this.value)"></div>`;el.appendChild(row);});}
-function renderWeek(){const el=document.getElementById("weekList");el.innerHTML="";const now=new Date(),day=(now.getDay()+6)%7,monday=new Date(now);monday.setDate(now.getDate()-day);for(let i=0;i<7;i++){const d=new Date(monday);d.setDate(monday.getDate()+i);const x=ensureDay(d),s=sums(x);const row=document.createElement("div");row.className="dayrow";row.innerHTML=`<strong>${d.toLocaleDateString("de-AT",{weekday:"short"})}</strong><div><span class="pill">${x.type}</span><div class="muted small">${x.workout}</div></div><div class="small">${s.kcal} kcal<br>${s.protein}g · ${x.steps} Steps</div>`;el.appendChild(row);}}
+function renderWeek(){const el=document.getElementById("weekList");el.innerHTML="";const now=new Date(),day=(now.getDay()+6)%7,monday=new Date(now);monday.setDate(now.getDate()-day);for(let i=0;i<7;i++){const d=new Date(monday);d.setDate(monday.getDate()+i);const x=ensureDay(d),s=sums(x);const row=document.createElement("div");row.className="dayrow";row.innerHTML=`<strong>${d.toLocaleDateString("de-AT",{weekday:"short"})}</strong><div><span class="pill">${x.type}</span><div class="muted small">${x.workout}</div></div><div class="small">${fmt(s.kcal,0)} kcal<br>${fmt(s.protein,1)}g · ${fmt(x.steps,0)} Steps</div>`;el.appendChild(row);}}
 function renderReport(){
   const d=selectedReportDay(),s=sums(d);
-  const dateLabel=new Date(d.date+"T12:00:00").toLocaleString("de-AT",{weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"});
+  const dateLabel=new Date(d.date+"T12:00:00").toLocaleDateString("de-AT",{weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"});
+  const sortedMeals=[...d.meals].sort((a,b)=>new Date(a.time)-new Date(b.time));
+  const firstMeal=sortedMeals[0]?.time?new Date(sortedMeals[0].time).toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit"}):"–";
+  const lastMeal=sortedMeals.at(-1)?.time?new Date(sortedMeals.at(-1).time).toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit"}):"–";
   const waterLine=meta().waterTracking?`
 Wasser: ${d.water||0} ml`:"";
   const text=`JUNKER QUEEN PROTOCOL
 ${dateLabel}
 
 Tag: ${d.type}
-Kalorien: ${s.kcal} / ${d.kcalGoal} kcal
-Protein: ${s.protein} / ${d.proteinGoal} g
-Schritte: ${d.steps} / ${d.stepsGoal}${waterLine}
+Kalorien: ${fmt(s.kcal,0)} / ${d.kcalGoal} kcal
+Protein: ${fmt(s.protein,1)} / ${d.proteinGoal} g
+Schritte: ${fmt(d.steps,0)} / ${d.stepsGoal}${waterLine}
+Erste Mahlzeit: ${firstMeal}
+Letzte Mahlzeit: ${lastMeal}
 Workout: ${d.workout} – ${workoutPct(d)===100?"erledigt":"offen"}
+Workout Start: ${d.workoutStartedAt?new Date(d.workoutStartedAt).toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit"}):"–"}
+Workout Ende: ${d.workoutEndedAt?new Date(d.workoutEndedAt).toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit"}):"–"}
 Workoutdauer: ${d.workoutDuration||0} Minuten
-Rang: ${tier(d)}
+Season XP heute: ${dailyXP(d)}
 Gewicht: ${d.weight||"–"} kg
 Energie: ${d.energy||"–"}/10
 Hunger: ${d.hunger||"–"}/10
@@ -504,9 +825,14 @@ function savePerformance(id,v){const e=ensureDay().exercises.find(x=>x.id===id);
 function addExtra(){const d=ensureDay(),n=document.getElementById("extraName").value.trim(),p=document.getElementById("extraPerf").value.trim();if(!n)return;d.exercises.push({id:crypto.randomUUID(),name:n,target:p||"Extra Leistung",done:true,performance:p,extra:true,order:d.exercises.length+1});persist();document.getElementById("extraName").value="";document.getElementById("extraPerf").value="";render();}
 function deleteExercise(id){const d=ensureDay();d.exercises=d.exercises.filter(e=>e.id!==id);persist();render();}
 function saveCheckin(){const d=ensureDay();d.weight=document.getElementById("weightInput").value;d.energy=Math.min(10,Math.max(1,Number(document.getElementById("energyInput").value)||5));d.hunger=Math.min(10,Math.max(1,Number(document.getElementById("hungerInput").value)||5));d.water=Number(document.getElementById("waterTotal").value)||d.water;d.notes=document.getElementById("notesInput").value.trim();persist();render();}
-async function copyReport(){const d=selectedReportDay();d.reportGenerated=true;persist();const text=document.getElementById("reportText").textContent;try{await navigator.clipboard.writeText(text);alert("Report kopiert.");}catch(e){prompt("Kopieren:",text);}render();}
+async function copyReport(){const d=selectedReportDay();d.reportGenerated=true;d.reportCopiedAt=new Date().toISOString();persist();const text=document.getElementById("reportText").textContent;try{await navigator.clipboard.writeText(text);alert("Report kopiert.");}catch(e){prompt("Kopieren:",text);}render();}
 function exportData(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:"application/json"}));a.download="jqp-backup.json";a.click();URL.revokeObjectURL(a.href);}
-function showPage(p){["today","food","workout","week","report"].forEach(x=>document.getElementById(x+"Page").classList.toggle("hidden",x!==p));render();}
+function showPage(p){
+  ["today","food","workout","calendar","hq"].forEach(x=>document.getElementById(x+"Page").classList.toggle("hidden",x!==p));
+  if(p==="calendar")renderCalendar();
+  if(p==="hq")showHQ("ranked");
+  render();
+}
 
 /* Workout player */
 
@@ -554,13 +880,21 @@ function svgFor(icon){
 }
 function buildQueue(){
   const d=ensureDay(),lib=LIBRARY[d.workout],q=[];
-  lib.warmup.forEach(x=>q.push({...x,phase:"WARM-UP"}));
+  const expandPhase=(item,phase)=>{
+    const unilateral=/je Seite|pro Seite|Seite wechseln|beide Seiten/i.test(item.instruction||"");
+    if(!unilateral)return [{...item,phase}];
+    return [
+      {...item,name:item.name+" – links",phase,side:"left"},
+      {...item,name:item.name+" – rechts",phase,side:"right"}
+    ];
+  };
+  lib.warmup.forEach(x=>q.push(...expandPhase(x,"WARM-UP")));
   d.exercises.filter(e=>!e.extra).forEach(e=>q.push({phase:"WORKOUT",kind:"sets",...e}));
-  lib.cooldown.forEach(x=>q.push({...x,phase:"COOLDOWN"}));
+  lib.cooldown.forEach(x=>q.push(...expandPhase(x,"COOLDOWN")));
   return q;
 }
 function startWorkout(){
-  ensureAudio();player={queue:buildQueue(),index:0,setIndex:0,state:"idle",timer:null,remaining:0,endAt:0,startTime:Date.now(),currentReps:[],side:null,pendingNext:false};
+  ensureAudio();ensureDay().workoutStartedAt=new Date().toISOString();persist();player={queue:buildQueue(),index:0,setIndex:0,state:"idle",timer:null,remaining:0,endAt:0,startTime:Date.now(),currentReps:[],side:null,pendingNext:false};
   document.getElementById("player").classList.remove("hidden");
   renderPlayer();
   if(navigator.wakeLock){navigator.wakeLock.request("screen").catch(()=>{});}
@@ -726,7 +1060,7 @@ function pauseOrClosePlayer(){
 }
 function finishWorkout(){
   clearInterval(player.timer);
-  const d=ensureDay();d.workoutDuration=Math.max(1,Math.round((Date.now()-player.startTime)/60000));persist();
+  const d=ensureDay();d.workoutDuration=Math.max(1,Math.round((Date.now()-player.startTime)/60000));d.workoutEndedAt=new Date().toISOString();persist();
   document.getElementById("playerPhase").textContent="MISSION COMPLETE";
   document.getElementById("playerProgress").textContent="";
   document.getElementById("playerTitle").textContent="Workout abgeschlossen";
@@ -758,6 +1092,8 @@ document.addEventListener("visibilitychange",()=>{
   }
 });
 setInterval(()=>document.getElementById("clockText").textContent=new Date().toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit",second:"2-digit"}),1000);
+seedRecipes(false);
+finalizePastSeasons();
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");
 render();
 </script>

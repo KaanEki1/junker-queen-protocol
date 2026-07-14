@@ -1,44 +1,34 @@
-# Junker Queen Protocol v4.0
+# Junker Queen Protocol v5.0
 
-## Deine Daten bleiben erhalten
-v4 verwendet bewusst denselben lokalen Speicher wie v3 (`jqp_v3_db`).
+## Wichtig vor dem Update
+1. In der alten App **Backup exportieren**.
+2. Das bestehende Homescreen-Icon **nicht löschen**.
+3. `index.html`, `manifest.json` und `sw.js` auf GitHub ersetzen.
+4. Committen, einige Minuten warten und die bestehende App neu öffnen.
+5. Unter **HQ → Settings** gibt es jetzt auch **Backup importieren**.
 
-Dadurch bleiben unter derselben GitHub-Pages-Adresse erhalten:
-- Meals und Tageswerte
-- Schritte
-- Reports
-- bisherige Woche
-- bereits geplante Übungen
-- das heutige Workout
+v5 nutzt weiterhin den lokalen Speicher-Key `jqp_v3_db`, damit vorhandene Daten unter derselben GitHub-Pages-Adresse erhalten bleiben.
 
-Die App überschreibt einen bereits vorhandenen Tag nicht neu.
+## Neu
+- Monatskalender mit Navigation über Jahre
+- Vergangene und zukünftige Tage antippen und bearbeiten
+- Alte Meals ergänzen/löschen
+- Alte Steps, Ziele, Notizen und Workouts bearbeiten
+- Rezeptbibliothek
+- Rezepte mit Zutaten, Gramm, kcal/100 g und Protein/100 g bearbeiten
+- Beim Kochen Mengen für heute verändern und Makros automatisch neu berechnen
+- Hall-of-Fame-Rezepte vorinstalliert
+- Backup-Import und -Export
+- Monatliche Ranked-Seasons
+- Bronze, Silber, Gold, Platin, Diamant, Master, Grandmaster, Champion, JK
+- Saison-XP aus Workout, Protein, Kalorien, Steps und Report
+- leichte Inaktivitätsstrafe innerhalb einer gestarteten Season
+- Pokalvitrine für abgeschlossene Monate
+- alte Reports auswählen und kopieren
+- Uhrzeiten für erste/letzte Mahlzeit sowie Workout Start/Ende
+- Warm-up und Cooldown führen einseitige Übungen links/rechts getrennt
+- Protein- und Dezimalanzeigen sauber gerundet
 
-Trotzdem vor dem Update einmal **Backup** exportieren.
-
-## Neu in v4
-- Safe Area oben korrigiert
-- weißer Bereich unten behoben
-- Wassertracking optional und standardmäßig ausgeblendet
-- 90 Sekunden Pause zwischen Übungen
-- Timer basiert auf einer echten Endzeit
-- Countdown korrigiert sich nach App-Wechsel
-- Sound bei den letzten Sekunden und am Timerende
-- einseitige Übungen führen links und rechts separat
-- Wechselton zwischen linker und rechter Seite
-- Protein gilt ab 95 % des Ziels als geschafft
-- vergangene Reports über Datum auswählbar und kopierbar
-- Versionsanzeige
-
-## GitHub aktualisieren
-1. In der bisherigen App zuerst **Backup** drücken.
-2. ZIP entpacken.
-3. `index.html`, `manifest.json` und `sw.js` in deinem Repository ersetzen.
-4. Commit changes.
-5. 1–3 Minuten warten.
-6. Web-App auf dem iPhone vollständig schließen und neu öffnen.
-7. Falls weiterhin v3 erscheint: GitHub-Pages-Seite in Safari neu laden. Notfalls Homescreen-App löschen und erneut hinzufügen.
-
-## iPhone-Hinweise
-- Wake Lock wird angefordert, iOS kann den Bildschirm in einzelnen Situationen trotzdem sperren.
-- Beim Verlassen der App kann iOS JavaScript pausieren. v4 merkt sich deshalb die genaue Endzeit und zeigt beim Zurückkehren den korrekten Timerstand.
-- Töne funktionieren nach dem manuellen Start des Workout-Players.
+## Ranked-Balance
+Maximal sind etwa 120 XP pro perfekten Tag möglich.
+JK erfordert praktisch einen außergewöhnlich konstanten Monat. Die mittleren Ränge sind erreichbar, aber nicht geschenkt.
