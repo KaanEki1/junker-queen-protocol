@@ -32,3 +32,20 @@ v5 nutzt weiterhin den lokalen Speicher-Key `jqp_v3_db`, damit vorhandene Daten 
 ## Ranked-Balance
 Maximal sind etwa 120 XP pro perfekten Tag möglich.
 JK erfordert praktisch einen außergewöhnlich konstanten Monat. Die mittleren Ränge sind erreichbar, aber nicht geschenkt.
+
+
+## v5.1 Hotfix
+- „Heute“ verwendet jetzt immer das Datum in Europe/Vienna.
+- Unvollständige migrierte Tagesdaten reparieren ihre Ziele automatisch.
+- Verhindert 0/0 bei Kalorien, Protein und Steps, obwohl der Kalendertag Daten enthält.
+
+
+## v5.2 UI & Game Feel
+- Fußzeile auf Heute, Training und Essen reduziert.
+- Schwebendes Plus-Menü für Kalender, Ranked, Rezepte, Reports und Settings.
+- Aktueller Season-Rang inklusive XP permanent im Header.
+- Neun eigenständige, animierte Ranked-Embleme im einheitlichen JQP-Stil.
+- Glücklicherer Pause-Ende-Sound als aufsteigender Major-Arpeggio-Jingle.
+- Haptisches Feedback, sofern vom Gerät/Browser unterstützt.
+- Visuelle Button-, Navigation-, Sheet- und Rank-Animationen.
+- Hall-of-Fame-Rezeptfehler behoben; Standardrezepte werden wieder angezeigt.

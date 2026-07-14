@@ -1,9 +1,9 @@
 {
-  "name": "Junker Queen Protocol v5",
+  "name": "Junker Queen Protocol v5.2",
   "short_name": "JQ Protocol",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#0b0b0e",
   "theme_color": "#0b0b0e",
-  "description": "Persönlicher Fitness-Coach mit Workout-Player, Kalender, Rezepten und monatlichem Ranked-System."
+  "description": "Fitness Protocol mit animiertem Ranked-System, Rezepten, Kalender und Workout-Player."
 }

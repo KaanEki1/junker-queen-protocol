@@ -1,4 +1,4 @@
-const CACHE="jqp-v5-20260715";
+const CACHE="jqp-v5-2-20260714";
 const ASSETS=["./","./index.html","./manifest.json"];
 self.addEventListener("install",e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
 self.addEventListener("activate",e=>e.waitUntil(Promise.all([self.clients.claim(),caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))])));
