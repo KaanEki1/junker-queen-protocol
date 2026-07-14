@@ -1,4 +1,4 @@
-const CACHE = "jqp-v6-1-20260714";
+const CACHE = "jqp-v6-2-20260714";
 const CORE = ["./", "./index.html", "./manifest.json"];
 
 self.addEventListener("install", event => {
@@ -7,23 +7,33 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("activate", event => {
-  event.waitUntil(Promise.all([
-    self.clients.claim(),
-    caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key))))
-  ]));
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)));
+    await self.clients.claim();
+  })());
 });
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
+  const url = new URL(event.request.url);
+  if (url.origin !== self.location.origin) return;
+
   event.respondWith((async () => {
     const cached = await caches.match(event.request);
-    const network = fetch(event.request).then(response => {
-      if (response && response.ok && response.type === "basic") {
+    const networkPromise = fetch(event.request).then(response => {
+      if (response && response.ok) {
         const copy = response.clone();
         caches.open(CACHE).then(cache => cache.put(event.request, copy));
       }
       return response;
     }).catch(() => null);
-    return cached || await network || caches.match("./index.html");
+
+    if (cached) {
+      event.waitUntil(networkPromise);
+      return cached;
+    }
+
+    return await networkPromise || await caches.match("./index.html");
   })());
 });

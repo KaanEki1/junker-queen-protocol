@@ -1,5 +1,5 @@
 {
-  "name": "Junker Queen Protocol 6.1",
+  "name": "Junker Queen Protocol 6.2",
   "short_name": "JQ Protocol",
   "id": "jq-protocol-v6",
   "start_url": "./index.html",
@@ -8,7 +8,7 @@
   "orientation": "portrait-primary",
   "background_color": "#070809",
   "theme_color": "#070809",
-  "description": "Premium Fitness Protocol mit Tagestracking, Workout-Player, Ranked Seasons, Kalender, Rezepten und Offline-Modus.",
+  "description": "Premium Fitness Protocol mit fairem Daily-XP- und Streak-System, Workout-Player, Ranked Seasons, Rezepten und Offline-Modus.",
   "lang": "de-AT",
   "categories": ["fitness", "health", "lifestyle"],
   "prefer_related_applications": false

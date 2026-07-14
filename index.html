@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="JQ Protocol">
   <link rel="manifest" href="manifest.json">
-  <title>Junker Queen Protocol v6.1</title>
+  <title>Junker Queen Protocol v6.2</title>
   <style>
     :root{
       --bg:#0a0a0d;--card:#17171d;--card2:#202027;--line:#303039;--text:#f8f8fa;--muted:#a8a8b3;
@@ -52,7 +52,7 @@
     .exercise .perf{margin-top:8px}
     .exercise-head{display:flex;justify-content:space-between;gap:8px}
     .tag{font-size:.67rem;padding:3px 6px;border-radius:999px;background:rgba(255,209,92,.15);color:var(--gold)}
-    .week{display:grid;gap:8px}.dayrow{display:grid;grid-template-columns:82px 1fr auto;gap:10px;align-items:center}
+    .week{display:grid;gap:8px}.dayrow{display:grid;grid-template-columns:82px 1fr auto;gap:10px;align-items:center}.dayrow.today-row{border-color:rgba(255,122,53,.28);background:linear-gradient(145deg,rgba(255,122,53,.06),var(--card))}.week-score{text-align:right}.week-score b{color:var(--gold)}
     .report{white-space:pre-wrap;background:#111116;border:1px dashed #4a4a54;border-radius:14px;padding:13px}
     .hidden{display:none}.sep{height:1px;background:var(--line);margin:12px 0}
     .nav{position:fixed;left:0;right:0;bottom:0;background:rgba(10,10,13,.98);backdrop-filter:blur(14px);
@@ -208,7 +208,7 @@ button{border-radius:14px;min-height:44px;transition:transform .12s ease,filter 
 @media(max-width:580px){.hero{padding:19px}.mini-rank-copy{display:none}.mini-rank{padding:7px}.formgrid{grid-template-columns:1fr}.wide{grid-column:auto}.grid{grid-template-columns:1fr 1fr}.metric{min-height:118px}.system-strip{grid-template-columns:1fr 1fr 1fr}.system-chip{padding:9px 8px}.system-chip strong{font-size:.74rem}.quick-grid{gap:8px}.quick-item{min-height:88px}}
 @media(min-width:760px){.app{padding-left:24px;padding-right:24px}.hero{padding:28px}.grid{grid-template-columns:repeat(4,1fr)}.content-columns{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;align-items:start}}
 
-/* ===== JQP 6.1 — Dopamine feedback layer ===== */
+/* ===== JQP 6.2 — Dopamine feedback layer ===== */
 :root{--violet:#9d7cff;--cyan:#57e5ff;--pink:#ff69b4}
 .hero{background:radial-gradient(420px 220px at 82% 0%,rgba(157,124,255,.16),transparent 62%),radial-gradient(440px 240px at 8% 110%,rgba(255,122,53,.12),transparent 62%),linear-gradient(150deg,rgba(28,31,35,.98),rgba(12,14,17,.99))}
 .hero-orbit{position:absolute;right:-45px;top:-45px;width:155px;height:155px;border:1px solid rgba(255,255,255,.06);border-radius:50%;animation:orbitSpin 18s linear infinite;pointer-events:none}.hero-orbit:before,.hero-orbit:after{content:"";position:absolute;border-radius:50%;background:var(--orange-2);box-shadow:0 0 18px currentColor}.hero-orbit:before{width:7px;height:7px;top:17px;left:22px}.hero-orbit:after{width:4px;height:4px;right:12px;bottom:35px;color:var(--violet)}@keyframes orbitSpin{to{transform:rotate(360deg)}}
@@ -224,7 +224,24 @@ button{border-radius:14px;min-height:44px;transition:transform .12s ease,filter 
 
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}}
 
-</style>
+
+/* ===== JQP 6.2 — Fair XP, premium polish and native UX ===== */
+:root{--surface:#111418;--surface-2:#171b20;--soft-line:rgba(255,255,255,.075);--success:#62d59b;--warning:#f2bd62;--over:#ff806f}
+.focus-strip{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-top:15px;padding-top:14px;border-top:1px solid var(--soft-line)}.focus-main span{display:block;font-size:.59rem;letter-spacing:.14em;color:var(--muted);font-weight:900}.focus-main strong{display:block;margin-top:4px;font-size:.9rem}.focus-meta{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.focus-meta span{font-size:.62rem;color:#89919c;background:rgba(255,255,255,.035);padding:5px 8px;border-radius:999px;border:1px solid var(--soft-line)}
+.momentum-card{border-radius:25px;background:radial-gradient(240px 120px at 100% 0%,rgba(255,122,53,.13),transparent 70%),linear-gradient(145deg,#161a1f,#0e1114)}.momentum-score{text-align:right}.daily-xp small{display:block;font-size:.62rem;letter-spacing:.04em;color:var(--muted);font-weight:800}.streak-stats{display:flex;align-items:center;gap:8px;margin-top:12px}.streak-stats>span{font-size:.65rem;color:var(--muted);padding:6px 8px;border:1px solid var(--soft-line);border-radius:999px;background:rgba(255,255,255,.025)}.streak-stats b{color:var(--text)}.status-chip.secured{color:#a8f2ca!important;border-color:rgba(98,213,155,.28)!important;background:rgba(98,213,155,.09)!important}.momentum-track{position:relative}.streak-marker{position:absolute;left:41.666%;top:-3px;width:2px;height:14px;background:rgba(255,255,255,.65);box-shadow:0 0 8px rgba(255,255,255,.35)}
+.metric-grid{gap:11px}.metric{padding:15px;min-height:132px;background:linear-gradient(150deg,#15191d,#0f1215);border-color:var(--soft-line)}.metric-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.metric-icon{width:30px;height:30px;display:grid;place-items:center;border-radius:10px;background:rgba(255,255,255,.045);font-size:.95rem}.metric-status{font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:#757d87}.metric .value{font-size:1.5rem;letter-spacing:-.055em}.metric .value small{font-size:.68rem;color:var(--muted);letter-spacing:0}.metric .bar{height:6px;margin-top:13px;background:#252a30}.metric-kcal .metric-icon{color:#ffb16f}.metric-protein .metric-icon{color:#bc9cff}.metric-steps .metric-icon{color:#70dcef}.metric-workout .metric-icon{color:#7de2aa}.metric.state-near{border-color:rgba(242,189,98,.24)}.metric.state-near .metric-status{color:var(--warning)}.metric.state-hit{border-color:rgba(98,213,155,.34);box-shadow:0 14px 40px rgba(98,213,155,.08)}.metric.state-hit .metric-status{color:var(--success)}.metric.state-hit .fill{background:linear-gradient(90deg,#50c98c,#9be8be)}.metric.state-over{border-color:rgba(255,128,111,.3)}.metric.state-over .metric-status{color:var(--over)}.metric.state-over .fill{background:linear-gradient(90deg,#f0a45d,#ff806f)}
+.xp-breakdown-toggle{width:100%;margin-top:11px;padding:13px 15px;border-radius:18px;background:#111519;border:1px solid var(--soft-line);color:var(--text);display:flex;align-items:center;gap:12px;text-align:left}.xp-breakdown-toggle span{flex:1}.xp-breakdown-toggle b,.xp-breakdown-toggle small{display:block}.xp-breakdown-toggle small{font-size:.64rem;color:var(--muted);margin-top:2px}.xp-breakdown-toggle strong{font-size:.83rem}.xp-breakdown-toggle i{font-style:normal;color:var(--muted);transition:transform .2s}.xp-breakdown-toggle.open i{transform:rotate(180deg)}.xp-breakdown{margin-top:8px;padding:13px 15px;border-radius:18px;background:#0e1114;border:1px solid var(--soft-line)}.xp-row{display:grid;grid-template-columns:74px 1fr 82px;gap:10px;align-items:center;padding:7px 0}.xp-row>span{font-size:.68rem;color:var(--muted)}.xp-row>div{height:5px;background:#252a2f;border-radius:99px;overflow:hidden}.xp-row>div i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--orange),var(--gold))}.xp-row strong{font-size:.66rem;text-align:right}.xp-total{display:flex;justify-content:space-between;border-top:1px solid var(--soft-line);padding-top:10px;margin-top:6px;font-size:.76rem}
+.stepmission{position:relative;display:grid;grid-template-columns:38px 1fr;gap:11px;padding:0;border:0;background:transparent;overflow:visible}.mission-rail{position:relative;display:flex;justify-content:center}.mission-rail i{position:absolute;width:2px;top:35px;bottom:-14px;background:#242a30}.stepmission:last-child .mission-rail i{display:none}.mission-rail span{width:32px;height:32px;border-radius:11px;display:grid;place-items:center;background:#181d22;border:1px solid var(--soft-line);color:#747d87;font-size:.72rem;font-weight:900;z-index:1}.mission-copy{padding:12px 13px;border-radius:17px;background:#111519;border:1px solid var(--soft-line)}.mission-copy>div:first-child{display:flex;justify-content:space-between;gap:10px}.mission-copy strong{font-size:.74rem}.mission-copy b{font-size:.72rem}.mission-copy p{margin:5px 0 9px;font-size:.64rem;color:var(--muted)}.mission-progress{height:4px;background:#242a30;border-radius:99px;overflow:hidden}.mission-progress i{display:block;height:100%;background:linear-gradient(90deg,#5fc6d8,#79e0ed);border-radius:inherit;transition:width .6s cubic-bezier(.2,.8,.2,1)}.stepmission.active .mission-copy{border-color:rgba(87,229,255,.25);background:linear-gradient(145deg,rgba(87,229,255,.06),#101418)}.stepmission.active .mission-rail span{color:#8feaff;border-color:rgba(87,229,255,.3)}.stepmission.done .mission-copy{border-color:rgba(98,213,155,.22);background:linear-gradient(145deg,rgba(98,213,155,.075),#101418)}.stepmission.done .mission-rail span{background:var(--success);color:#07150e;border-color:transparent;box-shadow:0 0 18px rgba(98,213,155,.18)}.stepmission.done .mission-progress i{background:var(--success)}
+.exercise{border-radius:19px;background:#111519}.exercise.completed{border-color:rgba(98,213,155,.26);background:linear-gradient(145deg,rgba(98,213,155,.075),#101418)}.exercise.completed strong{text-decoration:none;color:#b7f2d1}.exercise-xp{display:inline-flex;margin-left:6px;padding:3px 6px;border-radius:999px;background:rgba(255,177,95,.08);color:#f2b878;font-size:.58rem;font-weight:900;vertical-align:2px}.exercise-instruction{margin-top:6px;color:#c2c7cd}.extra-exercise{border-style:dashed}.player-overall{display:flex;align-items:center;gap:10px;margin-top:14px}.player-overall>div{height:5px;flex:1;background:#23282e;border-radius:99px;overflow:hidden}.player-overall i{display:block;height:100%;background:linear-gradient(90deg,var(--orange),var(--gold),var(--violet));transition:width .45s ease}.player-overall span{font-size:.68rem;color:var(--muted);font-weight:850}.sidebadge{padding:7px 11px;border-radius:10px;letter-spacing:.12em}.player .dot{transition:transform .18s,background .18s}.player .dot.done{transform:scale(.92)}
+.rank-card{padding:22px;background:radial-gradient(280px 190px at 50% 23%,rgba(157,124,255,.10),transparent 67%),linear-gradient(145deg,#15191e,#0c0f12)}.rank-season-label{text-align:center;color:var(--muted);font-size:.59rem;letter-spacing:.15em;font-weight:900}.rank-xp{text-align:center;font-size:1rem;font-weight:950;letter-spacing:.05em;margin-top:5px}.rank-progress-track{height:8px;background:#252a30;border-radius:999px;overflow:hidden;margin-top:16px}.rank-progress-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--gold),var(--violet));border-radius:inherit;transition:width .7s ease}.rank-next{text-align:center;margin-top:8px;font-size:.74rem;color:#d3d6da}.rank-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:17px}.rank-stat-grid>div{padding:10px 8px;border-radius:14px;border:1px solid var(--soft-line);background:rgba(255,255,255,.025);text-align:center}.rank-stat-grid span,.rank-stat-grid strong{display:block}.rank-stat-grid span{font-size:.56rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.rank-stat-grid strong{font-size:.72rem;margin-top:4px}.season-progress{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center;margin-top:13px;font-size:.59rem;color:var(--muted)}.season-progress>div{height:4px;background:#252a30;border-radius:99px;overflow:hidden}.season-progress i{display:block;height:100%;background:#79838e}.rank-emblem svg{filter:drop-shadow(0 14px 22px rgba(0,0,0,.4)) drop-shadow(0 0 12px currentColor)}
+.recipe-header-actions{display:grid;grid-template-columns:1.1fr .9fr;gap:8px;margin-top:12px}.recipe-toolbar{display:grid;grid-template-columns:1fr 170px;gap:8px;margin-top:10px}.recipe-search{position:relative}.recipe-search span{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted)}.recipe-search input{padding-left:34px}.recipe-favorite-note{display:flex;justify-content:space-between;gap:10px;margin:10px 2px;color:var(--muted);font-size:.61rem}.recipe-grid{display:grid;gap:10px}.recipe-card{padding:15px;border-radius:21px;background:linear-gradient(150deg,#15191d,#0f1215);border:1px solid var(--soft-line);box-shadow:0 12px 32px rgba(0,0,0,.16)}.recipe-card-top{display:grid;grid-template-columns:39px 1fr auto;gap:10px;align-items:center}.recipe-category-icon{width:39px;height:39px;border-radius:13px;display:grid;place-items:center;background:rgba(157,124,255,.09);color:#beaaff}.recipe-title-wrap span,.recipe-title-wrap strong{display:block}.recipe-title-wrap span{font-size:.56rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:850}.recipe-title-wrap strong{font-size:.95rem;margin-top:3px}.favorite-btn{background:transparent;color:#8a929b;font-size:1.3rem;padding:5px}.favorite-btn.active{color:var(--gold);filter:drop-shadow(0 0 8px rgba(255,209,92,.3))}.recipe-macros{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px}.recipe-macros>div{padding:8px 6px;border-radius:11px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.045);text-align:center}.recipe-macros span,.recipe-macros strong{display:block}.recipe-macros span{font-size:.51rem;color:var(--muted)}.recipe-macros strong{font-size:.68rem;margin-top:3px}.recipe-macros i{font-style:normal;color:var(--gold)}.recipe-card-actions{display:grid;grid-template-columns:1fr auto 42px;gap:7px;margin-top:12px}.recipe-more{position:relative}.recipe-more summary{list-style:none;width:42px;height:100%;display:grid;place-items:center;border-radius:12px;background:#252a30;border:1px solid var(--soft-line);cursor:pointer}.recipe-more summary::-webkit-details-marker{display:none}.recipe-more>div{position:absolute;right:0;bottom:calc(100% + 7px);z-index:8;min-width:145px;padding:5px;border-radius:13px;background:#1b2025;border:1px solid rgba(255,255,255,.12);box-shadow:0 16px 45px rgba(0,0,0,.5)}.recipe-more button{width:100%;text-align:left;background:transparent;color:var(--text);padding:9px}.recipe-more .delete-action{color:#ffaaa3}.recipe-editor-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.empty-state{padding:28px;text-align:center;border:1px dashed var(--soft-line);border-radius:20px}.empty-state strong,.empty-state span{display:block}.empty-state span{color:var(--muted);font-size:.72rem;margin-top:5px}
+.quick-panel{background:linear-gradient(160deg,#181c21,#0e1114);border-radius:28px}.quick-group-label{font-size:.58rem;letter-spacing:.13em;color:var(--muted);font-weight:900;margin:12px 3px 7px}.quick-grid-primary{grid-template-columns:1.2fr .8fr}.quick-featured{background:linear-gradient(145deg,rgba(255,122,53,.13),#1a1e23);border-color:rgba(255,122,53,.18)}.quick-sheet{background:rgba(3,5,7,.76)}
+@media(max-width:580px){.focus-strip{align-items:flex-start}.focus-meta{max-width:44%}.metric{min-height:124px}.recipe-toolbar{grid-template-columns:1fr}.recipe-macros{grid-template-columns:repeat(2,1fr)}.recipe-header-actions{grid-template-columns:1fr 1fr}.streak-stats{flex-wrap:wrap}.rank-stat-grid{gap:5px}.rank-stat-grid>div{padding:9px 4px}.xp-row{grid-template-columns:66px 1fr 78px}}
+@media(prefers-reduced-motion:reduce){.momentum-fill,.mission-progress i,.rank-progress-fill,.player-overall i{transition:none!important}.rank-emblem svg,.streak-flame{animation:none!important}.reward-pop.show{animation-duration:1.2s!important}}
+
+  
+@media(max-width:580px){.mini-rank-copy{display:block!important;max-width:96px}.mini-rank-copy strong{font-size:.68rem}.mini-rank-copy span{display:block;max-width:92px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.53rem}.mini-rank{padding:6px 8px}}
+  </style>
 </head>
 <body>
 <div class="app">
@@ -242,24 +259,33 @@ button{border-radius:14px;min-height:44px;transition:transform .12s ease,filter 
     <div class="sub" id="dateText"></div>
     <div class="clock" id="clockText"></div>
     <div class="coach" id="coachBox"></div>
-    <div class="system-strip"><div class="system-chip"><span>System</span><strong>Online · Sync lokal</strong></div><div class="system-chip"><span>Season</span><strong id="heroSeason">Aktiv</strong></div><div class="system-chip"><span>Modus</span><strong>Protocol 6.1</strong></div></div>
+    <div class="focus-strip">
+      <div class="focus-main"><span>HEUTIGER FOKUS</span><strong id="heroFocus">Konstanz sichern</strong></div>
+      <div class="focus-meta"><span id="heroSync">● Lokal gespeichert</span><span id="heroSeason">Season aktiv</span></div>
+    </div>
   </section>
 
   <div class="momentum-card" id="momentumCard">
     <div class="momentum-head">
-      <div class="streak-badge"><div class="streak-flame">🔥</div><div><strong id="streakText">0 Tage Streak</strong><span id="streakSub">Heute Momentum aufbauen</span></div></div>
-      <div style="text-align:right"><div class="daily-xp"><span id="todayXP">0</span> XP</div><div class="momentum-next" id="nextReward">Nächste Belohnung bei 25 XP</div></div>
+      <div class="streak-badge"><div class="streak-flame" aria-hidden="true">🔥</div><div><strong id="streakText">0 Tage Streak</strong><span id="streakSub">Heute noch nicht gesichert</span></div></div>
+      <div class="momentum-score"><div class="daily-xp"><span id="todayXP">0</span><small>/120 XP</small></div><div class="momentum-next" id="nextReward">Noch 50 XP bis zum Streak</div></div>
     </div>
-    <div class="momentum-track"><div class="momentum-fill" id="momentumFill"></div></div>
+    <div class="streak-stats"><span><b id="currentStreak">0</b> aktuell</span><span><b id="longestStreak">0</b> längster</span><span id="streakTodayStatus" class="status-chip open">Heute offen</span></div>
+    <div class="momentum-track" aria-label="Daily-XP-Fortschritt"><div class="momentum-fill" id="momentumFill"></div><i class="streak-marker" aria-hidden="true"></i></div>
   </div>
 
   <section id="todayPage">
-    <div class="grid">
-      <div class="card metric"><div class="label">Kalorien</div><div class="value"><span id="kcalNow">0</span>/<span id="kcalGoal">0</span></div><div class="bar"><div id="kcalBar" class="fill"></div></div></div>
-      <div class="card metric"><div class="label">Protein</div><div class="value"><span id="proteinNow">0</span>/<span id="proteinGoal">0</span>g</div><div class="bar"><div id="proteinBar" class="fill"></div></div></div>
-      <div class="card metric"><div class="label">Steps</div><div class="value"><span id="stepsNow">0</span>/<span id="stepsGoal">0</span></div><div class="bar"><div id="stepsBar" class="fill"></div></div></div>
-      <div class="card metric"><div class="label">Workout</div><div class="value"><span id="workoutPct">0</span>%</div><div class="bar"><div id="workoutBar" class="fill"></div></div></div>
+    <div class="grid metric-grid">
+      <div class="card metric metric-kcal" id="kcalMetric"><div class="metric-top"><span class="metric-icon" aria-hidden="true">◒</span><span id="kcalStatus" class="metric-status">Offen</span></div><div class="label">Kalorien</div><div class="value"><span id="kcalNow">0</span><small>/ <span id="kcalGoal">0</span> kcal</small></div><div class="bar"><div id="kcalBar" class="fill"></div></div></div>
+      <div class="card metric metric-protein" id="proteinMetric"><div class="metric-top"><span class="metric-icon" aria-hidden="true">◆</span><span id="proteinStatus" class="metric-status">Offen</span></div><div class="label">Protein</div><div class="value"><span id="proteinNow">0</span><small>/ <span id="proteinGoal">0</span> g</small></div><div class="bar"><div id="proteinBar" class="fill"></div></div></div>
+      <div class="card metric metric-steps" id="stepsMetric"><div class="metric-top"><span class="metric-icon" aria-hidden="true">⌁</span><span id="stepsStatus" class="metric-status">Offen</span></div><div class="label">Schritte</div><div class="value"><span id="stepsNow">0</span><small>/ <span id="stepsGoal">0</span></small></div><div class="bar"><div id="stepsBar" class="fill"></div></div></div>
+      <div class="card metric metric-workout" id="workoutMetric"><div class="metric-top"><span class="metric-icon" aria-hidden="true">↗</span><span id="workoutStatus" class="metric-status">Offen</span></div><div class="label">Workout</div><div class="value"><span id="workoutPct">0</span><small>% erledigt</small></div><div class="bar"><div id="workoutBar" class="fill"></div></div></div>
     </div>
+
+    <button class="xp-breakdown-toggle" id="xpBreakdownToggle" onclick="toggleXPBreakdown()" aria-expanded="false">
+      <span><b>Daily XP</b><small>Tippen für Aufschlüsselung</small></span><strong><span id="dailyXPCompact">0</span> / 120</strong><i>⌄</i>
+    </button>
+    <div id="xpBreakdown" class="xp-breakdown hidden"></div>
 
     <h2>Schnell aktualisieren</h2>
     <div class="card">
@@ -355,23 +381,36 @@ button{border-radius:14px;min-height:44px;transition:transform .12s ease,filter 
 
     <div id="hqRanked">
       <div class="rank-card" style="margin-top:12px">
+        <div class="rank-season-label" id="seasonName"></div>
         <div id="rankEmblem" class="rank-emblem">B</div>
         <div id="rankName" class="rank-name">Bronze</div>
-        <div id="seasonName" class="xp"></div>
-        <div id="seasonXP" class="xp"></div>
-        <div class="bar" style="margin-top:14px"><div id="rankProgress" class="fill"></div></div>
-        <div id="rankNext" class="muted small" style="text-align:center;margin-top:7px"></div>
+        <div id="seasonXP" class="rank-xp"></div>
+        <div class="rank-progress-track"><div id="rankProgress" class="rank-progress-fill"></div></div>
+        <div id="rankNext" class="rank-next"></div>
+        <div class="rank-stat-grid">
+          <div><span>Verbleibend</span><strong id="seasonDaysLeft">–</strong></div>
+          <div><span>Daily nötig</span><strong id="rankDailyNeeded">–</strong></div>
+          <div><span>Bester Rang</span><strong id="bestRank">–</strong></div>
+        </div>
+        <div class="season-progress"><span>Monatsfortschritt</span><div><i id="seasonProgressFill"></i></div><strong id="seasonProgressText">0%</strong></div>
       </div>
       <h2>Pokalvitrine</h2>
       <div id="trophyGrid" class="trophy-grid"></div>
     </div>
 
     <div id="hqRecipes" class="hidden">
-      <div class="actions" style="margin-top:12px">
-        <button class="primary" onclick="newRecipe()">+ Rezept</button>
+      <div class="recipe-header-actions">
+        <button class="primary" onclick="newRecipe()">+ Neues Rezept</button>
         <button class="secondary" onclick="seedRecipes(true)">Hall of Fame laden</button>
       </div>
-      <div id="recipeList" class="recipe-grid" style="margin-top:10px"></div>
+      <div class="recipe-toolbar">
+        <div class="recipe-search"><span aria-hidden="true">⌕</span><input id="recipeSearch" type="search" placeholder="Rezepte durchsuchen" oninput="setRecipeSearch(this.value)"></div>
+        <select id="recipeSort" onchange="setRecipeSort(this.value)" aria-label="Rezepte sortieren">
+          <option value="lastUsed">Zuletzt verwendet</option><option value="rating">Bewertung</option><option value="protein">Protein</option><option value="calories">Kalorien</option><option value="name">Name</option>
+        </select>
+      </div>
+      <div class="recipe-favorite-note"><span>★ Favoriten werden immer zuerst angezeigt</span><strong id="recipeCount">0 Rezepte</strong></div>
+      <div id="recipeList" class="recipe-grid"></div>
     </div>
 
     <div id="hqReports" class="hidden">
@@ -402,7 +441,7 @@ button{border-radius:14px;min-height:44px;transition:transform .12s ease,filter 
         <button class="secondary" onclick="document.getElementById('importFile').click()">Backup importieren</button>
       </div>
       <input id="importFile" class="hidden" type="file" accept="application/json" onchange="importData(event)">
-      <div class="version">Junker Queen Protocol v6.1</div>
+      <div class="version">Junker Queen Protocol v6.2</div>
     </div>
   </section>
 </div>
@@ -411,13 +450,17 @@ button{border-radius:14px;min-height:44px;transition:transform .12s ease,filter 
 <div id="quickSheet" class="quick-sheet hidden" onclick="quickBackdrop(event)">
   <div class="quick-panel">
     <div class="quick-handle"></div>
-    <div class="quick-grid">
+    <div class="quick-group-label">Schnellaktion</div>
+    <div class="quick-grid quick-grid-primary">
+      <button class="quick-item quick-featured" onclick="quickAddMeal()"><span class="quick-icon">＋</span><strong>Meal hinzufügen</strong><span>Kalorien und Protein direkt tracken</span></button>
       <button class="quick-item" onclick="quickGo('calendar')"><span class="quick-icon">▦</span><strong>Kalender</strong><span>Tage ansehen und bearbeiten</span></button>
+    </div>
+    <div class="quick-group-label">Protocol HQ</div>
+    <div class="quick-grid">
       <button class="quick-item" onclick="quickHQ('ranked')"><span class="quick-icon">♛</span><strong>Ranked</strong><span>Season, Rang und Pokale</span></button>
-      <button class="quick-item" onclick="quickHQ('recipes')"><span class="quick-icon">✦</span><strong>Rezepte</strong><span>Hall of Fame und eigene Meals</span></button>
-      <button class="quick-item" onclick="quickHQ('reports')"><span class="quick-icon">◫</span><strong>Reports</strong><span>Tage kopieren und vergleichen</span></button>
-      <button class="quick-item" onclick="quickHQ('settings')"><span class="quick-icon">⚙</span><strong>Settings</strong><span>Sound, Backup und Optionen</span></button>
-      <button class="quick-item" onclick="quickAddMeal()"><span class="quick-icon">＋</span><strong>Meal hinzufügen</strong><span>Direkt zum Essen-Tracker</span></button>
+      <button class="quick-item" onclick="quickHQ('recipes')"><span class="quick-icon">◇</span><strong>Rezepte</strong><span>Favoriten und eigene Meals</span></button>
+      <button class="quick-item" onclick="quickHQ('reports')"><span class="quick-icon">▤</span><strong>Reports</strong><span>Tage prüfen und kopieren</span></button>
+      <button class="quick-item" onclick="quickHQ('settings')"><span class="quick-icon">⚙</span><strong>Settings</strong><span>Feedback, Backup und Optionen</span></button>
     </div>
   </div>
 </div>
@@ -472,12 +515,16 @@ button{border-radius:14px;min-height:44px;transition:transform .12s ease,filter 
 <section id="recipeEditor" class="overlay hidden">
   <div class="overlay-inner">
     <div class="overlay-top"><h2 id="recipeEditorTitle">Rezept</h2><button class="secondary" onclick="closeRecipeEditor()">Schließen</button></div>
-    <div class="card">
+    <div class="card recipe-editor-card">
       <label>Name</label><input id="recipeName">
       <label style="margin-top:9px">Bewertung 1–10</label><input id="recipeRating" type="number" min="1" max="10" step=".1">
       <div id="ingredientEditor"></div>
       <button class="secondary" style="width:100%;margin-top:10px" onclick="addIngredientRow()">+ Zutat</button>
       <button class="primary" style="width:100%;margin-top:10px" onclick="saveRecipe()">Rezept speichern</button>
+      <div id="recipeExistingActions" class="recipe-editor-actions hidden">
+        <button class="secondary" onclick="duplicateEditingRecipe()">Rezept duplizieren</button>
+        <button class="danger" onclick="deleteEditingRecipe()">Rezept löschen</button>
+      </div>
     </div>
   </div>
 </section>
@@ -493,13 +540,14 @@ button{border-radius:14px;min-height:44px;transition:transform .12s ease,filter 
 <section id="player" class="player hidden">
   <div class="player-inner">
     <div class="player-top">
-      <div>
+      <div class="player-progress-copy">
         <div class="phase" id="playerPhase">WARM-UP</div>
         <div class="small muted" id="playerProgress">1 / 10</div>
       </div>
       <button class="secondary" onclick="pauseOrClosePlayer()">Pause / Schließen</button>
     </div>
 
+    <div class="player-overall"><div><i id="playerOverallFill"></i></div><span id="playerOverallText">0%</span></div>
     <div class="player-title" id="playerTitle">Armkreisen</div>
     <div class="player-sub" id="playerSubtitle">30 Sekunden</div>
 
@@ -653,14 +701,35 @@ const LIBRARY = {
 let db = JSON.parse(localStorage.getItem("jqp_v3_db") || "{}");
 
 function meta(){
-  if(!db.__meta) db.__meta={schemaVersion:5,waterTracking:false,soundEnabled:true,recipes:[],trophies:[]};
-  if(db.__meta.schemaVersion<5) db.__meta.schemaVersion=5;
-  if(typeof db.__meta.waterTracking!=="boolean") db.__meta.waterTracking=false;
-  if(typeof db.__meta.soundEnabled!=="boolean") db.__meta.soundEnabled=true;
-  if(!Array.isArray(db.__meta.recipes))db.__meta.recipes=[];
-  if(!Array.isArray(db.__meta.trophies))db.__meta.trophies=[];
-  return db.__meta;
+  if(!db.__meta||typeof db.__meta!=="object")db.__meta={};
+  const m=db.__meta;
+  m.schemaVersion=62;
+  if(typeof m.waterTracking!=="boolean")m.waterTracking=false;
+  if(typeof m.soundEnabled!=="boolean")m.soundEnabled=true;
+  if(!Array.isArray(m.recipes))m.recipes=[];
+  if(!Array.isArray(m.trophies))m.trophies=[];
+  if(!["lastUsed","rating","protein","calories","name"].includes(m.recipeSort))m.recipeSort="lastUsed";
+  if(typeof m.recipeSearch!=="string")m.recipeSearch="";
+  m.recipes=m.recipes.filter(Boolean).map((r,index)=>({
+    ...r,
+    id:r.id||uid(),name:String(r.name||`Rezept ${index+1}`),rating:Number(r.rating)||0,
+    favorite:!!r.favorite,category:r.category||inferRecipeCategory(r.name),
+    createdAt:r.createdAt||new Date(0).toISOString(),updatedAt:r.updatedAt||r.createdAt||new Date(0).toISOString(),
+    lastUsedAt:r.lastUsedAt||null,
+    ingredients:Array.isArray(r.ingredients)?r.ingredients.filter(Boolean).map(i=>({...i,id:i.id||uid(),name:String(i.name||""),grams:Number(i.grams)||0,kcal100:Number(i.kcal100)||0,protein100:Number(i.protein100)||0})):[]
+  }));
+  return m;
 }
+function uid(){try{return crypto.randomUUID()}catch(e){return `jqp-${Date.now()}-${Math.random().toString(16).slice(2)}`}}
+function inferRecipeCategory(name=""){
+  const n=String(name).toLowerCase();
+  if(/pancake|bowl|skyr|joghurt|frühstück|breakfast/.test(n))return"Breakfast";
+  if(/wrap|burger|chicken|huhn|steak|beef/.test(n))return"High Protein";
+  if(/sushi|reis|pasta|nudel/.test(n))return"Main Meal";
+  if(/shake|smoothie|drink/.test(n))return"Drink";
+  return"Recipe";
+}
+function esc(value=""){return String(value).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]))}
 meta();
 let player = {queue:[],index:0,setIndex:0,state:"idle",timer:null,remaining:0,endAt:0,startTime:null,currentReps:[],side:null,pendingNext:false};
 
@@ -680,7 +749,7 @@ function ensureDay(date=new Date()){
   const def=DAY_DEFAULTS[vp.weekday],lib=LIBRARY[def.workout];
   if(!db[key]){
     db[key]={date:key,type:def.type,kcalGoal:def.kcal,proteinGoal:def.protein,stepsGoal:def.steps,workout:def.workout,
-      steps:0,water:0,meals:[],exercises:lib.exercises.map((x,i)=>({id:crypto.randomUUID(),name:x.name,target:`${x.sets} Sätze · ${x.reps}`,done:false,performance:"",extra:false,order:i,sets:x.sets,reps:x.reps,rest:x.rest,instruction:x.instruction,icon:x.icon,setResults:[]})),
+      steps:0,water:0,meals:[],exercises:lib.exercises.map((x,i)=>({id:uid(),name:x.name,target:`${x.sets} Sätze · ${x.reps}`,done:false,performance:"",extra:false,order:i,sets:x.sets,reps:x.reps,rest:x.rest,instruction:x.instruction,icon:x.icon,setResults:[]})),
       weight:"",energy:"",hunger:"",notes:"",reportGenerated:false,workoutDuration:0};
   }else{
     const d=db[key];
@@ -691,9 +760,11 @@ function ensureDay(date=new Date()){
     if(!Number.isFinite(Number(d.stepsGoal))||Number(d.stepsGoal)<=0)d.stepsGoal=def.steps;
     if(!d.workout)d.workout=def.workout;
     if(!Array.isArray(d.meals))d.meals=[];
-    if(!Array.isArray(d.exercises)||!d.exercises.length)d.exercises=lib.exercises.map((x,i)=>({id:crypto.randomUUID(),name:x.name,target:`${x.sets} Sätze · ${x.reps}`,done:false,performance:"",extra:false,order:i,sets:x.sets,reps:x.reps,rest:x.rest,instruction:x.instruction,icon:x.icon,setResults:[]}));
+    if(!Array.isArray(d.exercises)||!d.exercises.length)d.exercises=lib.exercises.map((x,i)=>({id:uid(),name:x.name,target:`${x.sets} Sätze · ${x.reps}`,done:false,performance:"",extra:false,order:i,sets:x.sets,reps:x.reps,rest:x.rest,instruction:x.instruction,icon:x.icon,setResults:[]}));
     if(!Number.isFinite(Number(d.steps)))d.steps=0;
     if(!Number.isFinite(Number(d.water)))d.water=0;
+    d.exercises=d.exercises.filter(Boolean).map((e,i)=>({...e,id:e.id||uid(),extra:!!e.extra,order:Number.isFinite(Number(e.order))?Number(e.order):i,setResults:Array.isArray(e.setResults)?e.setResults:[]}));
+    if(typeof d.reportGenerated!=="boolean")d.reportGenerated=false;
   }
   persist();
   return db[key];
@@ -719,7 +790,7 @@ function coach(day){
   if(!day.reportGenerated)return["Tagesreport abschließen","Energie, Hunger und Notiz eintragen und Report kopieren."];
   return["Mission abgeschlossen","Jetzt regenerieren und schlafen."];
 }
-function tier(day){const s=sums(day),w=workoutPct(day)===100,p=s.protein>=Math.round(day.proteinGoal*.95),k=s.kcal>0&&s.kcal<=day.kcalGoal+150,st=day.steps>=day.stepsGoal;if(w&&p&&k&&st)return"PLATINUM";if(w&&p&&st)return"GOLD";if(w&&p)return"SILVER";if(w)return"BRONZE";return"OFFEN";}
+function tier(day){const s=sums(day),w=workoutPct(day)===100,p=s.protein>=Math.round(day.proteinGoal*.95),k=s.kcal>=Math.max(0,day.kcalGoal-300)&&s.kcal<=day.kcalGoal+150,st=day.steps>=day.stepsGoal;if(w&&p&&k&&st)return"PLATINUM";if(w&&p&&st)return"GOLD";if(w&&p)return"SILVER";if(w)return"BRONZE";return"OFFEN";}
 
 function dayKeys(){
   return Object.keys(db).filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k)).sort().reverse();
@@ -752,60 +823,46 @@ function toggleWaterTracking(enabled){
 
 
 function haptic(pattern=18){
-  try{if(navigator.vibrate)navigator.vibrate(pattern);}catch(e){}
+  try{if(typeof navigator.vibrate==="function")navigator.vibrate(pattern)}catch(e){}
+}
+function hapticFeedback(type="tap"){
+  const patterns={nav:8,tap:10,meal:[18,28,12],success:[20,34,26],goal:[24,40,30,50,28],rank:[28,45,28,65,40,80,50],error:[10,35,10]};
+  haptic(patterns[type]||patterns.tap);
 }
 function showToast(message){
   const t=document.getElementById("toast");if(!t)return;
   t.textContent=message;t.classList.add("show");
-  clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.remove("show"),1800);
+  clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.remove("show"),1900);
 }
-function happyTap(){
-  haptic(12);
-  if(meta().soundEnabled){
-    ensureAudio();
-    const now=audioContext.currentTime;
-    [659.25,783.99].forEach((f,i)=>toneAt(f,now+i*.055,.07,.035,"sine"));
-  }
+function happyTap(){hapticFeedback("tap")}
+function invalidFeedback(message="Bitte Eingaben prüfen"){
+  hapticFeedback("error");feedbackSound("error");showToast(message);
 }
 function toggleQuickMenu(force){
   const sheet=document.getElementById("quickSheet"),fab=document.getElementById("plusFab");
   const open=typeof force==="boolean"?force:sheet.classList.contains("hidden");
   sheet.classList.toggle("hidden",!open);fab.classList.toggle("open",open);
-  if(open)haptic(14);
+  hapticFeedback(open?"meal":"tap");
 }
-function quickBackdrop(e){if(e.target.id==="quickSheet")toggleQuickMenu(false);}
-function quickGo(page){toggleQuickMenu(false);showPage(page);happyTap();}
-function quickHQ(section){toggleQuickMenu(false);showPage("hq");showHQ(section);happyTap();}
-function quickAddMeal(){toggleQuickMenu(false);showPage("food");setTimeout(()=>document.getElementById("mealName")?.focus(),120);happyTap();}
+function quickBackdrop(e){if(e.target.id==="quickSheet")toggleQuickMenu(false)}
+function quickGo(page){toggleQuickMenu(false);showPage(page)}
+function quickHQ(section){toggleQuickMenu(false);showPage("hq");showHQ(section)}
+function quickAddMeal(){toggleQuickMenu(false);showPage("food");setTimeout(()=>document.getElementById("mealName")?.focus(),120)}
 function openRankedFromHeader(){showPage("hq");showHQ("ranked");happyTap();}
 function rankEmblemSVG(rank,small=false){
-  const tiers={Bronze:1,Silber:2,Gold:3,Platin:4,Diamant:5,Master:6,Grandmaster:7,Champion:8,JK:9};
-  const n=tiers[rank.name]||1;
-  const facets=Array.from({length:Math.min(5,n)},(_,i)=>{
-    const x=100+(i-2)*19, y=163-Math.abs(i-2)*4;
-    return `<path d="M${x-7} ${y} L${x} ${y+8} L${x+7} ${y} L${x} ${y-8} Z" fill="currentColor" opacity="${.35+i*.12}"/>`;
-  }).join("");
-  const crown=n>=8?`<path class="spark" d="M76 52 91 67 100 38 109 67 124 52 117 82H83Z" fill="currentColor"/><circle class="spark" cx="100" cy="32" r="4" fill="currentColor"/>`:"";
-  const top=n>=6?`<path class="spark" d="M100 20 106 33 120 35 110 45 113 59 100 52 87 59 90 45 80 35 94 33Z" fill="currentColor" opacity=".9"/>`:"";
-  const inner=n>=4?`<path d="M100 72 124 91 115 123 100 139 85 123 76 91Z" fill="none" stroke="currentColor" stroke-width="6" opacity=".52"/>`:"";
-  const side=n>=3?`<path class="rank-wing-left" d="M70 84 35 65 51 101 25 112 69 128 83 111Z" fill="currentColor" opacity=".78"/><path class="rank-wing-right" d="M130 84 165 65 149 101 175 112 131 128 117 111Z" fill="currentColor" opacity=".78"/>`:"";
-  const outer=n>=7?`<path d="M51 58 20 39 35 77 9 86 41 106" fill="none" stroke="currentColor" stroke-width="6" opacity=".55"/><path d="M149 58 180 39 165 77 191 86 159 106" fill="none" stroke="currentColor" stroke-width="6" opacity=".55"/>`:"";
-  return `<svg viewBox="0 0 200 200" aria-hidden="true">
-    ${outer}${side}${top}${crown}
-    <path class="rank-core" d="M100 54 139 79 130 128 100 157 70 128 61 79Z" fill="currentColor" opacity=".2"/>
-    <path class="rank-core" d="M100 58 132 82 124 122 100 148 76 122 68 82Z" fill="none" stroke="currentColor" stroke-width="9"/>
-    ${inner}
-    <path d="M88 91 100 79 112 91 108 118 100 128 92 118Z" fill="currentColor"/>
-    ${facets}
-  </svg>`;
+  const tiers={Bronze:1,Silber:2,Gold:3,Platin:4,Diamant:5,Master:6,Grandmaster:7,Champion:8,JK:9},n=tiers[rank.name]||1;
+  const rays=n>=6?Array.from({length:n-3},(_,i)=>{const a=(i/(n-3))*Math.PI*2,x1=100+Math.cos(a)*55,y1=100+Math.sin(a)*55,x2=100+Math.cos(a)*76,y2=100+Math.sin(a)*76;return `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} L${x2.toFixed(1)} ${y2.toFixed(1)}" stroke="currentColor" stroke-width="${n>=8?5:3}" opacity=".42"/>`}).join(""):"";
+  const wings=n>=3?`<path class="rank-wing-left" d="M70 82 38 62 49 91 22 105 68 124 83 108Z" fill="currentColor" opacity="${n>=7?.78:.52}"/><path class="rank-wing-right" d="M130 82 162 62 151 91 178 105 132 124 117 108Z" fill="currentColor" opacity="${n>=7?.78:.52}"/>`:"";
+  const outer=n>=5?`<path d="M100 38 151 70 140 133 100 169 60 133 49 70Z" fill="none" stroke="currentColor" stroke-width="${n>=8?7:4}" opacity=".42"/>`:"";
+  const crown=n>=8?`<path class="spark" d="M72 49 90 66 100 31 110 66 128 49 119 82H81Z" fill="currentColor"/><circle class="spark" cx="100" cy="24" r="5" fill="currentColor"/>`:n>=6?`<path class="spark" d="M100 25 107 39 122 41 111 52 114 67 100 59 86 67 89 52 78 41 93 39Z" fill="currentColor" opacity=".88"/>`:"";
+  const gem=n>=4?`<path d="M100 70 123 88 115 121 100 139 85 121 77 88Z" fill="none" stroke="currentColor" stroke-width="${n>=7?7:5}" opacity=".65"/>`:"";
+  const prestige=n===9?`<circle cx="100" cy="100" r="83" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="3 10" opacity=".55"/><path d="M100 14 106 28 121 29 110 39 113 54 100 46 87 54 90 39 79 29 94 28Z" fill="currentColor"/>`:"";
+  return `<svg viewBox="0 0 200 200" aria-hidden="true">${prestige}${rays}${wings}${outer}${crown}<path class="rank-core" d="M100 54 139 79 130 128 100 157 70 128 61 79Z" fill="currentColor" opacity="${n>=7?.24:.16}"/><path class="rank-core" d="M100 58 132 82 124 122 100 148 76 122 68 82Z" fill="none" stroke="currentColor" stroke-width="${n>=7?10:8}"/>${gem}<path d="M88 91 100 79 112 91 108 118 100 128 92 118Z" fill="currentColor"/></svg>`;
 }
 function updateHeaderRank(){
-  const xp=seasonXP(new Date()),rank=rankForXP(xp);
+  const xp=seasonXP(new Date()),rank=rankForXP(xp),idx=RANKS.indexOf(rank),next=RANKS[idx+1];
   const b=document.getElementById("headerRank");if(!b)return;
-  b.className=`mini-rank ${rank.cls}`;
-  document.getElementById("headerRankIcon").innerHTML=rankEmblemSVG(rank,true);
-  document.getElementById("headerRankName").textContent=rank.name;
-  document.getElementById("headerRankXP").textContent=`${xp} XP`;
+  b.className=`mini-rank ${rank.cls}`;document.getElementById("headerRankIcon").innerHTML=rankEmblemSVG(rank,true);document.getElementById("headerRankName").textContent=rank.name;document.getElementById("headerRankXP").textContent=next?`${next.min-xp} XP bis ${next.name}`:`${xp} XP · Max`;
 }
 
 function fmt(value,digits=1){
@@ -818,7 +875,7 @@ let editingRecipeId=null;
 let cookingRecipeId=null;
 
 function toggleSound(enabled){meta().soundEnabled=enabled;persist();render();}
-function testSound(){ensureAudio();finishSignal();showToast("Neuer Pause-Ende-Sound ✦");}
+function testSound(){feedbackSound("goal");hapticFeedback("goal");showToast("Feedback-System aktiv ✦");}
 function importData(event){
   const file=event.target.files[0];if(!file)return;
   const reader=new FileReader();
@@ -842,19 +899,29 @@ function showHQ(section){
   if(section==="reports"){populateReportDates();renderReport();}
 }
 
-function dayActivity(day){
+const DAILY_XP_MAX=120,STREAK_XP_TARGET=50;
+function baseExercises(day){return (day.exercises||[]).filter(e=>!e.extra).sort((a,b)=>(a.order||0)-(b.order||0))}
+function workoutXPAwards(day){
+  const list=baseExercises(day),n=list.length;if(!n)return[];
+  const base=Math.floor(35/n),remainder=35-base*(n-1);
+  return list.map((e,i)=>({id:e.id,name:e.name,done:!!e.done,award:i===n-1?remainder:base}));
+}
+function workoutEarnedXP(day){return workoutXPAwards(day).reduce((sum,e)=>sum+(e.done?e.award:0),0)}
+function stepEarnedXP(day){return Math.min(30,Math.max(0,Math.floor((Number(day.steps)||0)/Math.max(1,Number(day.stepsGoal)||1)*30)))}
+function xpBreakdown(day){
   const s=sums(day);
-  return s.kcal>0||s.protein>0||day.steps>0||workoutPct(day)>0||day.reportGenerated;
+  const parts={
+    workout:{earned:workoutEarnedXP(day),max:35,label:"Workout"},
+    protein:{earned:s.protein>=day.proteinGoal*.95?25:0,max:25,label:"Protein"},
+    calories:{earned:s.kcal>=Math.max(0,day.kcalGoal-300)&&s.kcal<=day.kcalGoal+150?20:0,max:20,label:"Kalorien"},
+    steps:{earned:stepEarnedXP(day),max:30,label:"Schritte"},
+    report:{earned:day.reportGenerated?10:0,max:10,label:"Report"}
+  };
+  parts.total=Object.values(parts).filter(x=>x&&typeof x==="object").reduce((sum,x)=>sum+x.earned,0);
+  return parts;
 }
-function dailyXP(day){
-  const s=sums(day);let xp=0;
-  if(workoutPct(day)===100)xp+=35;
-  if(s.protein>=day.proteinGoal*.95)xp+=25;
-  if(s.kcal>=Math.max(0,day.kcalGoal-300)&&s.kcal<=day.kcalGoal+150)xp+=20;
-  if(day.steps>=day.stepsGoal)xp+=30;
-  if(day.reportGenerated)xp+=10;
-  return xp;
-}
+function dayActivity(day){return dailyXP(day)>0||sums(day).kcal>0||(Number(day.steps)||0)>0}
+function dailyXP(day){return xpBreakdown(day).total}
 const RANKS=[
   {name:"Bronze",min:0,icon:"B",cls:"rank-bronze"},
   {name:"Silber",min:450,icon:"S",cls:"rank-silber"},
@@ -866,21 +933,10 @@ const RANKS=[
   {name:"Champion",min:3250,icon:"C",cls:"rank-champion"},
   {name:"JK",min:3550,icon:"JK",cls:"rank-jk"}
 ];
-function monthKey(date){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}`;}
+function monthKey(date){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}`}
 function seasonXP(date=new Date()){
-  const prefix=monthKey(date),today=new Date();let xp=0,firstActive=null;
-  dayKeys().filter(k=>k.startsWith(prefix)).sort().forEach(k=>{
-    const d=db[k];if(dayActivity(d)&&!firstActive)firstActive=k;xp+=dailyXP(d);
-  });
-  if(firstActive){
-    const start=new Date(firstActive+"T12:00:00");
-    const end=(date.getFullYear()===today.getFullYear()&&date.getMonth()===today.getMonth())?today:new Date(date.getFullYear(),date.getMonth()+1,0);
-    for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1)){
-      const x=db[keyFor(d)];
-      if(!x||!dayActivity(x))xp=Math.max(0,xp-4);
-    }
-  }
-  return Math.round(xp);
+  const prefix=monthKey(date);
+  return dayKeys().filter(k=>k.startsWith(prefix)).reduce((sum,k)=>sum+dailyXP(db[k]),0);
 }
 function rankForXP(xp){return [...RANKS].reverse().find(r=>xp>=r.min)||RANKS[0];}
 function finalizePastSeasons(){
@@ -896,21 +952,26 @@ function finalizePastSeasons(){
 function renderRanked(){
   finalizePastSeasons();
   const now=new Date(),xp=seasonXP(now),rank=rankForXP(xp),idx=RANKS.indexOf(rank),next=RANKS[idx+1];
-  const emblem=document.getElementById("rankEmblem");
+  const emblem=document.getElementById("rankEmblem");if(!emblem)return;
   emblem.innerHTML=rankEmblemSVG(rank);emblem.className=`rank-emblem ${rank.cls}`;
-  document.getElementById("rankName").textContent=rank.name;
-  document.getElementById("rankName").className=`rank-name ${rank.cls}`;
-  document.getElementById("seasonName").textContent=`Season ${now.getMonth()+1} · ${now.toLocaleDateString("de-AT",{month:"long",year:"numeric"})}`;
-  document.getElementById("seasonXP").textContent=`${xp} Season XP`;
-  const start=rank.min,end=next?next.min:3600,progress=next?Math.max(0,Math.min(100,(xp-start)/(end-start)*100)):100;
+  document.getElementById("rankName").textContent=rank.name;document.getElementById("rankName").className=`rank-name ${rank.cls}`;
+  document.getElementById("seasonName").textContent=`SEASON ${String(now.getMonth()+1).padStart(2,"0")} · ${now.toLocaleDateString("de-AT",{month:"long",year:"numeric"}).toUpperCase()}`;
+  document.getElementById("seasonXP").textContent=`${xp.toLocaleString("de-AT")} SEASON XP`;
+  const start=rank.min,end=next?next.min:RANKS.at(-1).min,progress=next?Math.max(0,Math.min(100,Math.round((xp-start)/(end-start)*100))):100;
   document.getElementById("rankProgress").style.width=progress+"%";
-  document.getElementById("rankNext").textContent=next?`Noch ${next.min-xp} XP bis ${next.name}`:"Maximalrang erreicht – halte ihn bis Monatsende.";
+  const needed=next?Math.max(0,next.min-xp):0,lastDay=new Date(now.getFullYear(),now.getMonth()+1,0).getDate(),daysLeft=Math.max(0,lastDay-now.getDate()),earningDays=daysLeft+1;
+  document.getElementById("rankNext").textContent=next?`Noch ${needed.toLocaleString("de-AT")} XP bis ${next.name}`:"Maximalrang erreicht – halte ihn bis Monatsende.";
+  document.getElementById("seasonDaysLeft").textContent=`${daysLeft} Tag${daysLeft===1?"":"e"}`;
+  document.getElementById("rankDailyNeeded").textContent=next?`${Math.ceil(needed/Math.max(1,earningDays))} XP/Tag`:"Geschafft";
+  const trophyRanks=meta().trophies.map(t=>RANKS.findIndex(r=>r.name===t.rank)).filter(i=>i>=0),bestIndex=Math.max(idx,...trophyRanks,0);
+  document.getElementById("bestRank").textContent=RANKS[bestIndex].name;
+  const seasonPct=Math.round(now.getDate()/lastDay*100);document.getElementById("seasonProgressFill").style.width=seasonPct+"%";document.getElementById("seasonProgressText").textContent=seasonPct+"%";
   updateHeaderRank();
   const grid=document.getElementById("trophyGrid");grid.innerHTML="";
   if(!meta().trophies.length)grid.innerHTML='<div class="card muted small">Der erste Pokal wird am Monatsende gesichert.</div>';
   meta().trophies.slice().reverse().forEach(t=>{
     const d=new Date(t.month+"-15T12:00:00"),el=document.createElement("div");el.className="trophy";
-    const rr=RANKS.find(r=>r.name===t.rank)||RANKS[0];el.innerHTML=`<div class="${t.cls}" style="height:62px">${rankEmblemSVG(rr,true)}</div><strong>${t.rank}</strong><div class="muted small">${d.toLocaleDateString("de-AT",{month:"long",year:"numeric"})}</div><div class="small">${t.xp} XP</div>`;
+    const rr=RANKS.find(r=>r.name===t.rank)||RANKS[0];el.innerHTML=`<div class="${t.cls}" style="height:62px">${rankEmblemSVG(rr,true)}</div><strong>${esc(t.rank)}</strong><div class="muted small">${d.toLocaleDateString("de-AT",{month:"long",year:"numeric"})}</div><div class="small">${t.xp} XP</div>`;
     grid.appendChild(el);
   });
 }
@@ -951,7 +1012,7 @@ function saveEditedDay(){
 function addMealToEditedDay(){
   const d=db[editingDayKey],name=document.getElementById("editMealName").value.trim(),k=Number(document.getElementById("editMealKcal").value),p=Number(document.getElementById("editMealProtein").value);
   if(!d||!name||!Number.isFinite(k)||!Number.isFinite(p))return;
-  d.meals.push({id:crypto.randomUUID(),name,kcal:k,protein:p,time:new Date(editingDayKey+"T12:00:00").toISOString()});
+  d.meals.push({id:uid(),name,kcal:k,protein:p,time:new Date(editingDayKey+"T12:00:00").toISOString()});
   ["editMealName","editMealKcal","editMealProtein"].forEach(id=>document.getElementById(id).value="");persist();renderEditedDayLists();
 }
 function deleteEditedMeal(id){const d=db[editingDayKey];d.meals=d.meals.filter(m=>m.id!==id);persist();renderEditedDayLists();}
@@ -965,68 +1026,131 @@ function renderEditedDayLists(){
 }
 
 function seedRecipes(force=false){
-  if(meta().recipes.length&&!force)return;
   const defaults=[
-    {name:"Protein Pancakes",rating:9.5,ingredients:[["Ei roh",100,143,12.6],["Banane",77,89,1.1],["Proteinpulver",35,385,78]]},
-    {name:"Chicken Sushi Bowl",rating:10,ingredients:[["Reis trocken",81,360,7],["Chicken roh",228,120,23],["Gurke",112,15,0.7],["Avocado",18,160,2],["Nori",3,300,30]]},
-    {name:"McChicken Wrap Füllung",rating:10,ingredients:[["Chicken roh",377,120,23],["Butter",5,717,0.9],["Skyr",120,60,11],["Senf",11,66,4],["Salat/Zwiebel/Gurkenwasser",150,20,1]]},
-    {name:"Orange Skyr Bowl",rating:9.5,ingredients:[["Skyr",200,60,11],["Orange",174,47,0.9]]}
+    {seedKey:"protein-pancakes",name:"Protein Pancakes",rating:9.5,ingredients:[["Ei roh",100,143,12.6],["Banane",77,89,1.1],["Proteinpulver",35,385,78]]},
+    {seedKey:"chicken-sushi-bowl",name:"Chicken Sushi Bowl",rating:10,ingredients:[["Reis trocken",81,360,7],["Chicken roh",228,120,23],["Gurke",112,15,.7],["Avocado",18,160,2],["Nori",3,300,30]]},
+    {seedKey:"mcchicken-wrap",name:"McChicken Wrap Füllung",rating:10,ingredients:[["Chicken roh",377,120,23],["Butter",5,717,.9],["Skyr",120,60,11],["Senf",11,66,4],["Salat/Zwiebel/Gurkenwasser",150,20,1]]},
+    {seedKey:"orange-skyr",name:"Orange Skyr Bowl",rating:9.5,ingredients:[["Skyr",200,60,11],["Orange",174,47,.9]]}
   ];
-  if(force||!meta().recipes.length)meta().recipes=defaults.map(r=>({id:crypto.randomUUID(),name:r.name,rating:r.rating,ingredients:r.ingredients.map(i=>({id:crypto.randomUUID(),name:i[0],grams:i[1],kcal100:i[2],protein100:i[3]}))}));
-  persist();renderRecipes();
+  if(!force&&meta().recipes.length)return;
+  let added=0;
+  defaults.forEach(r=>{
+    if(meta().recipes.some(x=>x.seedKey===r.seedKey||x.name===r.name))return;
+    meta().recipes.push({id:uid(),seedKey:r.seedKey,name:r.name,rating:r.rating,favorite:false,category:inferRecipeCategory(r.name),createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),lastUsedAt:null,ingredients:r.ingredients.map(i=>({id:uid(),name:i[0],grams:i[1],kcal100:i[2],protein100:i[3]}))});added++;
+  });
+  persist();if(force)showToast(added?`${added} Hall-of-Fame-Rezepte geladen`:"Hall of Fame bereits vorhanden");renderRecipes();
 }
-function recipeMacros(r,ingredients=r.ingredients){return ingredients.reduce((a,i)=>({kcal:a.kcal+i.grams*i.kcal100/100,protein:a.protein+i.grams*i.protein100/100}),{kcal:0,protein:0});}
+function recipeMacros(r,ingredients=r.ingredients){return ingredients.reduce((a,i)=>({kcal:a.kcal+i.grams*i.kcal100/100,protein:a.protein+i.grams*i.protein100/100}),{kcal:0,protein:0})}
+function recipeIcon(category){return {Breakfast:"◒","High Protein":"◆","Main Meal":"◇",Drink:"◉",Recipe:"✦"}[category]||"✦"}
+function setRecipeSearch(value){meta().recipeSearch=String(value||"");persist();renderRecipes()}
+function setRecipeSort(value){meta().recipeSort=value;persist();renderRecipes()}
+function sortedRecipes(){
+  const query=meta().recipeSearch.trim().toLowerCase(),sort=meta().recipeSort;
+  const arr=meta().recipes.filter(r=>!query||r.name.toLowerCase().includes(query)||(r.category||"").toLowerCase().includes(query));
+  const value=r=>recipeMacros(r);
+  arr.sort((a,b)=>{
+    if(a.favorite!==b.favorite)return a.favorite?-1:1;
+    if(sort==="rating")return b.rating-a.rating;
+    if(sort==="protein")return value(b).protein-value(a).protein;
+    if(sort==="calories")return value(a).kcal-value(b).kcal;
+    if(sort==="name")return a.name.localeCompare(b.name,"de");
+    return (new Date(b.lastUsedAt||0))-(new Date(a.lastUsedAt||0))||b.rating-a.rating;
+  });
+  return arr;
+}
 function renderRecipes(){
-  seedRecipes(false);const list=document.getElementById("recipeList");if(!list)return;list.innerHTML="";
-  meta().recipes.forEach(r=>{const m=recipeMacros(r),el=document.createElement("div");el.className="recipe";el.innerHTML=`<div class="exercise-head"><div><strong>${r.name}</strong><div class="muted small">⭐ ${fmt(r.rating,1)} · ${fmt(m.kcal,0)} kcal · ${fmt(m.protein,1)}g Protein</div></div><button class="secondary" onclick="editRecipe('${r.id}')">Bearbeiten</button></div><div class="small muted" style="margin-top:7px">${r.ingredients.map(i=>`${fmt(i.grams,0)}g ${i.name}`).join(" · ")}</div><button class="primary" style="width:100%;margin-top:10px" onclick="cookRecipeOpen('${r.id}')">Heute kochen</button>`;list.appendChild(el);});
+  const list=document.getElementById("recipeList");if(!list)return;
+  const search=document.getElementById("recipeSearch"),sort=document.getElementById("recipeSort");if(search&&search.value!==meta().recipeSearch)search.value=meta().recipeSearch;if(sort)sort.value=meta().recipeSort;
+  const recipes=sortedRecipes();document.getElementById("recipeCount").textContent=`${recipes.length} Rezept${recipes.length===1?"":"e"}`;list.innerHTML="";
+  if(!recipes.length){list.innerHTML='<div class="empty-state"><strong>Kein Rezept gefunden</strong><span>Versuche einen anderen Suchbegriff.</span></div>';return}
+  recipes.forEach(r=>{
+    const m=recipeMacros(r),el=document.createElement("article");el.className="recipe-card";
+    el.innerHTML=`<div class="recipe-card-top"><div class="recipe-category-icon">${recipeIcon(r.category)}</div><div class="recipe-title-wrap"><span>${esc(r.category||"Recipe")}</span><strong>${esc(r.name)}</strong></div><button class="favorite-btn ${r.favorite?"active":""}" onclick="toggleFavorite('${r.id}')" aria-label="Favorit umschalten">${r.favorite?"★":"☆"}</button></div>
+      <div class="recipe-macros"><div><span>Bewertung</span><strong>${fmt(r.rating,1)} <i>★</i></strong></div><div><span>Kalorien</span><strong>${fmt(m.kcal,0)}</strong></div><div><span>Protein</span><strong>${fmt(m.protein,1)} g</strong></div><div><span>Zutaten</span><strong>${r.ingredients.length}</strong></div></div>
+      <div class="recipe-card-actions"><button class="primary" onclick="cookRecipeOpen('${r.id}')">Heute kochen</button><button class="secondary" onclick="editRecipe('${r.id}')">Bearbeiten</button><details class="recipe-more"><summary aria-label="Mehr Aktionen">•••</summary><div><button onclick="duplicateRecipe('${r.id}')">Duplizieren</button><button class="delete-action" onclick="deleteRecipe('${r.id}')">Löschen</button></div></details></div>`;
+    list.appendChild(el);
+  });
 }
-function newRecipe(){editingRecipeId=null;document.getElementById("recipeName").value="";document.getElementById("recipeRating").value="";document.getElementById("ingredientEditor").innerHTML="";addIngredientRow();document.getElementById("recipeEditor").classList.remove("hidden");}
-function editRecipe(id){const r=meta().recipes.find(r=>r.id===id);editingRecipeId=id;document.getElementById("recipeName").value=r.name;document.getElementById("recipeRating").value=r.rating;document.getElementById("ingredientEditor").innerHTML="";r.ingredients.forEach(i=>addIngredientRow(i));document.getElementById("recipeEditor").classList.remove("hidden");}
-function addIngredientRow(i={name:"",grams:0,kcal100:0,protein100:0}){const row=document.createElement("div");row.className="ingredient-row";row.innerHTML=`<div><label>Zutat</label><input class="ing-name" value="${i.name}"></div><div><label>Gramm</label><input class="ing-grams" type="number" value="${i.grams}"></div><div><label>kcal/100</label><input class="ing-kcal" type="number" value="${i.kcal100}"></div><div><label>Prot/100</label><input class="ing-protein" type="number" step=".1" value="${i.protein100}"></div><button class="danger remove-ing" onclick="this.parentElement.remove()">×</button>`;document.getElementById("ingredientEditor").appendChild(row);}
+function newRecipe(){editingRecipeId=null;document.getElementById("recipeEditorTitle").textContent="Neues Rezept";document.getElementById("recipeName").value="";document.getElementById("recipeRating").value="";document.getElementById("ingredientEditor").innerHTML="";document.getElementById("recipeExistingActions").classList.add("hidden");addIngredientRow();document.getElementById("recipeEditor").classList.remove("hidden")}
+function editRecipe(id){const r=meta().recipes.find(r=>r.id===id);if(!r)return;editingRecipeId=id;document.getElementById("recipeEditorTitle").textContent="Rezept bearbeiten";document.getElementById("recipeName").value=r.name;document.getElementById("recipeRating").value=r.rating;document.getElementById("ingredientEditor").innerHTML="";r.ingredients.forEach(i=>addIngredientRow(i));document.getElementById("recipeExistingActions").classList.remove("hidden");document.getElementById("recipeEditor").classList.remove("hidden")}
+function addIngredientRow(i={name:"",grams:0,kcal100:0,protein100:0}){const row=document.createElement("div");row.className="ingredient-row";row.innerHTML=`<div><label>Zutat</label><input class="ing-name" value="${esc(i.name)}"></div><div><label>Gramm</label><input class="ing-grams" type="number" value="${i.grams}"></div><div><label>kcal/100</label><input class="ing-kcal" type="number" value="${i.kcal100}"></div><div><label>Prot/100</label><input class="ing-protein" type="number" step=".1" value="${i.protein100}"></div><button class="danger remove-ing" onclick="this.parentElement.remove()">×</button>`;document.getElementById("ingredientEditor").appendChild(row)}
 function saveRecipe(){
-  const name=document.getElementById("recipeName").value.trim();if(!name)return;
-  const ingredients=[...document.querySelectorAll("#ingredientEditor .ingredient-row")].map(row=>({id:crypto.randomUUID(),name:row.querySelector(".ing-name").value.trim(),grams:Number(row.querySelector(".ing-grams").value)||0,kcal100:Number(row.querySelector(".ing-kcal").value)||0,protein100:Number(row.querySelector(".ing-protein").value)||0})).filter(i=>i.name);
-  const r={id:editingRecipeId||crypto.randomUUID(),name,rating:Number(document.getElementById("recipeRating").value)||0,ingredients};
+  const name=document.getElementById("recipeName").value.trim();if(!name)return invalidFeedback("Bitte einen Rezeptnamen eingeben");
+  const ingredients=[...document.querySelectorAll("#ingredientEditor .ingredient-row")].map(row=>({id:uid(),name:row.querySelector(".ing-name").value.trim(),grams:Number(row.querySelector(".ing-grams").value)||0,kcal100:Number(row.querySelector(".ing-kcal").value)||0,protein100:Number(row.querySelector(".ing-protein").value)||0})).filter(i=>i.name);
+  if(!ingredients.length)return invalidFeedback("Mindestens eine Zutat hinzufügen");
+  const old=meta().recipes.find(x=>x.id===editingRecipeId),now=new Date().toISOString();
+  const r={...old,id:editingRecipeId||uid(),name,rating:Math.min(10,Math.max(0,Number(document.getElementById("recipeRating").value)||0)),ingredients,favorite:!!old?.favorite,category:old?.category||inferRecipeCategory(name),createdAt:old?.createdAt||now,updatedAt:now,lastUsedAt:old?.lastUsedAt||null};
   const idx=meta().recipes.findIndex(x=>x.id===editingRecipeId);if(idx>=0)meta().recipes[idx]=r;else meta().recipes.push(r);
-  persist();closeRecipeEditor();renderRecipes();
+  persist();closeRecipeEditor();renderRecipes();hapticFeedback("meal");showToast("Rezept gespeichert")
 }
-function closeRecipeEditor(){document.getElementById("recipeEditor").classList.add("hidden");}
-function cookRecipeOpen(id){cookingRecipeId=id;const r=meta().recipes.find(r=>r.id===id);document.getElementById("cookTitle").textContent=r.name;const el=document.getElementById("cookIngredients");el.innerHTML="";r.ingredients.forEach(i=>{const x=document.createElement("div");x.className="card";x.style.marginTop="8px";x.innerHTML=`<label>${i.name}</label><input class="cook-grams" data-id="${i.id}" type="number" value="${i.grams}" oninput="updateCookMacros()">`;el.appendChild(x);});document.getElementById("cookRecipe").classList.remove("hidden");updateCookMacros();}
-function currentCookIngredients(){const r=meta().recipes.find(r=>r.id===cookingRecipeId);return r.ingredients.map(i=>({...i,grams:Number(document.querySelector(`.cook-grams[data-id="${i.id}"]`).value)||0}));}
-function updateCookMacros(){const r=meta().recipes.find(r=>r.id===cookingRecipeId),m=recipeMacros(r,currentCookIngredients());document.getElementById("cookMacros").textContent=`${fmt(m.kcal,0)} kcal · ${fmt(m.protein,1)} g Protein`;}
-function addCookedRecipe(){happyTap();const r=meta().recipes.find(r=>r.id===cookingRecipeId),m=recipeMacros(r,currentCookIngredients()),d=ensureDay();d.meals.push({id:crypto.randomUUID(),name:r.name,kcal:Math.round(m.kcal),protein:Math.round(m.protein*10)/10,time:new Date().toISOString()});persist();closeCookRecipe();render();showPage("food");}
-function closeCookRecipe(){document.getElementById("cookRecipe").classList.add("hidden");}
+function closeRecipeEditor(){document.getElementById("recipeEditor").classList.add("hidden");editingRecipeId=null}
+function toggleFavorite(id){const r=meta().recipes.find(r=>r.id===id);if(!r)return;r.favorite=!r.favorite;r.updatedAt=new Date().toISOString();persist();hapticFeedback("tap");renderRecipes()}
+function duplicateRecipe(id,open=false){const source=meta().recipes.find(r=>r.id===id);if(!source)return;const now=new Date().toISOString(),copy={...source,id:uid(),seedKey:null,name:`${source.name} – Kopie`,favorite:false,createdAt:now,updatedAt:now,lastUsedAt:null,ingredients:source.ingredients.map(i=>({...i,id:uid()}))};meta().recipes.push(copy);persist();hapticFeedback("meal");showToast("Rezept dupliziert");renderRecipes();if(open)editRecipe(copy.id);return copy.id}
+function duplicateEditingRecipe(){if(editingRecipeId)duplicateRecipe(editingRecipeId,true)}
+function deleteRecipe(id){const r=meta().recipes.find(r=>r.id===id);if(!r)return;if(!confirm("Dieses Rezept wirklich endgültig löschen?"))return;meta().recipes=meta().recipes.filter(x=>x.id!==id);persist();if(editingRecipeId===id)closeRecipeEditor();renderRecipes();hapticFeedback("success");showToast("Rezept gelöscht")}
+function deleteEditingRecipe(){if(editingRecipeId)deleteRecipe(editingRecipeId)}
+function cookRecipeOpen(id){cookingRecipeId=id;const r=meta().recipes.find(r=>r.id===id);if(!r)return;document.getElementById("cookTitle").textContent=r.name;const el=document.getElementById("cookIngredients");el.innerHTML="";r.ingredients.forEach(i=>{const x=document.createElement("div");x.className="card";x.style.marginTop="8px";x.innerHTML=`<label>${esc(i.name)}</label><input class="cook-grams" data-id="${i.id}" type="number" value="${i.grams}" oninput="updateCookMacros()">`;el.appendChild(x)});document.getElementById("cookRecipe").classList.remove("hidden");updateCookMacros()}
+function currentCookIngredients(){const r=meta().recipes.find(r=>r.id===cookingRecipeId);return r.ingredients.map(i=>({...i,grams:Number(document.querySelector(`.cook-grams[data-id="${i.id}"]`).value)||0}))}
+function updateCookMacros(){const r=meta().recipes.find(r=>r.id===cookingRecipeId),m=recipeMacros(r,currentCookIngredients());document.getElementById("cookMacros").textContent=`${fmt(m.kcal,0)} kcal · ${fmt(m.protein,1)} g Protein`}
+function addCookedRecipe(){
+  const before=dailyXP(ensureDay()),r=meta().recipes.find(r=>r.id===cookingRecipeId);if(!r)return;
+  const m=recipeMacros(r,currentCookIngredients()),d=ensureDay();d.meals.push({id:uid(),name:r.name,kcal:Math.round(m.kcal),protein:Math.round(m.protein*10)/10,time:new Date().toISOString()});r.lastUsedAt=new Date().toISOString();r.updatedAt=r.lastUsedAt;persist();closeCookRecipe();render();floatXP(Math.max(0,dailyXP(d)-before),document.querySelector("#cookRecipe .primary"));hapticFeedback("meal");showPage("food")
+}
+function closeCookRecipe(){document.getElementById("cookRecipe").classList.add("hidden")}
 
-let rewardSnapshot=null;
-function activeStreak(){
-  let streak=0; const cursor=new Date();
-  for(let i=0;i<365;i++){const k=keyFor(cursor),d=db[k];if(d&&dayActivity(d))streak++;else if(i>0)break;cursor.setDate(cursor.getDate()-1)}
-  return streak;
+let rewardSnapshot=null,rewardQueue=[],rewardActive=false;
+function dateFromKey(key){return new Date(`${key}T12:00:00`)}
+function streakStats(){
+  const todayKey=keyFor(),today=dateFromKey(todayKey),secured=k=>!!db[k]&&dailyXP(db[k])>=STREAK_XP_TARGET;
+  let start=new Date(today);if(!secured(todayKey))start.setDate(start.getDate()-1);
+  let current=0,cursor=new Date(start);for(let i=0;i<730;i++){if(secured(keyFor(cursor)))current++;else break;cursor.setDate(cursor.getDate()-1)}
+  const keys=dayKeys().slice().sort(),set=new Set(keys.filter(k=>secured(k)));let longest=0,run=0,prev=null;
+  keys.forEach(k=>{if(!set.has(k)){run=0;prev=null;return}const d=dateFromKey(k);if(prev){const diff=Math.round((d-prev)/86400000);run=diff===1?run+1:1}else run=1;longest=Math.max(longest,run);prev=d});
+  const todayXP=db[todayKey]?dailyXP(db[todayKey]):0;
+  return {current,longest,todaySecured:todayXP>=STREAK_XP_TARGET,todayXP,missing:Math.max(0,STREAK_XP_TARGET-todayXP)};
 }
 function updateMomentum(day){
-  const xp=dailyXP(day),streak=activeStreak(),thresholds=[25,45,70,95,120],next=thresholds.find(x=>xp<x)||120;
-  document.getElementById("todayXP").textContent=xp;document.getElementById("streakText").textContent=`${streak} Tag${streak===1?"":"e"} Streak`;
-  document.getElementById("streakSub").textContent=streak>=3?"Momentum ist aktiv":"Heute Momentum aufbauen";
-  document.getElementById("nextReward").textContent=xp>=120?"Daily Max erreicht":"Nächste Belohnung bei "+next+" XP";
-  document.getElementById("momentumFill").style.width=Math.min(100,xp/120*100)+"%";
+  const xp=dailyXP(day),streak=streakStats(),thresholds=[25,50,75,100,120],next=thresholds.find(x=>xp<x)||120;
+  document.getElementById("todayXP").textContent=xp;document.getElementById("dailyXPCompact").textContent=xp;
+  document.getElementById("streakText").textContent=`${streak.current} Tag${streak.current===1?"":"e"} Streak`;
+  document.getElementById("currentStreak").textContent=streak.current;document.getElementById("longestStreak").textContent=streak.longest;
+  const status=document.getElementById("streakTodayStatus");status.textContent=streak.todaySecured?"Heute gesichert":"Heute offen";status.className=`status-chip ${streak.todaySecured?"secured":"open"}`;
+  document.getElementById("streakSub").textContent=streak.todaySecured?"Streak für heute gesichert":`Noch ${streak.missing} XP bis zur Sicherung`;
+  document.getElementById("nextReward").textContent=streak.todaySecured?(xp>=120?"Daily Max erreicht":`Nächster Meilenstein: ${next} XP`):`Noch ${streak.missing} XP, um deinen Streak heute zu sichern.`;
+  document.getElementById("momentumFill").style.width=Math.min(100,Math.round(xp/DAILY_XP_MAX*100))+"%";
 }
 function burstConfetti(amount=26){
-  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const layer=document.getElementById("rewardLayer"),colors=["#ff7a35","#ffd06a","#9d7cff","#57e5ff","#5fd19a","#ff69b4"];
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const layer=document.getElementById("rewardLayer"),colors=["#ff7a35","#ffd06a","#9d7cff","#57e5ff","#5fd19a"];
   for(let i=0;i<amount;i++){const el=document.createElement("i");el.className="confetti";el.style.left=(8+Math.random()*84)+"%";el.style.background=colors[i%colors.length];el.style.setProperty("--dur",(1.8+Math.random()*1.5)+"s");el.style.setProperty("--drift",(-100+Math.random()*200)+"px");el.style.setProperty("--spin",(360+Math.random()*900)+"deg");el.style.animationDelay=(Math.random()*.25)+"s";layer.appendChild(el);setTimeout(()=>el.remove(),3600)}
 }
-function showReward(title,sub,xp=0,icon="✦",big=false){
-  const pop=document.getElementById("rewardPop");document.getElementById("rewardTitle").textContent=title;document.getElementById("rewardSub").textContent=sub;document.getElementById("rewardXP").textContent=`+${xp} XP`;document.getElementById("rewardIcon").textContent=icon;pop.classList.remove("show");void pop.offsetWidth;pop.classList.add("show");haptic(big?[25,45,25,70,35]:[18,35,18]);if(big)burstConfetti(42);else burstConfetti(16);
+function enqueueRewards(items){if(!items.length)return;rewardQueue.push(...items.sort((a,b)=>(a.priority||0)-(b.priority||0)));processRewardQueue()}
+function processRewardQueue(){
+  if(rewardActive||!rewardQueue.length)return;rewardActive=true;const item=rewardQueue.shift(),pop=document.getElementById("rewardPop");
+  document.getElementById("rewardTitle").textContent=item.title;document.getElementById("rewardSub").textContent=item.sub||"";document.getElementById("rewardXP").textContent=item.badge||"";document.getElementById("rewardXP").classList.toggle("hidden",!item.badge);document.getElementById("rewardIcon").textContent=item.icon||"✦";
+  pop.classList.remove("show");void pop.offsetWidth;pop.classList.add("show");feedbackSound(item.sound||"goal");hapticFeedback(item.haptic||"goal");if(item.big)burstConfetti(item.rank?54:36);
+  setTimeout(()=>{pop.classList.remove("show");rewardActive=false;setTimeout(processRewardQueue,180)},2050);
 }
-function floatXP(xp,target){if(!xp)return;const r=(target||document.body).getBoundingClientRect();const e=document.createElement("div");e.className="xp-float";e.textContent=`+${xp} XP`;e.style.left=(r.left+r.width/2-25)+"px";e.style.top=(r.top+8)+"px";document.body.appendChild(e);setTimeout(()=>e.remove(),1300)}
-function snapshotDay(day){return{xp:dailyXP(day),workout:workoutPct(day),protein:sums(day).protein>=day.proteinGoal*.95,steps:day.steps>=day.stepsGoal,kcal:(()=>{const s=sums(day).kcal;return s>=Math.max(0,day.kcalGoal-300)&&s<=day.kcalGoal+150})(),report:!!day.reportGenerated}}
+function floatXP(xp,target){if(!Number.isInteger(xp)||xp<=0)return;const r=(target||document.body).getBoundingClientRect();const e=document.createElement("div");e.className="xp-float";e.textContent=`+${xp} XP`;e.style.left=(r.left+r.width/2-25)+"px";e.style.top=(r.top+8)+"px";document.body.appendChild(e);setTimeout(()=>e.remove(),1300)}
+function snapshotDay(day){const b=xpBreakdown(day),sx=seasonXP(new Date()),rank=rankForXP(sx);return{xp:b.total,parts:b,rankIndex:RANKS.indexOf(rank)}}
 function detectRewards(day){
   const now=snapshotDay(day);if(!rewardSnapshot){rewardSnapshot=now;return}
-  if(!rewardSnapshot.workout&&now.workout===100)showReward("Workout complete","Komplette Session abgeschlossen",35,"⚡",true);
-  else if(!rewardSnapshot.steps&&now.steps)showReward("Step goal crushed",`${day.stepsGoal.toLocaleString("de-AT")} Schritte erreicht`,30,"🔥",true);
-  else if(!rewardSnapshot.protein&&now.protein)showReward("Protein locked","Tagesziel erreicht",25,"◆",false);
-  else if(!rewardSnapshot.kcal&&now.kcal)showReward("Perfect range","Kalorien im Zielkorridor",20,"◎",false);
-  else if(!rewardSnapshot.report&&now.report)showReward("Day secured","Report gespeichert – Tag abgeschlossen",10,"✓",false);
-  rewardSnapshot=now;
+  const rewards=[];
+  [25,50,75,100,120].forEach((milestone,i)=>{if(rewardSnapshot.xp<milestone&&now.xp>=milestone)rewards.push({priority:milestone===120?80:10+i,title:milestone===50?"Streak gesichert":milestone===120?"Daily Max erreicht":`${milestone} Daily XP`,sub:milestone===50?"Dein heutiger Tag zählt jetzt zur Streak.":milestone===120?"Alle 120 Daily XP verdient.":"Daily-Meilenstein erreicht",badge:`${milestone} DAILY XP`,icon:milestone===50?"🔥":milestone===120?"♛":"✦",sound:"goal",haptic:milestone===120?"goal":"success",big:milestone>=100})});
+  const goals=[
+    ["protein","Protein gesichert","Tagesziel erreicht","◆",25],
+    ["calories","Kalorien im Zielkorridor","Sauber im geplanten Bereich","◎",20],
+    ["steps","Schrittziel erreicht",`${day.stepsGoal.toLocaleString("de-AT")} Schritte`,"⌁",30],
+    ["workout","Workout abgeschlossen","Alle Hauptübungen erledigt","↗",35],
+    ["report","Tag dokumentiert","Report gespeichert","✓",10]
+  ];
+  goals.forEach(([key,title,sub,icon,max],i)=>{if(rewardSnapshot.parts[key].earned<max&&now.parts[key].earned===max)rewards.push({priority:key==="report"?70:30+i,title,sub,badge:`${max} / ${max} XP`,icon,sound:"goal",haptic:"goal",big:key==="steps"||key==="workout"||key==="report"})});
+  if(now.rankIndex>rewardSnapshot.rankIndex){const rank=RANKS[now.rankIndex];rewards.push({priority:100,title:`Rangaufstieg: ${rank.name}`,sub:"Neuer Season-Rang freigeschaltet",badge:`${seasonXP(new Date())} SEASON XP`,icon:"♛",sound:"rank",haptic:"rank",big:true,rank:true})}
+  rewardSnapshot=now;enqueueRewards(rewards);
+}
+function toggleXPBreakdown(){const el=document.getElementById("xpBreakdown"),btn=document.getElementById("xpBreakdownToggle"),open=el.classList.contains("hidden");el.classList.toggle("hidden",!open);btn.classList.toggle("open",open);btn.setAttribute("aria-expanded",String(open));hapticFeedback("tap")}
+function renderXPBreakdown(day){
+  const b=xpBreakdown(day),el=document.getElementById("xpBreakdown");if(!el)return;
+  el.innerHTML=[b.workout,b.protein,b.calories,b.steps,b.report].map(part=>`<div class="xp-row"><span>${part.label}</span><div><i style="width:${Math.round(part.earned/part.max*100)}%"></i></div><strong>${part.earned} / ${part.max} XP</strong></div>`).join("")+`<div class="xp-total"><span>Gesamt</span><strong>${b.total} / ${DAILY_XP_MAX} Daily XP</strong></div>`;
 }
 function render(){
   const d=ensureDay(),s=sums(d),c=coach(d);
@@ -1039,8 +1163,9 @@ function render(){
   if(waterReport)waterReport.classList.toggle("hidden",!waterOn);
   if(waterToggle)waterToggle.checked=waterOn;
   const soundToggle=document.getElementById("soundToggle");if(soundToggle)soundToggle.checked=meta().soundEnabled;
-  renderCalendar();renderRanked();renderRecipes();updateHeaderRank();updateMomentum(d);
+  renderCalendar();renderRanked();renderRecipes();updateHeaderRank();updateMomentum(d);renderXPBreakdown(d);
   document.getElementById("dayPill").textContent=d.type+" Day";const hs=document.getElementById("heroSeason");if(hs)hs.textContent=new Date().toLocaleDateString("de-AT",{month:"long",year:"numeric"});
+  const focus=document.getElementById("heroFocus");if(focus)focus.textContent=dailyXP(d)>=STREAK_XP_TARGET?`${d.workout} · Streak gesichert`:`${d.workout} · ${Math.max(0,STREAK_XP_TARGET-dailyXP(d))} XP bis Streak`;
   document.getElementById("dateText").textContent=new Date().toLocaleDateString("de-AT",{timeZone:"Europe/Vienna",weekday:"long",day:"2-digit",month:"long",year:"numeric"});
   document.getElementById("coachBox").innerHTML=`<strong>${c[0]}</strong><div class="small muted" style="margin-top:4px">${c[1]}</div>`;
   [["kcal",s.kcal,d.kcalGoal],["protein",s.protein,d.proteinGoal],["steps",d.steps,d.stepsGoal]].forEach(([id,v,g])=>{document.getElementById(id+"Now").textContent=fmt(v,id==="protein"?1:0);document.getElementById(id+"Goal").textContent=g;document.getElementById(id+"Bar").style.width=pct(v,g)+"%";});
@@ -1049,23 +1174,41 @@ function render(){
   document.getElementById("energyInput").value=d.energy||"";document.getElementById("hungerInput").value=d.hunger||"";document.getElementById("notesInput").value=d.notes||"";
   document.getElementById("missionSummary").innerHTML=`<strong>${d.workout}</strong><div class="small muted" style="margin-top:5px">${d.exercises.filter(e=>!e.extra).map(e=>`${e.done?"✅":"⬜"} ${e.name}`).join("<br>")}</div><div class="sep"></div><strong>Tagesrang: ${tier(d)}</strong>`;
   renderStepMissions();renderMeals();renderExercises();renderWeek();renderReport();
-  [["kcal",s.kcal>=Math.max(0,d.kcalGoal-300)&&s.kcal<=d.kcalGoal+150],["protein",s.protein>=d.proteinGoal*.95],["steps",d.steps>=d.stepsGoal],["workout",wp===100]].forEach(([id,hit])=>document.getElementById(id+"Bar")?.closest(".metric")?.classList.toggle("goal-hit",hit));
+  updateMetricState("kcal",s.kcal,d.kcalGoal,{hit:s.kcal>=Math.max(0,d.kcalGoal-300)&&s.kcal<=d.kcalGoal+150,near:s.kcal>=Math.max(0,d.kcalGoal-500),over:s.kcal>d.kcalGoal+150});
+  updateMetricState("protein",s.protein,d.proteinGoal,{hit:s.protein>=d.proteinGoal*.95,near:s.protein>=d.proteinGoal*.75,over:s.protein>d.proteinGoal*1.2});
+  updateMetricState("steps",d.steps,d.stepsGoal,{hit:d.steps>=d.stepsGoal,near:d.steps>=d.stepsGoal*.75,over:d.steps>d.stepsGoal*1.1});
+  updateMetricState("workout",wp,100,{hit:wp===100,near:wp>=65,over:false});
   detectRewards(d);
 }
+function updateMetricState(id,value,goal,state){
+  const card=document.getElementById(id+"Metric"),label=document.getElementById(id+"Status");if(!card||!label)return;
+  let status="open",text="Offen";if(state.over){status="over";text="Überschritten"}else if(state.hit){status="hit";text="Erreicht"}else if(state.near){status="near";text="Fast da"}
+  card.classList.remove("state-open","state-near","state-hit","state-over");card.classList.add(`state-${status}`);label.textContent=text;
+}
 function renderStepMissions(){
-  const d=ensureDay(),el=document.getElementById("stepMissionList");el.innerHTML="";
-  stepMissions(d).forEach(m=>{
-    const done=d.steps>=m.target;
-    const row=document.createElement("div");row.className="stepmission"+(done?" done":"");
-    row.innerHTML=`<div class="stepicon">${done?"✓":"👣"}</div><div><strong>${m.time}: ${m.target.toLocaleString("de-AT")} Schritte</strong><div class="muted small">${done?"Erledigt":"Noch "+Math.max(0,m.target-d.steps).toLocaleString("de-AT")+" bis zu diesem Zwischenziel"}</div></div>`;
+  const d=ensureDay(),el=document.getElementById("stepMissionList");el.innerHTML="";const missions=stepMissions(d),activeIndex=missions.findIndex(m=>d.steps<m.target);
+  missions.forEach((m,index)=>{
+    const done=d.steps>=m.target,active=index===activeIndex,progress=Math.min(100,Math.round(d.steps/m.target*100));
+    const row=document.createElement("div");row.className=`stepmission ${done?"done":""} ${active?"active":""}`;
+    row.innerHTML=`<div class="mission-rail"><i></i><span>${done?"✓":index+1}</span></div><div class="mission-copy"><div><strong>${m.time}</strong><b>${m.target.toLocaleString("de-AT")} Schritte</b></div><p>${done?"Mission abgeschlossen":active?`Noch ${Math.max(0,m.target-d.steps).toLocaleString("de-AT")} bis zum nächsten Ziel`:"Wird nach der vorherigen Mission aktiv"}</p><div class="mission-progress"><i style="width:${progress}%"></i></div></div>`;
     el.appendChild(row);
   });
 }
 function renderMeals(){const d=ensureDay(),el=document.getElementById("mealList");el.innerHTML="";if(!d.meals.length){el.innerHTML='<div class="card muted small">Noch nichts eingetragen.</div>';return;}d.meals.slice().reverse().forEach(m=>{const row=document.createElement("div");row.className="meal";row.innerHTML=`<div><strong>${m.name}</strong><div class="muted small">${fmt(m.kcal,0)} kcal · ${fmt(m.protein,1)} g Protein</div></div><button class="danger" onclick="deleteMeal('${m.id}')">Löschen</button>`;el.appendChild(row);});}
-function renderExercises(){const d=ensureDay();document.getElementById("workoutTitle").textContent=d.workout;const el=document.getElementById("exerciseList");el.innerHTML="";d.exercises.sort((a,b)=>a.order-b.order).forEach(e=>{const row=document.createElement("div");row.className="exercise"+(e.done?" completed":"");row.innerHTML=`<input type="checkbox" ${e.done?"checked":""} onchange="toggleExercise('${e.id}',this.checked)"><div><div class="exercise-head"><div><strong>${e.name}</strong>${e.extra?' <span class="tag">EXTRA</span>':''}</div>${e.extra?`<button class="danger" onclick="deleteExercise('${e.id}')">×</button>`:""}</div><div class="muted small">${e.target}</div><div class="small" style="margin-top:5px">${e.instruction||""}</div><input class="perf" value="${e.performance||""}" placeholder="Ergebnis, z. B. 12 / 11 / 10" onchange="savePerformance('${e.id}',this.value)"></div>`;el.appendChild(row);});}
-function renderWeek(){const el=document.getElementById("weekList");if(!el)return;el.innerHTML="";const now=new Date(),day=(now.getDay()+6)%7,monday=new Date(now);monday.setDate(now.getDate()-day);for(let i=0;i<7;i++){const d=new Date(monday);d.setDate(monday.getDate()+i);const x=ensureDay(d),s=sums(x);const row=document.createElement("div");row.className="dayrow";row.innerHTML=`<strong>${d.toLocaleDateString("de-AT",{weekday:"short"})}</strong><div><span class="pill">${x.type}</span><div class="muted small">${x.workout}</div></div><div class="small">${fmt(s.kcal,0)} kcal<br>${fmt(s.protein,1)}g · ${fmt(x.steps,0)} Steps</div>`;el.appendChild(row);}}
+function renderExercises(){
+  const d=ensureDay();document.getElementById("workoutTitle").textContent=d.workout;const el=document.getElementById("exerciseList");el.innerHTML="";const awards=new Map(workoutXPAwards(d).map(x=>[x.id,x.award]));
+  d.exercises.sort((a,b)=>a.order-b.order).forEach(e=>{const row=document.createElement("div");row.className="exercise"+(e.done?" completed":"")+(e.extra?" extra-exercise":"");const award=e.extra?0:(awards.get(e.id)||0);row.innerHTML=`<input type="checkbox" ${e.done?"checked":""} onchange="toggleExercise('${e.id}',this.checked)"><div><div class="exercise-head"><div><strong>${esc(e.name)}</strong>${e.extra?' <span class="tag">BONUS</span>':` <span class="exercise-xp">${e.done?"✓ ":""}${award} XP</span>`}</div>${e.extra?`<button class="danger" onclick="deleteExercise('${e.id}')">×</button>`:""}</div><div class="muted small">${esc(e.target||"")}</div><div class="small exercise-instruction">${esc(e.instruction||"")}</div><input class="perf" value="${esc(e.performance||"")}" placeholder="Ergebnis, z. B. 12 / 11 / 10" onchange="savePerformance('${e.id}',this.value)"></div>`;el.appendChild(row)});
+}
+function previewDay(date){
+  const key=keyFor(date);if(db[key])return db[key];const vp=viennaParts(date),def=DAY_DEFAULTS[vp.weekday],lib=LIBRARY[def.workout];
+  return {date:key,type:def.type,kcalGoal:def.kcal,proteinGoal:def.protein,stepsGoal:def.steps,workout:def.workout,steps:0,water:0,meals:[],reportGenerated:false,exercises:lib.exercises.map((x,i)=>({id:`preview-${i}`,name:x.name,done:false,extra:false,order:i}))};
+}
+function renderWeek(){
+  const el=document.getElementById("weekList");if(!el)return;el.innerHTML="";const now=new Date(),day=(now.getDay()+6)%7,monday=new Date(now);monday.setDate(now.getDate()-day);
+  for(let i=0;i<7;i++){const date=new Date(monday);date.setDate(monday.getDate()+i);const x=previewDay(date),sum=sums(x),xp=dailyXP(x),row=document.createElement("div");row.className="dayrow"+(keyFor(date)===keyFor()?" today-row":"");row.innerHTML=`<strong>${date.toLocaleDateString("de-AT",{weekday:"short"})}</strong><div><span class="pill">${esc(x.type)}</span><div class="muted small">${esc(x.workout)}</div></div><div class="small week-score"><b>${xp} XP</b><br>${fmt(sum.kcal,0)} kcal · ${fmt(x.steps,0)} Steps</div>`;el.appendChild(row)}
+}
 function renderReport(){
-  const d=selectedReportDay(),s=sums(d);
+  const d=selectedReportDay(),s=sums(d),breakdown=xpBreakdown(d);
   const dateLabel=new Date(d.date+"T12:00:00").toLocaleDateString("de-AT",{weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"});
   const sortedMeals=[...d.meals].sort((a,b)=>new Date(a.time)-new Date(b.time));
   const firstMeal=sortedMeals[0]?.time?new Date(sortedMeals[0].time).toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit"}):"–";
@@ -1085,23 +1228,34 @@ Workout: ${d.workout} – ${workoutPct(d)===100?"erledigt":"offen"}
 Workout Start: ${d.workoutStartedAt?new Date(d.workoutStartedAt).toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit"}):"–"}
 Workout Ende: ${d.workoutEndedAt?new Date(d.workoutEndedAt).toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit"}):"–"}
 Workoutdauer: ${d.workoutDuration||0} Minuten
-Season XP heute: ${dailyXP(d)}
+Daily XP: ${breakdown.total} / ${DAILY_XP_MAX}
+• Workout: ${breakdown.workout.earned} / ${breakdown.workout.max}
+• Protein: ${breakdown.protein.earned} / ${breakdown.protein.max}
+• Kalorien: ${breakdown.calories.earned} / ${breakdown.calories.max}
+• Schritte: ${breakdown.steps.earned} / ${breakdown.steps.max}
+• Report: ${breakdown.report.earned} / ${breakdown.report.max}
 Gewicht: ${d.weight||"–"} kg
 Energie: ${d.energy||"–"}/10
 Hunger: ${d.hunger||"–"}/10
 Notiz: ${d.notes||"–"}`;
-  document.getElementById("reportText").textContent=text;
+  const out=document.getElementById("reportText");if(out)out.textContent=text;
 }
-function saveQuick(){const before=dailyXP(ensureDay());happyTap();const d=ensureDay(),st=Number(document.getElementById("stepsInput").value),w=Number(document.getElementById("waterInput").value);if(st>=0)d.steps=st;if(w>0)d.water+=w;document.getElementById("waterInput").value="";persist();render();floatXP(Math.max(0,dailyXP(ensureDay())-before),document.querySelector("#todayPage .primary"));}
-function addMeal(){const before=dailyXP(ensureDay());happyTap();const d=ensureDay(),n=document.getElementById("mealName").value.trim(),k=Number(document.getElementById("mealKcal").value),p=Number(document.getElementById("mealProtein").value);if(!n||!Number.isFinite(k)||!Number.isFinite(p))return;d.meals.push({id:crypto.randomUUID(),name:n,kcal:k,protein:p,time:new Date().toISOString()});persist();floatXP(Math.max(0,dailyXP(ensureDay())-before),document.querySelector("#foodPage .primary"));["mealName","mealKcal","mealProtein"].forEach(id=>document.getElementById(id).value="");render();}
-function deleteMeal(id){const d=ensureDay();d.meals=d.meals.filter(m=>m.id!==id);persist();render();}
-function toggleExercise(id,v){const before=dailyXP(ensureDay());haptic(v?[18,35,18]:10);const e=ensureDay().exercises.find(x=>x.id===id);if(e)e.done=v;persist();render();if(v)floatXP(Math.max(1,dailyXP(ensureDay())-before),document.querySelector(`input[onchange*="${id}"]`)||document.body);}
-function savePerformance(id,v){const e=ensureDay().exercises.find(x=>x.id===id);if(e)e.performance=v;persist();renderReport();}
-function addExtra(){const d=ensureDay(),n=document.getElementById("extraName").value.trim(),p=document.getElementById("extraPerf").value.trim();if(!n)return;d.exercises.push({id:crypto.randomUUID(),name:n,target:p||"Extra Leistung",done:true,performance:p,extra:true,order:d.exercises.length+1});persist();document.getElementById("extraName").value="";document.getElementById("extraPerf").value="";render();}
-function deleteExercise(id){const d=ensureDay();d.exercises=d.exercises.filter(e=>e.id!==id);persist();render();}
-function saveCheckin(){const d=ensureDay();d.weight=document.getElementById("weightInput").value;d.energy=Math.min(10,Math.max(1,Number(document.getElementById("energyInput").value)||5));d.hunger=Math.min(10,Math.max(1,Number(document.getElementById("hungerInput").value)||5));d.water=Number(document.getElementById("waterTotal").value)||d.water;d.notes=document.getElementById("notesInput").value.trim();persist();render();}
-async function copyReport(){const d=selectedReportDay();d.reportGenerated=true;d.reportCopiedAt=new Date().toISOString();persist();const text=document.getElementById("reportText").textContent;try{await navigator.clipboard.writeText(text);showToast("Report kopiert ✓");haptic([18,35,18]);}catch(e){prompt("Kopieren:",text);}render();}
-function exportData(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:"application/json"}));a.download="jqp-backup.json";a.click();URL.revokeObjectURL(a.href);}
+function saveQuick(){
+  const d=ensureDay(),before=dailyXP(d),st=Number(document.getElementById("stepsInput").value),w=Number(document.getElementById("waterInput").value);if(!Number.isFinite(st)||st<0)return invalidFeedback("Bitte gültige Schritte eingeben");
+  d.steps=Math.floor(st);if(w>0)d.water+=Math.floor(w);document.getElementById("waterInput").value="";persist();render();floatXP(dailyXP(d)-before,document.querySelector("#todayPage .primary"));hapticFeedback("meal")
+}
+function addMeal(){
+  const d=ensureDay(),before=dailyXP(d),n=document.getElementById("mealName").value.trim(),k=Number(document.getElementById("mealKcal").value),p=Number(document.getElementById("mealProtein").value);if(!n||!Number.isFinite(k)||k<0||!Number.isFinite(p)||p<0)return invalidFeedback("Meal, Kalorien und Protein prüfen");
+  d.meals.push({id:uid(),name:n,kcal:Math.round(k),protein:Math.round(p*10)/10,time:new Date().toISOString()});persist();["mealName","mealKcal","mealProtein"].forEach(id=>document.getElementById(id).value="");render();floatXP(dailyXP(d)-before,document.querySelector("#foodPage .primary"));hapticFeedback("meal")
+}
+function deleteMeal(id){const d=ensureDay();d.meals=d.meals.filter(m=>m.id!==id);persist();render()}
+function toggleExercise(id,v){const d=ensureDay(),before=dailyXP(d),e=d.exercises.find(x=>x.id===id);if(e)e.done=v;persist();render();const delta=dailyXP(d)-before;if(v&&delta>0)floatXP(delta,document.querySelector(`input[onchange*="${id}"]`)||document.body);hapticFeedback(v?"success":"tap")}
+function savePerformance(id,v){const e=ensureDay().exercises.find(x=>x.id===id);if(e)e.performance=v;persist();renderReport()}
+function addExtra(){const d=ensureDay(),n=document.getElementById("extraName").value.trim(),p=document.getElementById("extraPerf").value.trim();if(!n)return invalidFeedback("Bitte eine Übung eingeben");d.exercises.push({id:uid(),name:n,target:p||"Bonusaktivität",done:true,performance:p,extra:true,order:d.exercises.length+1});persist();document.getElementById("extraName").value="";document.getElementById("extraPerf").value="";render();hapticFeedback("meal");showToast("Bonusaktivität gespeichert – keine Season-XP")}
+function deleteExercise(id){const d=ensureDay();d.exercises=d.exercises.filter(e=>e.id!==id);persist();render()}
+function saveCheckin(){const d=ensureDay();d.weight=document.getElementById("weightInput").value;d.energy=Math.min(10,Math.max(1,Number(document.getElementById("energyInput").value)||5));d.hunger=Math.min(10,Math.max(1,Number(document.getElementById("hungerInput").value)||5));d.water=Number(document.getElementById("waterTotal").value)||d.water;d.notes=document.getElementById("notesInput").value.trim();persist();render();hapticFeedback("meal");showToast("Check-in gespeichert")}
+async function copyReport(){const d=selectedReportDay(),before=dailyXP(d);d.reportGenerated=true;d.reportCopiedAt=new Date().toISOString();persist();const text=document.getElementById("reportText").textContent;try{await navigator.clipboard.writeText(text);showToast("Report kopiert ✓")}catch(e){prompt("Kopieren:",text)}render();if(d.date===keyFor())floatXP(dailyXP(d)-before,document.querySelector("#hqReports .primary"));hapticFeedback("success")}
+function exportData(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:"application/json"}));a.download="jqp-v6.2-backup.json";a.click();URL.revokeObjectURL(a.href)}
 function showPage(p){
   ["today","food","workout","calendar","hq"].forEach(x=>document.getElementById(x+"Page").classList.toggle("hidden",x!==p));
   document.getElementById("navToday")?.classList.toggle("active",p==="today");
@@ -1109,7 +1263,7 @@ function showPage(p){
   document.getElementById("navFood")?.classList.toggle("active",p==="food");
   if(p==="calendar")renderCalendar();
   if(p==="hq")showHQ("ranked");
-  haptic(8);render();
+  hapticFeedback("nav");render();
 }
 
 /* Workout player */
@@ -1133,13 +1287,18 @@ function toneAt(freq,when,duration=.10,volume=.08,type="sine"){
   }catch(e){}
 }
 function beep(freq=660,duration=.10,volume=.08){ensureAudio();toneAt(freq,audioContext.currentTime,duration,volume,"sine");}
-function finishSignal(){
-  if(!meta().soundEnabled){haptic([24,45,24]);return;}
-  ensureAudio();
-  const t=audioContext.currentTime+.02;
-  [[523.25,0],[659.25,.085],[783.99,.17],[1046.5,.27]].forEach(([f,o],i)=>toneAt(f,t+o,i===3?.24:.12,i===3?.085:.055,i===3?"triangle":"sine"));
-  haptic([22,42,28]);
+function feedbackSound(type="tap"){
+  if(!meta().soundEnabled)return;try{ensureAudio();const t=audioContext.currentTime+.015;
+    const patterns={
+      pause:[[523,.00,.08,.026,"sine"],[659,.07,.09,.032,"sine"],[784,.15,.14,.038,"triangle"]],
+      goal:[[587,.00,.09,.025,"sine"],[740,.08,.10,.032,"sine"],[880,.17,.16,.038,"triangle"]],
+      rank:[[392,.00,.13,.026,"triangle"],[523,.11,.14,.034,"triangle"],[659,.22,.15,.040,"triangle"],[784,.34,.22,.048,"sine"],[1047,.48,.28,.045,"sine"]],
+      error:[[220,.00,.10,.018,"sine"],[196,.07,.12,.014,"sine"]]
+    };
+    (patterns[type]||patterns.goal).forEach(([f,o,d,v,w])=>toneAt(f,t+o,d,v,w));
+  }catch(e){}
 }
+function finishSignal(){feedbackSound("pause");hapticFeedback("success")}
 
 function svgFor(icon){
   const common='stroke="#ffb35c" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"';
@@ -1183,7 +1342,7 @@ function buildQueue(){
 }
 function startWorkout(){
   ensureAudio();ensureDay().workoutStartedAt=new Date().toISOString();persist();player={queue:buildQueue(),index:0,setIndex:0,state:"idle",timer:null,remaining:0,endAt:0,startTime:Date.now(),currentReps:[],side:null,pendingNext:false};
-  document.getElementById("player").classList.remove("hidden");
+  document.getElementById("player").classList.remove("hidden");const main=document.getElementById("playerMainButton");main.onclick=playerMainAction;document.getElementById("playerSkipButton").classList.remove("hidden");
   renderPlayer();
   if(navigator.wakeLock){navigator.wakeLock.request("screen").catch(()=>{});}
 }
@@ -1192,6 +1351,7 @@ function renderPlayer(){
   const item=currentItem();if(!item){finishWorkout();return;}
   document.getElementById("playerPhase").textContent=item.phase;
   document.getElementById("playerProgress").textContent=`${player.index+1} / ${player.queue.length}`;
+  const overall=Math.round(player.index/Math.max(1,player.queue.length)*100);document.getElementById("playerOverallFill").style.width=overall+"%";document.getElementById("playerOverallText").textContent=overall+"%";
   document.getElementById("playerTitle").textContent=item.name;
   document.getElementById("playerIllustration").innerHTML=svgFor(item.icon);
   document.getElementById("instructionCard").innerHTML=`<strong>So machst du es</strong><div class="small muted" style="margin-top:6px">${item.instruction}</div>`;
@@ -1278,7 +1438,7 @@ function finishSet(item){
   if(unilateral && player.side==="left"){
     player.currentReps.push({left:reps,right:null});
     player.side="right";
-    beep(920,.14,.14);
+    feedbackSound("pause");hapticFeedback("tap");
     document.getElementById("repInput").value="";
     document.getElementById("playerSubtitle").textContent="Jetzt rechte Seite – gleicher Satz";
     document.getElementById("sideBadge").textContent="RECHTE SEITE";
@@ -1305,8 +1465,9 @@ function finishSet(item){
   persist();
 
   if(player.setIndex>=item.sets-1){
-    if(e)e.done=true;
-    persist();
+    const before=dailyXP(d);if(e)e.done=true;
+    persist();const earned=dailyXP(d)-before;if(earned>0)floatXP(earned,document.getElementById("playerMainButton"));
+    hapticFeedback("success");render();
     player.currentReps=[];
     player.setIndex=0;
     player.side=null;
@@ -1350,14 +1511,14 @@ function finishWorkout(){
   clearInterval(player.timer);
   const d=ensureDay();d.workoutDuration=Math.max(1,Math.round((Date.now()-player.startTime)/60000));d.workoutEndedAt=new Date().toISOString();persist();
   document.getElementById("playerPhase").textContent="MISSION COMPLETE";
-  document.getElementById("playerProgress").textContent="";
+  document.getElementById("playerProgress").textContent="";document.getElementById("playerOverallFill").style.width="100%";document.getElementById("playerOverallText").textContent="100%";
   document.getElementById("playerTitle").textContent="Workout abgeschlossen";
   document.getElementById("playerSubtitle").textContent=`${d.workoutDuration} Minuten · ${d.exercises.filter(e=>!e.extra&&e.done).length} Übungen`;
   document.getElementById("playerIllustration").innerHTML=svgFor("press");
   document.getElementById("timerBlock").classList.add("hidden");document.getElementById("setBlock").classList.add("hidden");
   document.getElementById("instructionCard").innerHTML=`<strong>Stark.</strong><div class="small muted" style="margin-top:6px">Trink Wasser, iss später Protein und trag deinen Report ein.</div>`;
   const main=document.getElementById("playerMainButton");main.textContent="Fertig";main.onclick=()=>{document.getElementById("player").classList.add("hidden");render();};
-  document.getElementById("playerSkipButton").classList.add("hidden");
+  document.getElementById("playerSkipButton").classList.add("hidden");feedbackSound("goal");hapticFeedback("goal");
 }
 
 document.addEventListener("visibilitychange",()=>{
